@@ -1,8 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
-import * as ApplicationsAPI from '../../v1/applications/applications';
-import * as ProjectsApplicationsAPI from './applications';
+import * as ApplicationsAPI from './applications';
 import {
   ApplicationCreateParams,
   ApplicationCreateResponse,
@@ -49,7 +48,7 @@ import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
 export class Projects extends APIResource {
-  applications: ProjectsApplicationsAPI.Applications = new ProjectsApplicationsAPI.Applications(this._client);
+  applications: ApplicationsAPI.Applications = new ApplicationsAPI.Applications(this._client);
   webhookEndpoints: WebhookEndpointsAPI.WebhookEndpoints = new WebhookEndpointsAPI.WebhookEndpoints(
     this._client,
   );
@@ -626,7 +625,7 @@ export interface ProjectListParams {
   /**
    * Include archived items (default: false)
    */
-  archived?: ApplicationsAPI.BooleanFromString;
+  archived?: 'true' | 'false';
 
   /**
    * a string to be decoded into a number

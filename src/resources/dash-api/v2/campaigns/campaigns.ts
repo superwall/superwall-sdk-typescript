@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
-import * as ApplicationsAPI from '../../v1/applications/applications';
 import * as PlacementsAPI from './placements';
 import {
   PlacementCreateParams,
@@ -775,7 +774,7 @@ export interface CampaignListParams {
   /**
    * Include archived campaigns (default: false)
    */
-  archived?: ApplicationsAPI.BooleanFromString;
+  archived?: 'true' | 'false';
 
   /**
    * a string to be decoded into a number

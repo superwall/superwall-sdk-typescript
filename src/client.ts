@@ -32,10 +32,8 @@ import {
 import { isEmptyObj } from './internal/utils/values';
 
 const environments = {
-  production: 'https://superwall.com',
-  environment_1: 'https://superwall.dev',
-  environment_2: 'http://localhost:3000',
-  environment_3: '/',
+  production: 'https://api.superwall.com',
+  sandbox: 'https://api.superwall.dev',
 };
 type Environment = keyof typeof environments;
 
@@ -54,10 +52,8 @@ export interface ClientOptions {
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `production` corresponds to `https://superwall.com`
-   * - `environment_1` corresponds to `https://superwall.dev`
-   * - `environment_2` corresponds to `http://localhost:3000`
-   * - `environment_3` corresponds to `/`
+   * - `production` corresponds to `https://api.superwall.com`
+   * - `sandbox` corresponds to `https://api.superwall.dev`
    */
   environment?: Environment | undefined;
 
@@ -155,7 +151,7 @@ export class SuperwallAPI {
    * @param {string | undefined} [opts.apiKey=process.env['SUPERWALL_API_API_KEY'] ?? undefined]
    * @param {string | undefined} [opts.bearerToken=process.env['SUPERWALL_API_BEARER_TOKEN'] ?? undefined]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['SUPERWALL_API_BASE_URL'] ?? https://superwall.com] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['SUPERWALL_API_BASE_URL'] ?? https://api.superwall.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -251,14 +247,8 @@ export class SuperwallAPI {
     return;
   }
 
-  protected async authHeaders(
-    opts: FinalRequestOptions,
-    schemes: { bearerAuth?: boolean; oauth?: boolean },
-  ): Promise<NullableHeaders | undefined> {
-    return buildHeaders([
-      schemes.bearerAuth ? await this.bearerAuth(opts) : null,
-      schemes.oauth ? await this.oauth(opts) : null,
-    ]);
+  protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    return buildHeaders([await this.bearerAuth(opts), await this.oauth(opts)]);
   }
 
   protected async bearerAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
@@ -691,7 +681,7 @@ export class SuperwallAPI {
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
       },
-      await this.authHeaders(options, options.__security ?? { bearerAuth: true, oauth: true }),
+      await this.authHeaders(options),
       this._options.defaultHeaders,
       bodyHeaders,
       options.headers,
