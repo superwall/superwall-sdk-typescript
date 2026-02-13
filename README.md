@@ -30,9 +30,9 @@ const client = new SuperwallAPI({
   environment: 'sandbox', // defaults to 'production'
 });
 
-const response = await client.dashAPI.v2.retrieveGrants({ project_id: 'project_id' });
+const organizations = await client.dashAPI.v2.me.organizations.list();
 
-console.log(response.data);
+console.log(organizations.data);
 ```
 
 ### Request & Response types
@@ -48,9 +48,8 @@ const client = new SuperwallAPI({
   environment: 'sandbox', // defaults to 'production'
 });
 
-const params: SuperwallAPI.DashAPI.V2RetrieveGrantsParams = { project_id: 'project_id' };
-const response: SuperwallAPI.DashAPI.V2RetrieveGrantsResponse =
-  await client.dashAPI.v2.retrieveGrants(params);
+const organizations: SuperwallAPI.DashAPI.V2.Me.OrganizationListResponse =
+  await client.dashAPI.v2.me.organizations.list();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -63,17 +62,15 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const response = await client.dashAPI.v2
-  .retrieveGrants({ project_id: 'project_id' })
-  .catch(async (err) => {
-    if (err instanceof SuperwallAPI.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
+const organizations = await client.dashAPI.v2.me.organizations.list().catch(async (err) => {
+  if (err instanceof SuperwallAPI.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
 Error codes are as follows:
@@ -105,7 +102,7 @@ const client = new SuperwallAPI({
 });
 
 // Or, configure per-request:
-await client.dashAPI.v2.retrieveGrants({ project_id: 'project_id' }, {
+await client.dashAPI.v2.me.organizations.list({
   maxRetries: 5,
 });
 ```
@@ -122,7 +119,7 @@ const client = new SuperwallAPI({
 });
 
 // Override per-request:
-await client.dashAPI.v2.retrieveGrants({ project_id: 'project_id' }, {
+await client.dashAPI.v2.me.organizations.list({
   timeout: 5 * 1000,
 });
 ```
@@ -145,15 +142,15 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new SuperwallAPI();
 
-const response = await client.dashAPI.v2.retrieveGrants({ project_id: 'project_id' }).asResponse();
+const response = await client.dashAPI.v2.me.organizations.list().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: response, response: raw } = await client.dashAPI.v2
-  .retrieveGrants({ project_id: 'project_id' })
+const { data: organizations, response: raw } = await client.dashAPI.v2.me.organizations
+  .list()
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(response.data);
+console.log(organizations.data);
 ```
 
 ### Logging
@@ -233,7 +230,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.dashAPI.v2.retrieveGrants({
+client.dashAPI.v2.me.organizations.list({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
