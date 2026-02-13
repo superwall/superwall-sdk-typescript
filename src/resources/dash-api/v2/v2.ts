@@ -21,7 +21,6 @@ import {
   ProductUpdateResponse,
   Products,
 } from './products';
-import * as ApplicationsAPI from '../v1/applications/applications';
 import * as CampaignsAPI from './campaigns/campaigns';
 import {
   CampaignArchiveResponse,
@@ -215,12 +214,12 @@ export interface V2RetrieveGrantsParams {
   /**
    * Include expired grants (default: false)
    */
-  include_expired?: ApplicationsAPI.BooleanFromString;
+  include_expired?: 'true' | 'false';
 
   /**
    * Include revoked grants (default: false)
    */
-  include_revoked?: ApplicationsAPI.BooleanFromString;
+  include_revoked?: 'true' | 'false';
 
   /**
    * Maximum number of items to return (1-100, default: 10)

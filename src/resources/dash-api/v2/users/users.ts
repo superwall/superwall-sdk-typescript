@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
-import * as ApplicationsAPI from '../../v1/applications/applications';
 import * as EventsAPI from './events';
 import {
   EventListParams,
@@ -356,12 +355,12 @@ export interface UserRetrieveEventNamesParams {
   /**
    * a string to be decoded into a boolean
    */
-  include_all?: ApplicationsAPI.BooleanFromString;
+  include_all?: 'true' | 'false';
 
   /**
    * a string to be decoded into a boolean
    */
-  is_web?: ApplicationsAPI.BooleanFromString;
+  is_web?: 'true' | 'false';
 
   /**
    * a string to be decoded into a number
