@@ -17,7 +17,96 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import { DashAPI } from './resources/dash-api/dash-api';
+import {
+  ChartGetDefinitionsParams,
+  ChartGetDefinitionsResponse,
+  ChartQueryDataParams,
+  ChartQueryDataResponse,
+  Charts,
+} from './resources/charts';
+import { GrantListParams, GrantListResponse, Grants } from './resources/grants';
+import {
+  ProductCreateParams,
+  ProductCreateResponse,
+  ProductDeleteResponse,
+  ProductListParams,
+  ProductListResponse,
+  ProductRetrieveResponse,
+  ProductUpdateParams,
+  ProductUpdateResponse,
+  Products,
+} from './resources/products';
+import {
+  CampaignArchiveResponse,
+  CampaignCreateParams,
+  CampaignCreateResponse,
+  CampaignListParams,
+  CampaignListResponse,
+  CampaignRetrieveResponse,
+  CampaignUnarchiveResponse,
+  CampaignUpdateAudienceParams,
+  CampaignUpdateAudienceResponse,
+  CampaignUpdateParams,
+  CampaignUpdateResponse,
+  Campaigns,
+} from './resources/campaigns/campaigns';
+import {
+  EntitlementCreateParams,
+  EntitlementCreateResponse,
+  EntitlementDeleteResponse,
+  EntitlementListParams,
+  EntitlementListResponse,
+  EntitlementRetrieveResponse,
+  EntitlementUpdateParams,
+  EntitlementUpdateResponse,
+  Entitlements,
+} from './resources/entitlements/entitlements';
+import { Me } from './resources/me/me';
+import {
+  PaywallArchiveResponse,
+  PaywallCreateParams,
+  PaywallCreateResponse,
+  PaywallListParams,
+  PaywallListResponse,
+  PaywallPublishResponse,
+  PaywallRetrieveResponse,
+  PaywallUnarchiveResponse,
+  PaywallUpdateParams,
+  PaywallUpdateResponse,
+  Paywalls,
+} from './resources/paywalls/paywalls';
+import {
+  ProjectArchiveResponse,
+  ProjectCreateParams,
+  ProjectCreateResponse,
+  ProjectListParams,
+  ProjectListResponse,
+  ProjectRetrieveResponse,
+  ProjectUnarchiveResponse,
+  ProjectUpdateParams,
+  ProjectUpdateResponse,
+  Projects,
+} from './resources/projects/projects';
+import {
+  BooleanFromString,
+  UserListEventNamesParams,
+  UserListEventNamesResponse,
+  UserListFilterPropertiesParams,
+  UserListFilterPropertiesResponse,
+  UserQueryParams,
+  UserQueryResponse,
+  UserResolveParams,
+  UserResolveResponse,
+  UserRetrieveActiveEntitlementsParams,
+  UserRetrieveActiveEntitlementsResponse,
+  UserRetrieveAttributesParams,
+  UserRetrieveAttributesResponse,
+  UserRetrieveDeviceAttributesParams,
+  UserRetrieveDeviceAttributesResponse,
+  UserRetrieveSubscriptionSummaryParams,
+  UserRetrieveSubscriptionSummaryResponse,
+  Users,
+} from './resources/users/users';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
@@ -32,8 +121,9 @@ import {
 import { isEmptyObj } from './internal/utils/values';
 
 const environments = {
-  production: 'https://api.superwall.com',
-  sandbox: 'https://api.superwall.dev',
+  production: 'https://superwall.com',
+  environment_1: 'https://superwall.dev',
+  environment_2: 'http://localhost:3000',
 };
 type Environment = keyof typeof environments;
 
@@ -52,8 +142,9 @@ export interface ClientOptions {
    * Specifies the environment to use for the API.
    *
    * Each environment maps to a different base URL:
-   * - `production` corresponds to `https://api.superwall.com`
-   * - `sandbox` corresponds to `https://api.superwall.dev`
+   * - `production` corresponds to `https://superwall.com`
+   * - `environment_1` corresponds to `https://superwall.dev`
+   * - `environment_2` corresponds to `http://localhost:3000`
    */
   environment?: Environment | undefined;
 
@@ -151,7 +242,7 @@ export class SuperwallAPI {
    * @param {string | undefined} [opts.apiKey=process.env['SUPERWALL_API_API_KEY'] ?? undefined]
    * @param {string | undefined} [opts.bearerToken=process.env['SUPERWALL_API_BEARER_TOKEN'] ?? undefined]
    * @param {Environment} [opts.environment=production] - Specifies the environment URL to use for the API.
-   * @param {string} [opts.baseURL=process.env['SUPERWALL_API_BASE_URL'] ?? https://api.superwall.com] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['SUPERWALL_API_BASE_URL'] ?? https://superwall.com] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
    * @param {Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -754,13 +845,130 @@ export class SuperwallAPI {
 
   static toFile = Uploads.toFile;
 
-  dashAPI: API.DashAPI = new API.DashAPI(this);
+  projects: API.Projects = new API.Projects(this);
+  me: API.Me = new API.Me(this);
+  paywalls: API.Paywalls = new API.Paywalls(this);
+  products: API.Products = new API.Products(this);
+  campaigns: API.Campaigns = new API.Campaigns(this);
+  entitlements: API.Entitlements = new API.Entitlements(this);
+  grants: API.Grants = new API.Grants(this);
+  charts: API.Charts = new API.Charts(this);
+  users: API.Users = new API.Users(this);
 }
 
-SuperwallAPI.DashAPI = DashAPI;
+SuperwallAPI.Projects = Projects;
+SuperwallAPI.Me = Me;
+SuperwallAPI.Paywalls = Paywalls;
+SuperwallAPI.Products = Products;
+SuperwallAPI.Campaigns = Campaigns;
+SuperwallAPI.Entitlements = Entitlements;
+SuperwallAPI.Grants = Grants;
+SuperwallAPI.Charts = Charts;
+SuperwallAPI.Users = Users;
 
 export declare namespace SuperwallAPI {
   export type RequestOptions = Opts.RequestOptions;
 
-  export { DashAPI as DashAPI };
+  export {
+    Projects as Projects,
+    type ProjectCreateResponse as ProjectCreateResponse,
+    type ProjectRetrieveResponse as ProjectRetrieveResponse,
+    type ProjectUpdateResponse as ProjectUpdateResponse,
+    type ProjectListResponse as ProjectListResponse,
+    type ProjectArchiveResponse as ProjectArchiveResponse,
+    type ProjectUnarchiveResponse as ProjectUnarchiveResponse,
+    type ProjectCreateParams as ProjectCreateParams,
+    type ProjectUpdateParams as ProjectUpdateParams,
+    type ProjectListParams as ProjectListParams,
+  };
+
+  export { Me as Me };
+
+  export {
+    Paywalls as Paywalls,
+    type PaywallCreateResponse as PaywallCreateResponse,
+    type PaywallRetrieveResponse as PaywallRetrieveResponse,
+    type PaywallUpdateResponse as PaywallUpdateResponse,
+    type PaywallListResponse as PaywallListResponse,
+    type PaywallArchiveResponse as PaywallArchiveResponse,
+    type PaywallPublishResponse as PaywallPublishResponse,
+    type PaywallUnarchiveResponse as PaywallUnarchiveResponse,
+    type PaywallCreateParams as PaywallCreateParams,
+    type PaywallUpdateParams as PaywallUpdateParams,
+    type PaywallListParams as PaywallListParams,
+  };
+
+  export {
+    Products as Products,
+    type ProductCreateResponse as ProductCreateResponse,
+    type ProductRetrieveResponse as ProductRetrieveResponse,
+    type ProductUpdateResponse as ProductUpdateResponse,
+    type ProductListResponse as ProductListResponse,
+    type ProductDeleteResponse as ProductDeleteResponse,
+    type ProductCreateParams as ProductCreateParams,
+    type ProductUpdateParams as ProductUpdateParams,
+    type ProductListParams as ProductListParams,
+  };
+
+  export {
+    Campaigns as Campaigns,
+    type CampaignCreateResponse as CampaignCreateResponse,
+    type CampaignRetrieveResponse as CampaignRetrieveResponse,
+    type CampaignUpdateResponse as CampaignUpdateResponse,
+    type CampaignListResponse as CampaignListResponse,
+    type CampaignArchiveResponse as CampaignArchiveResponse,
+    type CampaignUnarchiveResponse as CampaignUnarchiveResponse,
+    type CampaignUpdateAudienceResponse as CampaignUpdateAudienceResponse,
+    type CampaignCreateParams as CampaignCreateParams,
+    type CampaignUpdateParams as CampaignUpdateParams,
+    type CampaignListParams as CampaignListParams,
+    type CampaignUpdateAudienceParams as CampaignUpdateAudienceParams,
+  };
+
+  export {
+    Entitlements as Entitlements,
+    type EntitlementCreateResponse as EntitlementCreateResponse,
+    type EntitlementRetrieveResponse as EntitlementRetrieveResponse,
+    type EntitlementUpdateResponse as EntitlementUpdateResponse,
+    type EntitlementListResponse as EntitlementListResponse,
+    type EntitlementDeleteResponse as EntitlementDeleteResponse,
+    type EntitlementCreateParams as EntitlementCreateParams,
+    type EntitlementUpdateParams as EntitlementUpdateParams,
+    type EntitlementListParams as EntitlementListParams,
+  };
+
+  export {
+    Grants as Grants,
+    type GrantListResponse as GrantListResponse,
+    type GrantListParams as GrantListParams,
+  };
+
+  export {
+    Charts as Charts,
+    type ChartGetDefinitionsResponse as ChartGetDefinitionsResponse,
+    type ChartQueryDataResponse as ChartQueryDataResponse,
+    type ChartGetDefinitionsParams as ChartGetDefinitionsParams,
+    type ChartQueryDataParams as ChartQueryDataParams,
+  };
+
+  export {
+    Users as Users,
+    type BooleanFromString as BooleanFromString,
+    type UserListEventNamesResponse as UserListEventNamesResponse,
+    type UserListFilterPropertiesResponse as UserListFilterPropertiesResponse,
+    type UserQueryResponse as UserQueryResponse,
+    type UserResolveResponse as UserResolveResponse,
+    type UserRetrieveActiveEntitlementsResponse as UserRetrieveActiveEntitlementsResponse,
+    type UserRetrieveAttributesResponse as UserRetrieveAttributesResponse,
+    type UserRetrieveDeviceAttributesResponse as UserRetrieveDeviceAttributesResponse,
+    type UserRetrieveSubscriptionSummaryResponse as UserRetrieveSubscriptionSummaryResponse,
+    type UserListEventNamesParams as UserListEventNamesParams,
+    type UserListFilterPropertiesParams as UserListFilterPropertiesParams,
+    type UserQueryParams as UserQueryParams,
+    type UserResolveParams as UserResolveParams,
+    type UserRetrieveActiveEntitlementsParams as UserRetrieveActiveEntitlementsParams,
+    type UserRetrieveAttributesParams as UserRetrieveAttributesParams,
+    type UserRetrieveDeviceAttributesParams as UserRetrieveDeviceAttributesParams,
+    type UserRetrieveSubscriptionSummaryParams as UserRetrieveSubscriptionSummaryParams,
+  };
 }
