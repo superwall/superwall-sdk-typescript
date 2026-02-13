@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../../../core/resource';
 import * as StatisticsAPI from './statistics';
-import { StatisticRetrieveConfigResponse, Statistics } from './statistics';
+import { Statistics } from './statistics';
 
 export class Charts extends APIResource {
   statistics: StatisticsAPI.Statistics = new StatisticsAPI.Statistics(this._client);
@@ -11,8 +11,5 @@ export class Charts extends APIResource {
 Charts.Statistics = Statistics;
 
 export declare namespace Charts {
-  export {
-    Statistics as Statistics,
-    type StatisticRetrieveConfigResponse as StatisticRetrieveConfigResponse,
-  };
+  export { Statistics as Statistics };
 }

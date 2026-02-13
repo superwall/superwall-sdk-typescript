@@ -247,14 +247,8 @@ export class SuperwallAPI {
     return;
   }
 
-  protected async authHeaders(
-    opts: FinalRequestOptions,
-    schemes: { bearerAuth?: boolean; oauth?: boolean },
-  ): Promise<NullableHeaders | undefined> {
-    return buildHeaders([
-      schemes.bearerAuth ? await this.bearerAuth(opts) : null,
-      schemes.oauth ? await this.oauth(opts) : null,
-    ]);
+  protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
+    return buildHeaders([await this.bearerAuth(opts), await this.oauth(opts)]);
   }
 
   protected async bearerAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
@@ -687,7 +681,7 @@ export class SuperwallAPI {
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
       },
-      await this.authHeaders(options, options.__security ?? { bearerAuth: true, oauth: true }),
+      await this.authHeaders(options),
       this._options.defaultHeaders,
       bodyHeaders,
       options.headers,
