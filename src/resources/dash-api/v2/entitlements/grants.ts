@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
+import * as ApplicationsAPI from '../../v1/applications/applications';
 import { APIPromise } from '../../../../core/api-promise';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
@@ -221,12 +222,12 @@ export interface GrantListParams {
   /**
    * Include expired grants (default: false)
    */
-  include_expired?: 'true' | 'false';
+  include_expired?: ApplicationsAPI.BooleanFromString;
 
   /**
    * Include revoked grants (default: false)
    */
-  include_revoked?: 'true' | 'false';
+  include_revoked?: ApplicationsAPI.BooleanFromString;
 
   /**
    * Maximum number of items to return (1-100, default: 10)
