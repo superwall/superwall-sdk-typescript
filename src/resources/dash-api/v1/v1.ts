@@ -2,40 +2,17 @@
 
 import { APIResource } from '../../../core/resource';
 import * as BlogAPI from './blog';
-import { Blog, BlogRetrieveResponse } from './blog';
+import { Blog } from './blog';
 import * as CampaignsAPI from './campaigns';
-import { CampaignTriggersParams, CampaignTriggersResponse, Campaigns } from './campaigns';
+import { Campaigns } from './campaigns';
 import * as EntitlementsAPI from './entitlements';
-import {
-  EntitlementGrantParams,
-  EntitlementGrantResponse,
-  EntitlementListParams,
-  EntitlementListResponse,
-  EntitlementRevokeParams,
-  EntitlementRevokeResponse,
-  Entitlements,
-} from './entitlements';
+import { Entitlements } from './entitlements';
 import * as PaywallsAPI from './paywalls';
-import {
-  PaywallPrepareSnapshotParams,
-  PaywallPrepareSnapshotResponse,
-  PaywallPromoteFromSnapshotParams,
-  PaywallPromoteFromSnapshotResponse,
-  PaywallRetrieveParams,
-  PaywallRetrieveResponse,
-  Paywalls,
-} from './paywalls';
+import { Paywalls } from './paywalls';
 import * as UsersAPI from './users';
-import { UserRetrieveSelfResponse, Users } from './users';
+import { Users } from './users';
 import * as ApplicationsAPI from './applications/applications';
-import {
-  ApplicationCreateParams,
-  ApplicationListParams,
-  ApplicationListResponse,
-  ApplicationModel,
-  Applications,
-  BooleanFromString,
-} from './applications/applications';
+import { Applications, BooleanFromString } from './applications/applications';
 import * as ChartsAPI from './charts/charts';
 import { Charts } from './charts/charts';
 import * as OpsAPI from './ops/ops';
@@ -45,9 +22,9 @@ import { Projects } from './projects/projects';
 import * as Web2appintegrationsAPI from './web2appintegrations/web2appintegrations';
 import { Web2appintegrations } from './web2appintegrations/web2appintegrations';
 import * as WebpaywallsAPI from './webpaywalls/webpaywalls';
-import { WebpaywallRetrieveConfigurationResponse, Webpaywalls } from './webpaywalls/webpaywalls';
+import { Webpaywalls } from './webpaywalls/webpaywalls';
 import * as ClientAPI from './client/client';
-import { Client, ClientRetrieveMetaParams, ClientRetrieveMetaResponse } from './client/client';
+import { Client } from './client/client';
 
 export class V1 extends APIResource {
   users: UsersAPI.Users = new UsersAPI.Users(this._client);
@@ -79,61 +56,27 @@ V1.Ops = Ops;
 V1.Entitlements = Entitlements;
 
 export declare namespace V1 {
-  export { Users as Users, type UserRetrieveSelfResponse as UserRetrieveSelfResponse };
+  export { Users as Users };
 
-  export {
-    Applications as Applications,
-    type ApplicationModel as ApplicationModel,
-    type BooleanFromString as BooleanFromString,
-    type ApplicationListResponse as ApplicationListResponse,
-    type ApplicationCreateParams as ApplicationCreateParams,
-    type ApplicationListParams as ApplicationListParams,
-  };
+  export { Applications as Applications, type BooleanFromString as BooleanFromString };
 
-  export {
-    Client as Client,
-    type ClientRetrieveMetaResponse as ClientRetrieveMetaResponse,
-    type ClientRetrieveMetaParams as ClientRetrieveMetaParams,
-  };
+  export { Client as Client };
 
-  export {
-    Paywalls as Paywalls,
-    type PaywallRetrieveResponse as PaywallRetrieveResponse,
-    type PaywallPrepareSnapshotResponse as PaywallPrepareSnapshotResponse,
-    type PaywallPromoteFromSnapshotResponse as PaywallPromoteFromSnapshotResponse,
-    type PaywallRetrieveParams as PaywallRetrieveParams,
-    type PaywallPrepareSnapshotParams as PaywallPrepareSnapshotParams,
-    type PaywallPromoteFromSnapshotParams as PaywallPromoteFromSnapshotParams,
-  };
+  export { Paywalls as Paywalls };
 
-  export {
-    Webpaywalls as Webpaywalls,
-    type WebpaywallRetrieveConfigurationResponse as WebpaywallRetrieveConfigurationResponse,
-  };
+  export { Webpaywalls as Webpaywalls };
 
   export { Web2appintegrations as Web2appintegrations };
 
-  export { Blog as Blog, type BlogRetrieveResponse as BlogRetrieveResponse };
+  export { Blog as Blog };
 
   export { Charts as Charts };
 
-  export {
-    Campaigns as Campaigns,
-    type CampaignTriggersResponse as CampaignTriggersResponse,
-    type CampaignTriggersParams as CampaignTriggersParams,
-  };
+  export { Campaigns as Campaigns };
 
   export { Projects as Projects };
 
   export { Ops as Ops };
 
-  export {
-    Entitlements as Entitlements,
-    type EntitlementListResponse as EntitlementListResponse,
-    type EntitlementGrantResponse as EntitlementGrantResponse,
-    type EntitlementRevokeResponse as EntitlementRevokeResponse,
-    type EntitlementListParams as EntitlementListParams,
-    type EntitlementGrantParams as EntitlementGrantParams,
-    type EntitlementRevokeParams as EntitlementRevokeParams,
-  };
+  export { Entitlements as Entitlements };
 }
