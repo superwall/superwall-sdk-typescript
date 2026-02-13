@@ -1,4 +1,4 @@
-configured_endpoints: 69
+configured_endpoints: 112
 openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/superwall-Makisuo%2Fsuperwall-api-9bb32a07dcd0e37462eace956f5b62362ea904a0f5db45cd9af7ba3807f56e5b.yml
 openapi_spec_hash: 0e584d80ee4428a4b44cdd0bad5274c3
-config_hash: 1586f84ccfd2aa5166473ff3d3f66072
+config_hash: 43a1ff2d9ddeee53ac9ee03746d1fb10

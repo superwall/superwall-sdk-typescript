@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
+import * as ApplicationsAPI from '../../v1/applications/applications';
 import * as TemplatesAPI from './templates';
 import { TemplateListParams, TemplateListResponse, TemplateRetrieveResponse, Templates } from './templates';
 import { APIPromise } from '../../../../core/api-promise';
@@ -578,7 +579,7 @@ export interface PaywallListParams {
   /**
    * Include archived paywalls (default: false)
    */
-  archived?: 'true' | 'false';
+  archived?: ApplicationsAPI.BooleanFromString;
 
   /**
    * a string to be decoded into a number

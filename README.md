@@ -30,9 +30,9 @@ const client = new SuperwallAPI({
   environment: 'sandbox', // defaults to 'production'
 });
 
-const organizations = await client.dashAPI.v2.me.organizations.list();
+const response = await client.dashAPI.v1.users.retrieveSelf();
 
-console.log(organizations.data);
+console.log(response.id);
 ```
 
 ### Request & Response types
@@ -48,8 +48,8 @@ const client = new SuperwallAPI({
   environment: 'sandbox', // defaults to 'production'
 });
 
-const organizations: SuperwallAPI.DashAPI.V2.Me.OrganizationListResponse =
-  await client.dashAPI.v2.me.organizations.list();
+const response: SuperwallAPI.DashAPI.V1.UserRetrieveSelfResponse =
+  await client.dashAPI.v1.users.retrieveSelf();
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -62,7 +62,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const organizations = await client.dashAPI.v2.me.organizations.list().catch(async (err) => {
+const response = await client.dashAPI.v1.users.retrieveSelf().catch(async (err) => {
   if (err instanceof SuperwallAPI.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -102,7 +102,7 @@ const client = new SuperwallAPI({
 });
 
 // Or, configure per-request:
-await client.dashAPI.v2.me.organizations.list({
+await client.dashAPI.v1.users.retrieveSelf({
   maxRetries: 5,
 });
 ```
@@ -119,7 +119,7 @@ const client = new SuperwallAPI({
 });
 
 // Override per-request:
-await client.dashAPI.v2.me.organizations.list({
+await client.dashAPI.v1.users.retrieveSelf({
   timeout: 5 * 1000,
 });
 ```
@@ -142,15 +142,15 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new SuperwallAPI();
 
-const response = await client.dashAPI.v2.me.organizations.list().asResponse();
+const response = await client.dashAPI.v1.users.retrieveSelf().asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: organizations, response: raw } = await client.dashAPI.v2.me.organizations
-  .list()
+const { data: response, response: raw } = await client.dashAPI.v1.users
+  .retrieveSelf()
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(organizations.data);
+console.log(response.id);
 ```
 
 ### Logging
@@ -230,7 +230,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.dashAPI.v2.me.organizations.list({
+client.dashAPI.v1.users.retrieveSelf({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
