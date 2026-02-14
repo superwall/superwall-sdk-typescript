@@ -1,6 +1,6 @@
 {
   "name": "superwall-api",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "The official TypeScript library for the Superwall API API",
   "author": "Superwall API <>",
   "types": "dist/index.d.ts",
