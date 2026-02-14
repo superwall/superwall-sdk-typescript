@@ -27,7 +27,7 @@ describe('resource entitlements', () => {
       identifier: 'x',
       project_id: 'project_id',
       description: 'description',
-      metadata: {},
+      metadata: { foo: 'string' },
       name: 'name',
       products: ['string'],
     });

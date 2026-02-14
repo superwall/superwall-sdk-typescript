@@ -82,7 +82,7 @@ export interface EntitlementCreateResponse {
    */
   identifier: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the entitlement, or null
@@ -131,7 +131,7 @@ export interface EntitlementRetrieveResponse {
    */
   identifier: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the entitlement, or null
@@ -180,7 +180,7 @@ export interface EntitlementUpdateResponse {
    */
   identifier: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the entitlement, or null
@@ -252,7 +252,7 @@ export namespace EntitlementListResponse {
      */
     identifier: string;
 
-    metadata: unknown;
+    metadata: { [key: string]: string };
 
     /**
      * Display name of the entitlement, or null
@@ -311,7 +311,7 @@ export interface EntitlementCreateParams {
 
   description?: string;
 
-  metadata?: unknown;
+  metadata?: { [key: string]: string };
 
   /**
    * a string at most 255 character(s) long
@@ -333,7 +333,7 @@ export interface EntitlementUpdateParams {
   /**
    * Arbitrary key-value metadata to attach to the entitlement
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: string };
 
   /**
    * Display name of the entitlement

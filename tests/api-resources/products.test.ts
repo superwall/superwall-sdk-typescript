@@ -27,7 +27,7 @@ describe('resource products', () => {
       identifier: 'x',
       project_id: 'project_id',
       entitlements: ['string'],
-      metadata: {},
+      metadata: { foo: 'string' },
       name: 'name',
       price: { amount: 0, currency: 'currency' },
       subscription: {

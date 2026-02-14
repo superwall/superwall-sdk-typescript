@@ -69,7 +69,7 @@ describe('resource users', () => {
         {
           id: 'id',
           field_id: 'field_id',
-          values: [{}],
+          values: ['string'],
           operator: 'operator',
         },
       ],

@@ -89,7 +89,7 @@ export interface EventRetrieveResponse {
   /**
    * Event payload data
    */
-  payload: { [key: string]: unknown };
+  payload: { [key: string]: string | number | boolean | null | Array<unknown> | unknown };
 
   /**
    * ISO 8601 timestamp of when the event occurred
@@ -154,7 +154,7 @@ export namespace EventListResponse {
     /**
      * Event payload data
      */
-    payload: { [key: string]: unknown };
+    payload: { [key: string]: string | number | boolean | null | Array<unknown> | unknown };
 
     /**
      * ISO 8601 timestamp of when the event occurred
