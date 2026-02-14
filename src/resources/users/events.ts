@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as EventsAPI from './events';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -25,6 +26,8 @@ export class Events extends APIResource {
   }
 }
 
+export type JsonValue = string | number | boolean | null | Array<JsonValue> | unknown;
+
 export interface EventRetrieveResponse {
   id: string;
 
@@ -32,7 +35,7 @@ export interface EventRetrieveResponse {
 
   name: string;
 
-  properties: { [key: string]: string | number | boolean | null | Array<unknown> | unknown };
+  properties: { [key: string]: JsonValue };
 
   source: string;
 
@@ -40,7 +43,7 @@ export interface EventRetrieveResponse {
 
   app_version?: string | null;
 
-  debug?: string | number | boolean | Array<unknown> | unknown | null;
+  debug?: JsonValue | null;
 
   device_locale?: string | null;
 
@@ -69,7 +72,7 @@ export namespace EventListResponse {
 
     name: string;
 
-    properties: { [key: string]: string | number | boolean | null | Array<unknown> | unknown };
+    properties: { [key: string]: EventsAPI.JsonValue };
 
     source: string;
 
@@ -117,6 +120,7 @@ export interface EventListParams {
 
 export declare namespace Events {
   export {
+    type JsonValue as JsonValue,
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventRetrieveParams as EventRetrieveParams,

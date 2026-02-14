@@ -2,6 +2,7 @@
 
 export {
   Events,
+  type JsonValue,
   type EventRetrieveResponse,
   type EventListResponse,
   type EventRetrieveParams,

@@ -354,13 +354,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['SUPERWALL_API_BASE_URL'] = ''; // empty
       const client = new SuperwallAPI({ apiKey: 'My API Key', bearerToken: 'My Bearer Token' });
-      expect(client.baseURL).toEqual('https://superwall.com');
+      expect(client.baseURL).toEqual('https://api.superwall.com');
     });
 
     test('blank env variable', () => {
       process.env['SUPERWALL_API_BASE_URL'] = '  '; // blank
       const client = new SuperwallAPI({ apiKey: 'My API Key', bearerToken: 'My Bearer Token' });
-      expect(client.baseURL).toEqual('https://superwall.com');
+      expect(client.baseURL).toEqual('https://api.superwall.com');
     });
 
     test('env variable with environment', () => {
@@ -383,7 +383,7 @@ describe('instantiate client', () => {
         baseURL: null,
         environment: 'production',
       });
-      expect(client.baseURL).toEqual('https://superwall.com');
+      expect(client.baseURL).toEqual('https://api.superwall.com');
     });
 
     test('in request options', () => {
