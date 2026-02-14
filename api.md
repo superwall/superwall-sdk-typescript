@@ -257,6 +257,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/users/events.ts">JsonValue</a></code>
 - <code><a href="./src/resources/users/events.ts">EventRetrieveResponse</a></code>
 - <code><a href="./src/resources/users/events.ts">EventListResponse</a></code>
 

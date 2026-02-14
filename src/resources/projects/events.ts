@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as UsersEventsAPI from '../users/events';
 import * as UsersAPI from '../users/users';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -89,7 +90,7 @@ export interface EventRetrieveResponse {
   /**
    * Event payload data
    */
-  payload: { [key: string]: string | number | boolean | null | Array<unknown> | unknown };
+  payload: { [key: string]: UsersEventsAPI.JsonValue };
 
   /**
    * ISO 8601 timestamp of when the event occurred
@@ -154,7 +155,7 @@ export namespace EventListResponse {
     /**
      * Event payload data
      */
-    payload: { [key: string]: string | number | boolean | null | Array<unknown> | unknown };
+    payload: { [key: string]: UsersEventsAPI.JsonValue };
 
     /**
      * ISO 8601 timestamp of when the event occurred

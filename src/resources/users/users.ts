@@ -8,6 +8,7 @@ import {
   EventRetrieveParams,
   EventRetrieveResponse,
   Events,
+  JsonValue,
 } from './events';
 import * as TestModeAPI from './test-mode';
 import {
@@ -148,7 +149,7 @@ export interface UserQueryResponse {
 
   returned_count: number;
 
-  rows: Array<{ [key: string]: string | number | boolean | null | Array<unknown> | unknown }>;
+  rows: Array<{ [key: string]: EventsAPI.JsonValue }>;
 
   time_elapsed: number;
 
@@ -196,7 +197,7 @@ export interface UserRetrieveActiveEntitlementsResponse {
 
   object: 'user_active_entitlements';
 
-  debug?: { [key: string]: string | number | boolean | null | Array<unknown> | unknown };
+  debug?: { [key: string]: EventsAPI.JsonValue };
 }
 
 export interface UserRetrieveAttributesResponse {
@@ -206,7 +207,7 @@ export interface UserRetrieveAttributesResponse {
 
   object: 'user_attributes';
 
-  properties: { [key: string]: string | number | boolean | null | Array<unknown> | unknown } | null;
+  properties: { [key: string]: EventsAPI.JsonValue } | null;
 
   updated_at: string | null;
 }
@@ -280,7 +281,7 @@ export interface UserRetrieveSubscriptionSummaryResponse {
 
   total_spend: number;
 
-  debug?: { [key: string]: string | number | boolean | null | Array<unknown> | unknown };
+  debug?: { [key: string]: EventsAPI.JsonValue };
 }
 
 export namespace UserRetrieveSubscriptionSummaryResponse {
@@ -424,6 +425,7 @@ export declare namespace Users {
 
   export {
     Events as Events,
+    type JsonValue as JsonValue,
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventRetrieveParams as EventRetrieveParams,
