@@ -26,7 +26,7 @@ describe('resource projects', () => {
     const response = await client.projects.create({
       name: 'x',
       organization_id: 0,
-      metadata: {},
+      metadata: { foo: 'string' },
     });
   });
 

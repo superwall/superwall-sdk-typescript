@@ -67,7 +67,7 @@ export interface ProductCreateResponse {
    */
   identifier: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the product, or null
@@ -185,7 +185,7 @@ export interface ProductRetrieveResponse {
    */
   identifier: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the product, or null
@@ -303,7 +303,7 @@ export interface ProductUpdateResponse {
    */
   identifier: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the product, or null
@@ -444,7 +444,7 @@ export namespace ProductListResponse {
      */
     identifier: string;
 
-    metadata: unknown;
+    metadata: { [key: string]: string };
 
     /**
      * Display name of the product, or null
@@ -578,7 +578,7 @@ export interface ProductCreateParams {
   /**
    * Arbitrary key-value metadata to attach to the product
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: string };
 
   /**
    * Display name of the product
@@ -636,7 +636,7 @@ export interface ProductUpdateParams {
   /**
    * Arbitrary key-value metadata to attach to the product
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: string };
 
   /**
    * Display name of the product

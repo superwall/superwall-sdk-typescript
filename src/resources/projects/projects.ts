@@ -124,7 +124,7 @@ export interface ProjectCreateResponse {
    */
   created_at: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the project
@@ -232,7 +232,7 @@ export interface ProjectRetrieveResponse {
    */
   created_at: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the project
@@ -340,7 +340,7 @@ export interface ProjectUpdateResponse {
    */
   created_at: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the project
@@ -471,7 +471,7 @@ export namespace ProjectListResponse {
      */
     created_at: string;
 
-    metadata: unknown;
+    metadata: { [key: string]: string };
 
     /**
      * Display name of the project
@@ -607,14 +607,14 @@ export interface ProjectCreateParams {
   /**
    * Arbitrary key-value metadata to attach to the project
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: string };
 }
 
 export interface ProjectUpdateParams {
   /**
    * Arbitrary key-value metadata to attach to the project
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: string };
 
   /**
    * Display name of the project

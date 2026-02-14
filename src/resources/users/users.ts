@@ -148,7 +148,7 @@ export interface UserQueryResponse {
 
   returned_count: number;
 
-  rows: Array<{ [key: string]: unknown }>;
+  rows: Array<{ [key: string]: string | number | boolean | null | Array<unknown> | unknown }>;
 
   time_elapsed: number;
 
@@ -196,7 +196,7 @@ export interface UserRetrieveActiveEntitlementsResponse {
 
   object: 'user_active_entitlements';
 
-  debug?: unknown;
+  debug?: { [key: string]: string | number | boolean | null | Array<unknown> | unknown };
 }
 
 export interface UserRetrieveAttributesResponse {
@@ -206,7 +206,7 @@ export interface UserRetrieveAttributesResponse {
 
   object: 'user_attributes';
 
-  properties: { [key: string]: unknown } | null;
+  properties: { [key: string]: string | number | boolean | null | Array<unknown> | unknown } | null;
 
   updated_at: string | null;
 }
@@ -280,7 +280,7 @@ export interface UserRetrieveSubscriptionSummaryResponse {
 
   total_spend: number;
 
-  debug?: unknown;
+  debug?: { [key: string]: string | number | boolean | null | Array<unknown> | unknown };
 }
 
 export namespace UserRetrieveSubscriptionSummaryResponse {
@@ -352,7 +352,7 @@ export namespace UserQueryParams {
 
     field_id: string;
 
-    values: Array<unknown>;
+    values: Array<string | number | boolean | null>;
 
     operator?: string;
   }

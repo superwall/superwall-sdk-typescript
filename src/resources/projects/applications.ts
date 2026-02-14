@@ -102,7 +102,7 @@ export interface ApplicationCreateResponse {
    */
   created_at: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the project
@@ -210,7 +210,7 @@ export interface ApplicationUpdateResponse {
    */
   created_at: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the project

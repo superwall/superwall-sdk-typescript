@@ -28,7 +28,7 @@ describe('resource paywalls', () => {
       name: 'x',
       feature_gating: 'gated',
       identifier: 'identifier',
-      metadata: {},
+      metadata: { foo: 'string' },
       presentation_style: 'fullscreen',
       products: ['string'],
       template: 'template',

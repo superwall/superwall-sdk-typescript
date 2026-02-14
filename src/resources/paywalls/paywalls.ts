@@ -96,7 +96,7 @@ export interface PaywallCreateResponse {
    */
   identifier: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the paywall
@@ -185,7 +185,7 @@ export interface PaywallRetrieveResponse {
    */
   identifier: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the paywall
@@ -274,7 +274,7 @@ export interface PaywallUpdateResponse {
    */
   identifier: string;
 
-  metadata: unknown;
+  metadata: { [key: string]: string };
 
   /**
    * Display name of the paywall
@@ -386,7 +386,7 @@ export namespace PaywallListResponse {
      */
     identifier: string;
 
-    metadata: unknown;
+    metadata: { [key: string]: string };
 
     /**
      * Display name of the paywall
@@ -525,7 +525,7 @@ export interface PaywallCreateParams {
   /**
    * Arbitrary key-value metadata to attach to the paywall
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: string };
 
   /**
    * How the paywall is presented. Defaults to `fullscreen`
@@ -552,7 +552,7 @@ export interface PaywallUpdateParams {
   /**
    * Arbitrary key-value metadata to attach to the paywall
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: string };
 
   /**
    * Display name of the paywall

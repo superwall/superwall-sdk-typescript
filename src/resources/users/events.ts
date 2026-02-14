@@ -32,7 +32,7 @@ export interface EventRetrieveResponse {
 
   name: string;
 
-  properties: { [key: string]: unknown };
+  properties: { [key: string]: string | number | boolean | null | Array<unknown> | unknown };
 
   source: string;
 
@@ -40,11 +40,11 @@ export interface EventRetrieveResponse {
 
   app_version?: string | null;
 
-  debug?: unknown;
+  debug?: string | number | boolean | Array<unknown> | unknown | null;
 
   device_locale?: string | null;
 
-  headers?: unknown;
+  headers?: string | null;
 
   inserted_at?: string;
 
@@ -69,7 +69,7 @@ export namespace EventListResponse {
 
     name: string;
 
-    properties: { [key: string]: unknown };
+    properties: { [key: string]: string | number | boolean | null | Array<unknown> | unknown };
 
     source: string;
 
@@ -79,7 +79,7 @@ export namespace EventListResponse {
 
     device_locale?: string | null;
 
-    headers?: unknown;
+    headers?: string | null;
 
     inserted_at?: string;
 
