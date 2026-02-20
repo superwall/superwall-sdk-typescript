@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource applications', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.projects.applications.create('id', { name: 'x', platform: 'ios' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource applications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.projects.applications.create('id', {
       name: 'x',
@@ -32,7 +32,7 @@ describe('resource applications', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.projects.applications.update('application_id', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource applications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.projects.applications.update('application_id', {
       id: 'id',
@@ -54,7 +54,7 @@ describe('resource applications', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getStatistics: only required params', async () => {
     const responsePromise = client.projects.applications.getStatistics('application_id', {
       id: 'id',
@@ -71,7 +71,7 @@ describe('resource applications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getStatistics: required and optional params', async () => {
     const response = await client.projects.applications.getStatistics('application_id', {
       id: 'id',
@@ -81,7 +81,7 @@ describe('resource applications', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listRecentTransactions: only required params', async () => {
     const responsePromise = client.projects.applications.listRecentTransactions('application_id', {
       id: 'id',
@@ -98,7 +98,7 @@ describe('resource applications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listRecentTransactions: required and optional params', async () => {
     const response = await client.projects.applications.listRecentTransactions('application_id', {
       id: 'id',
@@ -108,7 +108,7 @@ describe('resource applications', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateSettings: only required params', async () => {
     const responsePromise = client.projects.applications.updateSettings('application_id', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
@@ -120,7 +120,7 @@ describe('resource applications', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateSettings: required and optional params', async () => {
     const response = await client.projects.applications.updateSettings('application_id', {
       id: 'id',

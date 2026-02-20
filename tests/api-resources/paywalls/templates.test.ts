@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource templates', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.paywalls.templates.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource templates', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.paywalls.templates.list({ application_id: 'application_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -33,7 +33,7 @@ describe('resource templates', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.paywalls.templates.list({
       application_id: 'application_id',

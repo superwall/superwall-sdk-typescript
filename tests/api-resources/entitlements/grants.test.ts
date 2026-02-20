@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource grants', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.entitlements.grants.create('id', { device_id: 'x' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource grants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.entitlements.grants.create('id', {
       device_id: 'x',
@@ -31,7 +31,7 @@ describe('resource grants', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.entitlements.grants.list('id');
     const rawResponse = await responsePromise.asResponse();
@@ -43,7 +43,7 @@ describe('resource grants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -61,7 +61,7 @@ describe('resource grants', () => {
     ).rejects.toThrow(SuperwallAPI.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('revoke: only required params', async () => {
     const responsePromise = client.entitlements.grants.revoke('grant_id', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
@@ -73,7 +73,7 @@ describe('resource grants', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('revoke: required and optional params', async () => {
     const response = await client.entitlements.grants.revoke('grant_id', { id: 'id' });
   });

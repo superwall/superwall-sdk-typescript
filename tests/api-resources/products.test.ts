@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource products', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.products.create({ identifier: 'x', project_id: 'project_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource products', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.products.create({
       identifier: 'x',
@@ -38,7 +38,7 @@ describe('resource products', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.products.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
@@ -50,7 +50,7 @@ describe('resource products', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.products.update('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -62,7 +62,7 @@ describe('resource products', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.products.list({ project_id: 'project_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -74,7 +74,7 @@ describe('resource products', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.products.list({
       project_id: 'project_id',
@@ -85,7 +85,7 @@ describe('resource products', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.products.delete('id');
     const rawResponse = await responsePromise.asResponse();

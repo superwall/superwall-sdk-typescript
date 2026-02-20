@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource webhookEndpoints', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.projects.webhookEndpoints.create('project_id', { url: 'x' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource webhookEndpoints', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.projects.webhookEndpoints.create('project_id', {
       url: 'x',
@@ -32,7 +32,7 @@ describe('resource webhookEndpoints', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.projects.webhookEndpoints.retrieve('endpoint_id', {
       project_id: 'project_id',
@@ -46,14 +46,14 @@ describe('resource webhookEndpoints', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.projects.webhookEndpoints.retrieve('endpoint_id', {
       project_id: 'project_id',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.projects.webhookEndpoints.update('endpoint_id', {
       project_id: 'project_id',
@@ -67,7 +67,7 @@ describe('resource webhookEndpoints', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.projects.webhookEndpoints.update('endpoint_id', {
       project_id: 'project_id',
@@ -80,7 +80,7 @@ describe('resource webhookEndpoints', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.projects.webhookEndpoints.list('project_id');
     const rawResponse = await responsePromise.asResponse();
@@ -92,7 +92,7 @@ describe('resource webhookEndpoints', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -104,7 +104,7 @@ describe('resource webhookEndpoints', () => {
     ).rejects.toThrow(SuperwallAPI.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.projects.webhookEndpoints.delete('endpoint_id', {
       project_id: 'project_id',
@@ -118,14 +118,14 @@ describe('resource webhookEndpoints', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.projects.webhookEndpoints.delete('endpoint_id', {
       project_id: 'project_id',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('rotateSecret: only required params', async () => {
     const responsePromise = client.projects.webhookEndpoints.rotateSecret('endpoint_id', {
       project_id: 'project_id',
@@ -139,7 +139,7 @@ describe('resource webhookEndpoints', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('rotateSecret: required and optional params', async () => {
     const response = await client.projects.webhookEndpoints.rotateSecret('endpoint_id', {
       project_id: 'project_id',

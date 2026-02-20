@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource entitlements', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.entitlements.create({ identifier: 'x', project_id: 'project_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource entitlements', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.entitlements.create({
       identifier: 'x',
@@ -33,7 +33,7 @@ describe('resource entitlements', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.entitlements.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
@@ -45,7 +45,7 @@ describe('resource entitlements', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.entitlements.update('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -57,7 +57,7 @@ describe('resource entitlements', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.entitlements.list({ project_id: 'project_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -69,7 +69,7 @@ describe('resource entitlements', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.entitlements.list({
       project_id: 'project_id',
@@ -79,7 +79,7 @@ describe('resource entitlements', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.entitlements.delete('id');
     const rawResponse = await responsePromise.asResponse();
