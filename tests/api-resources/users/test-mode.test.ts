@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource testMode', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.users.testMode.update('app_user_id', {
       application_id: 'application_id',
@@ -24,7 +24,7 @@ describe('resource testMode', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.users.testMode.update('app_user_id', {
       application_id: 'application_id',
@@ -32,7 +32,7 @@ describe('resource testMode', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.users.testMode.list({ application_id: 'application_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -44,7 +44,7 @@ describe('resource testMode', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.users.testMode.list({ application_id: 'application_id' });
   });

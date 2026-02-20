@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource paywalls', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.paywalls.create({ application_id: 'application_id', name: 'x' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource paywalls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.paywalls.create({
       application_id: 'application_id',
@@ -35,7 +35,7 @@ describe('resource paywalls', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.paywalls.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
@@ -47,7 +47,7 @@ describe('resource paywalls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.paywalls.update('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -59,7 +59,7 @@ describe('resource paywalls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.paywalls.list({ application_id: 'application_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -71,7 +71,7 @@ describe('resource paywalls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.paywalls.list({
       application_id: 'application_id',
@@ -83,7 +83,7 @@ describe('resource paywalls', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('archive', async () => {
     const responsePromise = client.paywalls.archive('id');
     const rawResponse = await responsePromise.asResponse();
@@ -95,7 +95,7 @@ describe('resource paywalls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('publish', async () => {
     const responsePromise = client.paywalls.publish('id');
     const rawResponse = await responsePromise.asResponse();
@@ -107,7 +107,7 @@ describe('resource paywalls', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unarchive', async () => {
     const responsePromise = client.paywalls.unarchive('id');
     const rawResponse = await responsePromise.asResponse();

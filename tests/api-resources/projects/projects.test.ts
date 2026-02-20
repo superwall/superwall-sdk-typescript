@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource projects', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.projects.create({ name: 'x', organization_id: 0 });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.projects.create({
       name: 'x',
@@ -30,7 +30,7 @@ describe('resource projects', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.projects.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
@@ -42,7 +42,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.projects.update('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -54,7 +54,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.projects.list();
     const rawResponse = await responsePromise.asResponse();
@@ -66,7 +66,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -83,7 +83,7 @@ describe('resource projects', () => {
     ).rejects.toThrow(SuperwallAPI.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('archive', async () => {
     const responsePromise = client.projects.archive('id');
     const rawResponse = await responsePromise.asResponse();
@@ -95,7 +95,7 @@ describe('resource projects', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unarchive', async () => {
     const responsePromise = client.projects.unarchive('id');
     const rawResponse = await responsePromise.asResponse();

@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource campaigns', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.campaigns.create({
       application_id: 'application_id',
@@ -36,7 +36,7 @@ describe('resource campaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.campaigns.create({
       application_id: 'application_id',
@@ -67,7 +67,7 @@ describe('resource campaigns', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.campaigns.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
@@ -79,7 +79,7 @@ describe('resource campaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.campaigns.update('id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -91,7 +91,7 @@ describe('resource campaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.campaigns.list({ application_id: 'application_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -103,7 +103,7 @@ describe('resource campaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.campaigns.list({
       application_id: 'application_id',
@@ -114,7 +114,7 @@ describe('resource campaigns', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('archive', async () => {
     const responsePromise = client.campaigns.archive('id');
     const rawResponse = await responsePromise.asResponse();
@@ -126,7 +126,7 @@ describe('resource campaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unarchive', async () => {
     const responsePromise = client.campaigns.unarchive('id');
     const rawResponse = await responsePromise.asResponse();
@@ -138,7 +138,7 @@ describe('resource campaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateAudience: only required params', async () => {
     const responsePromise = client.campaigns.updateAudience('audience_id', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
@@ -150,7 +150,7 @@ describe('resource campaigns', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('updateAudience: required and optional params', async () => {
     const response = await client.campaigns.updateAudience('audience_id', {
       id: 'id',
