@@ -363,29 +363,6 @@ describe('instantiate client', () => {
       expect(client.baseURL).toEqual('https://api.superwall.com');
     });
 
-    test('env variable with environment', () => {
-      process.env['SUPERWALL_API_BASE_URL'] = 'https://example.com/from_env';
-
-      expect(
-        () =>
-          new SuperwallAPI({
-            apiKey: 'My API Key',
-            bearerToken: 'My Bearer Token',
-            environment: 'production',
-          }),
-      ).toThrowErrorMatchingInlineSnapshot(
-        `"Ambiguous URL; The \`baseURL\` option (or SUPERWALL_API_BASE_URL env var) and the \`environment\` option are given. If you want to use the environment you must pass baseURL: null"`,
-      );
-
-      const client = new SuperwallAPI({
-        apiKey: 'My API Key',
-        bearerToken: 'My Bearer Token',
-        baseURL: null,
-        environment: 'production',
-      });
-      expect(client.baseURL).toEqual('https://api.superwall.com');
-    });
-
     test('in request options', () => {
       const client = new SuperwallAPI({ apiKey: 'My API Key', bearerToken: 'My Bearer Token' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
