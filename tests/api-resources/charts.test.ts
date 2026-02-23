@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource charts', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getDefinitions: only required params', async () => {
     const responsePromise = client.charts.getDefinitions({ application_id: 'application_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,12 +21,12 @@ describe('resource charts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('getDefinitions: required and optional params', async () => {
     const response = await client.charts.getDefinitions({ application_id: 'application_id' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('queryData: only required params', async () => {
     const responsePromise = client.charts.queryData({
       application_id: 'application_id',
@@ -42,7 +42,7 @@ describe('resource charts', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('queryData: required and optional params', async () => {
     const response = await client.charts.queryData({
       application_id: 'application_id',

@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource placements', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.campaigns.placements.update('placement_id', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource placements', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.campaigns.placements.update('placement_id', {
       id: 'id',
@@ -30,7 +30,7 @@ describe('resource placements', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('add: only required params', async () => {
     const responsePromise = client.campaigns.placements.add('id', { event_name: 'x' });
     const rawResponse = await responsePromise.asResponse();
@@ -42,7 +42,7 @@ describe('resource placements', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('add: required and optional params', async () => {
     const response = await client.campaigns.placements.add('id', {
       event_name: 'x',
@@ -51,7 +51,7 @@ describe('resource placements', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('remove: only required params', async () => {
     const responsePromise = client.campaigns.placements.remove('placement_id', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
@@ -63,7 +63,7 @@ describe('resource placements', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('remove: required and optional params', async () => {
     const response = await client.campaigns.placements.remove('placement_id', { id: 'id' });
   });

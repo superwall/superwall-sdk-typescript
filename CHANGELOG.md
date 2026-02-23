@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.1 (2026-02-20)
+
+Full Changelog: [v0.1.0...v0.1.1](https://github.com/superwall/superwall-sdk-typescript/compare/v0.1.0...v0.1.1)
+
+### Chores
+
+* **internal/client:** fix form-urlencoded requests ([d826977](https://github.com/superwall/superwall-sdk-typescript/commit/d82697783f94262a48c889fe8b67fa9a351fd0a3))
+* **internal:** remove mock server code ([f6af85a](https://github.com/superwall/superwall-sdk-typescript/commit/f6af85aed45b38c6a09e23fa64bface02f162052))
+* update mock server docs ([402e97d](https://github.com/superwall/superwall-sdk-typescript/commit/402e97d63d160d6b96f32febcf57f1bd7cf79958))
+
 ## 0.1.0 (2026-02-14)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/superwall/superwall-sdk-typescript/compare/v0.0.1...v0.1.0)

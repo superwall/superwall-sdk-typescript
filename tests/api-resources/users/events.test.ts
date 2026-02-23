@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource events', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.users.events.retrieve('event_id', { application_id: 'application_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,12 +21,12 @@ describe('resource events', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.users.events.retrieve('event_id', { application_id: 'application_id' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.users.events.list('app_user_id', { application_id: 'application_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -38,7 +38,7 @@ describe('resource events', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.users.events.list('app_user_id', {
       application_id: 'application_id',

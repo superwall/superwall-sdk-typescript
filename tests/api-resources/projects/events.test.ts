@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource events', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.projects.events.retrieve('event_id', { project_id: 'project_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,12 +21,12 @@ describe('resource events', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.projects.events.retrieve('event_id', { project_id: 'project_id' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.projects.events.list('project_id');
     const rawResponse = await responsePromise.asResponse();
@@ -38,7 +38,7 @@ describe('resource events', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -59,7 +59,7 @@ describe('resource events', () => {
     ).rejects.toThrow(SuperwallAPI.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listAttempts: only required params', async () => {
     const responsePromise = client.projects.events.listAttempts('event_id', { project_id: 'project_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -71,7 +71,7 @@ describe('resource events', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listAttempts: required and optional params', async () => {
     const response = await client.projects.events.listAttempts('event_id', {
       project_id: 'project_id',
@@ -84,7 +84,7 @@ describe('resource events', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retryDelivery: only required params', async () => {
     const responsePromise = client.projects.events.retryDelivery('event_id', {
       project_id: 'project_id',
@@ -99,7 +99,7 @@ describe('resource events', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retryDelivery: required and optional params', async () => {
     const response = await client.projects.events.retryDelivery('event_id', {
       project_id: 'project_id',

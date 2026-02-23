@@ -9,7 +9,7 @@ const client = new SuperwallAPI({
 });
 
 describe('resource users', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listEventNames: only required params', async () => {
     const responsePromise = client.users.listEventNames({ application_id: 'application_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -21,7 +21,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listEventNames: required and optional params', async () => {
     const response = await client.users.listEventNames({
       application_id: 'application_id',
@@ -32,7 +32,7 @@ describe('resource users', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listFilterProperties: only required params', async () => {
     const responsePromise = client.users.listFilterProperties({ application_id: 'application_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -44,12 +44,12 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('listFilterProperties: required and optional params', async () => {
     const response = await client.users.listFilterProperties({ application_id: 'application_id' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('query: only required params', async () => {
     const responsePromise = client.users.query({ application_id: 'application_id' });
     const rawResponse = await responsePromise.asResponse();
@@ -61,7 +61,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('query: required and optional params', async () => {
     const response = await client.users.query({
       application_id: 'application_id',
@@ -79,7 +79,7 @@ describe('resource users', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('resolve: only required params', async () => {
     const responsePromise = client.users.resolve({
       app_user_id: 'app_user_id',
@@ -94,7 +94,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('resolve: required and optional params', async () => {
     const response = await client.users.resolve({
       app_user_id: 'app_user_id',
@@ -102,7 +102,7 @@ describe('resource users', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveActiveEntitlements: only required params', async () => {
     const responsePromise = client.users.retrieveActiveEntitlements('app_user_id', {
       application_id: 'application_id',
@@ -116,14 +116,14 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveActiveEntitlements: required and optional params', async () => {
     const response = await client.users.retrieveActiveEntitlements('app_user_id', {
       application_id: 'application_id',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveAttributes: only required params', async () => {
     const responsePromise = client.users.retrieveAttributes('app_user_id', {
       application_id: 'application_id',
@@ -137,14 +137,14 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveAttributes: required and optional params', async () => {
     const response = await client.users.retrieveAttributes('app_user_id', {
       application_id: 'application_id',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveDeviceAttributes: only required params', async () => {
     const responsePromise = client.users.retrieveDeviceAttributes('app_user_id', {
       application_id: 'application_id',
@@ -158,14 +158,14 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveDeviceAttributes: required and optional params', async () => {
     const response = await client.users.retrieveDeviceAttributes('app_user_id', {
       application_id: 'application_id',
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveSubscriptionSummary: only required params', async () => {
     const responsePromise = client.users.retrieveSubscriptionSummary('app_user_id', {
       application_id: 'application_id',
@@ -179,7 +179,7 @@ describe('resource users', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('retrieveSubscriptionSummary: required and optional params', async () => {
     const response = await client.users.retrieveSubscriptionSummary('app_user_id', {
       application_id: 'application_id',
