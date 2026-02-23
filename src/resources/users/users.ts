@@ -47,13 +47,6 @@ export class Users extends APIResource {
   }
 
   /**
-   * Query Users
-   */
-  query(body: UserQueryParams, options?: RequestOptions): APIPromise<UserQueryResponse> {
-    return this._client.post('/v2/users/query', { body, ...options });
-  }
-
-  /**
    * Resolve User
    */
   resolve(query: UserResolveParams, options?: RequestOptions): APIPromise<UserResolveResponse> {
@@ -136,42 +129,6 @@ export interface UserListFilterPropertiesResponse {
   other_properties: { [key: string]: Array<string> };
 
   user_properties: { [key: string]: Array<string> };
-}
-
-export interface UserQueryResponse {
-  columns: Array<UserQueryResponse.Column>;
-
-  filtered_total: number;
-
-  keys: Array<UserQueryResponse.Key>;
-
-  object: 'users_query_result';
-
-  returned_count: number;
-
-  rows: Array<{ [key: string]: EventsAPI.JsonValue }>;
-
-  time_elapsed: number;
-
-  total: number;
-}
-
-export namespace UserQueryResponse {
-  export interface Column {
-    count: number;
-
-    key: string;
-
-    type: string;
-  }
-
-  export interface Key {
-    count: number;
-
-    key: string;
-
-    type: string;
-  }
 }
 
 export interface UserResolveResponse {
@@ -332,33 +289,6 @@ export interface UserListFilterPropertiesParams {
   application_id: string;
 }
 
-export interface UserQueryParams {
-  /**
-   * Application ID
-   */
-  application_id: string;
-
-  filters?: Array<UserQueryParams.Filter>;
-
-  is_download?: boolean;
-
-  match_mode?: 'all' | 'any';
-
-  search_term?: string;
-}
-
-export namespace UserQueryParams {
-  export interface Filter {
-    id: string;
-
-    field_id: string;
-
-    values: Array<string | number | boolean | null>;
-
-    operator?: string;
-  }
-}
-
 export interface UserResolveParams {
   /**
    * App user identifier
@@ -407,7 +337,6 @@ export declare namespace Users {
     type BooleanFromString as BooleanFromString,
     type UserListEventNamesResponse as UserListEventNamesResponse,
     type UserListFilterPropertiesResponse as UserListFilterPropertiesResponse,
-    type UserQueryResponse as UserQueryResponse,
     type UserResolveResponse as UserResolveResponse,
     type UserRetrieveActiveEntitlementsResponse as UserRetrieveActiveEntitlementsResponse,
     type UserRetrieveAttributesResponse as UserRetrieveAttributesResponse,
@@ -415,7 +344,6 @@ export declare namespace Users {
     type UserRetrieveSubscriptionSummaryResponse as UserRetrieveSubscriptionSummaryResponse,
     type UserListEventNamesParams as UserListEventNamesParams,
     type UserListFilterPropertiesParams as UserListFilterPropertiesParams,
-    type UserQueryParams as UserQueryParams,
     type UserResolveParams as UserResolveParams,
     type UserRetrieveActiveEntitlementsParams as UserRetrieveActiveEntitlementsParams,
     type UserRetrieveAttributesParams as UserRetrieveAttributesParams,
