@@ -24,7 +24,6 @@ import SuperwallAPI from 'superwall-api';
 
 const client = new SuperwallAPI({
   apiKey: process.env['SUPERWALL_API_API_KEY'], // This is the default and can be omitted
-  environment: 'environment_1', // or 'production' | 'environment_2'; defaults to 'production'
 });
 
 const projects = await client.projects.list();
@@ -42,7 +41,6 @@ import SuperwallAPI from 'superwall-api';
 
 const client = new SuperwallAPI({
   apiKey: process.env['SUPERWALL_API_API_KEY'], // This is the default and can be omitted
-  environment: 'environment_1', // or 'production' | 'environment_2'; defaults to 'production'
 });
 
 const projects: SuperwallAPI.ProjectListResponse = await client.projects.list();

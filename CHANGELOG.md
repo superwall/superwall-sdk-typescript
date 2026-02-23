@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 (2026-02-23)
+
+Full Changelog: [v0.1.1...v0.2.0](https://github.com/superwall/superwall-sdk-typescript/compare/v0.1.1...v0.2.0)
+
+### Features
+
+* **api:** manual updates ([1d0bcec](https://github.com/superwall/superwall-sdk-typescript/commit/1d0bcecb6695b3a1d232cb9bad3a6e0d495e6e55))
+
 ## 0.1.1 (2026-02-20)
 
 Full Changelog: [v0.1.0...v0.1.1](https://github.com/superwall/superwall-sdk-typescript/compare/v0.1.0...v0.1.1)
