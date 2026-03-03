@@ -4,6 +4,9 @@ import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
+/**
+ * User-centric endpoints. These endpoints only require user authentication and do not require organization context.
+ */
 export class Organizations extends APIResource {
   /**
    * Creates a new organization with the authenticated user as the owner.

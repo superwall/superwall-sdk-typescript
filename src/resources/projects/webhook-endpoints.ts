@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage webhook endpoints for receiving real-time event notifications. Webhooks deliver events to your specified URLs.
+ */
 export class WebhookEndpoints extends APIResource {
   /**
    * Creates a new webhook endpoint for the project. Requires webhooks:write scope.

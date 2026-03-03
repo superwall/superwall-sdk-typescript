@@ -8,6 +8,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage paywalls and paywall templates. A Paywall is a monetization screen shown to users.
+ */
 export class Paywalls extends APIResource {
   templates: TemplatesAPI.Templates = new TemplatesAPI.Templates(this._client);
 
