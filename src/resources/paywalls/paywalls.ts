@@ -127,9 +127,9 @@ export interface PaywallCreateResponse {
   preview_url: string | null;
 
   /**
-   * List of product identifiers attached to this paywall
+   * List of product entries attached to this paywall
    */
-  products: Array<string>;
+  products: Array<PaywallCreateResponse.Product>;
 
   /**
    * ISO 8601 timestamp of when the paywall was last published, or null
@@ -155,6 +155,28 @@ export interface PaywallCreateResponse {
    * Current published version number
    */
   version: number;
+}
+
+export namespace PaywallCreateResponse {
+  /**
+   * Paywall product entry
+   */
+  export interface Product {
+    /**
+     * Platform-specific product identifier
+     */
+    identifier: string;
+
+    /**
+     * Stable reference name used in paywall editor/runtime (for example: primary)
+     */
+    reference_name: string;
+
+    /**
+     * Store this product belongs to
+     */
+    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+  }
 }
 
 export interface PaywallRetrieveResponse {
@@ -216,9 +238,9 @@ export interface PaywallRetrieveResponse {
   preview_url: string | null;
 
   /**
-   * List of product identifiers attached to this paywall
+   * List of product entries attached to this paywall
    */
-  products: Array<string>;
+  products: Array<PaywallRetrieveResponse.Product>;
 
   /**
    * ISO 8601 timestamp of when the paywall was last published, or null
@@ -244,6 +266,28 @@ export interface PaywallRetrieveResponse {
    * Current published version number
    */
   version: number;
+}
+
+export namespace PaywallRetrieveResponse {
+  /**
+   * Paywall product entry
+   */
+  export interface Product {
+    /**
+     * Platform-specific product identifier
+     */
+    identifier: string;
+
+    /**
+     * Stable reference name used in paywall editor/runtime (for example: primary)
+     */
+    reference_name: string;
+
+    /**
+     * Store this product belongs to
+     */
+    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+  }
 }
 
 export interface PaywallUpdateResponse {
@@ -305,9 +349,9 @@ export interface PaywallUpdateResponse {
   preview_url: string | null;
 
   /**
-   * List of product identifiers attached to this paywall
+   * List of product entries attached to this paywall
    */
-  products: Array<string>;
+  products: Array<PaywallUpdateResponse.Product>;
 
   /**
    * ISO 8601 timestamp of when the paywall was last published, or null
@@ -333,6 +377,28 @@ export interface PaywallUpdateResponse {
    * Current published version number
    */
   version: number;
+}
+
+export namespace PaywallUpdateResponse {
+  /**
+   * Paywall product entry
+   */
+  export interface Product {
+    /**
+     * Platform-specific product identifier
+     */
+    identifier: string;
+
+    /**
+     * Stable reference name used in paywall editor/runtime (for example: primary)
+     */
+    reference_name: string;
+
+    /**
+     * Store this product belongs to
+     */
+    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+  }
 }
 
 export interface PaywallListResponse {
@@ -417,9 +483,9 @@ export namespace PaywallListResponse {
     preview_url: string | null;
 
     /**
-     * List of product identifiers attached to this paywall
+     * List of product entries attached to this paywall
      */
-    products: Array<string>;
+    products: Array<Data.Product>;
 
     /**
      * ISO 8601 timestamp of when the paywall was last published, or null
@@ -445,6 +511,28 @@ export namespace PaywallListResponse {
      * Current published version number
      */
     version: number;
+  }
+
+  export namespace Data {
+    /**
+     * Paywall product entry
+     */
+    export interface Product {
+      /**
+       * Platform-specific product identifier
+       */
+      identifier: string;
+
+      /**
+       * Stable reference name used in paywall editor/runtime (for example: primary)
+       */
+      reference_name: string;
+
+      /**
+       * Store this product belongs to
+       */
+      store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+    }
   }
 }
 
@@ -536,14 +624,36 @@ export interface PaywallCreateParams {
   presentation_style?: 'fullscreen' | 'modal' | 'sheet' | 'push';
 
   /**
-   * List of product identifiers to attach to this paywall
+   * List of product entries to attach to this paywall
    */
-  products?: Array<string>;
+  products?: Array<PaywallCreateParams.Product>;
 
   /**
    * ID of the template to create the paywall from
    */
   template?: string;
+}
+
+export namespace PaywallCreateParams {
+  /**
+   * Paywall product entry
+   */
+  export interface Product {
+    /**
+     * Platform-specific product identifier
+     */
+    identifier: string;
+
+    /**
+     * Stable reference name used in paywall editor/runtime (for example: primary)
+     */
+    reference_name: string;
+
+    /**
+     * Store this product belongs to
+     */
+    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+  }
 }
 
 export interface PaywallUpdateParams {
@@ -568,9 +678,31 @@ export interface PaywallUpdateParams {
   presentation_style?: 'fullscreen' | 'modal' | 'sheet' | 'push';
 
   /**
-   * List of product identifiers to attach to this paywall
+   * List of product entries to attach to this paywall
    */
-  products?: Array<string>;
+  products?: Array<PaywallUpdateParams.Product>;
+}
+
+export namespace PaywallUpdateParams {
+  /**
+   * Paywall product entry
+   */
+  export interface Product {
+    /**
+     * Platform-specific product identifier
+     */
+    identifier: string;
+
+    /**
+     * Stable reference name used in paywall editor/runtime (for example: primary)
+     */
+    reference_name: string;
+
+    /**
+     * Store this product belongs to
+     */
+    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+  }
 }
 
 export interface PaywallListParams {
