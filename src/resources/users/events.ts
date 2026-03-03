@@ -6,6 +6,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage users, user attributes, events, and diagnostics for an application.
+ */
 export class Events extends APIResource {
   /**
    * Retrieve User Event

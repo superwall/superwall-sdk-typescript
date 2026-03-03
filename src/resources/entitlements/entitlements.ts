@@ -15,6 +15,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage entitlements and manual grants. An Entitlement represents a feature or capability that can be unlocked for users through product purchases or manual grants.
+ */
 export class Entitlements extends APIResource {
   grants: GrantsAPI.Grants = new GrantsAPI.Grants(this._client);
 

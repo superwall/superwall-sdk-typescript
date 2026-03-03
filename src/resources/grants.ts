@@ -5,6 +5,9 @@ import * as UsersAPI from './users/users';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Query manual entitlement grants by device or user.
+ */
 export class Grants extends APIResource {
   /**
    * Returns a list of manual grants for the specified device/user. Requires

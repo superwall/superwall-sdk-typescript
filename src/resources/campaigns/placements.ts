@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage campaigns, placements, and audiences. A Campaign controls when and to whom paywalls are displayed.
+ */
 export class Placements extends APIResource {
   /**
    * Updates a placement's event name or enabled status. Requires campaigns:write

@@ -5,6 +5,9 @@ import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
+/**
+ * Manage products (in-app purchases and subscriptions). A Product represents a purchasable item shown on paywalls.
+ */
 export class Products extends APIResource {
   /**
    * Creates a new product in the specified application. Requires products:write

@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage projects for cross-platform app grouping. A Project groups multiple Applications (one per platform) for unified management.
+ */
 export class Applications extends APIResource {
   /**
    * Creates a new application and adds it to the project. Will fail if the project

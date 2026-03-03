@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage paywalls and paywall templates. A Paywall is a monetization screen shown to users.
+ */
 export class Templates extends APIResource {
   /**
    * Retrieves a paywall template by ID. Requires paywalls:read scope.

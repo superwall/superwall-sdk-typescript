@@ -22,6 +22,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage users, user attributes, events, and diagnostics for an application.
+ */
 export class Users extends APIResource {
   events: EventsAPI.Events = new EventsAPI.Events(this._client);
   testMode: TestModeAPI.TestMode = new TestModeAPI.TestMode(this._client);

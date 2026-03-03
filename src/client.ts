@@ -825,14 +825,38 @@ export class SuperwallAPI {
 
   static toFile = Uploads.toFile;
 
+  /**
+   * Manage projects for cross-platform app grouping. A Project groups multiple Applications (one per platform) for unified management.
+   */
   projects: API.Projects = new API.Projects(this);
   me: API.Me = new API.Me(this);
+  /**
+   * Manage paywalls and paywall templates. A Paywall is a monetization screen shown to users.
+   */
   paywalls: API.Paywalls = new API.Paywalls(this);
+  /**
+   * Manage products (in-app purchases and subscriptions). A Product represents a purchasable item shown on paywalls.
+   */
   products: API.Products = new API.Products(this);
+  /**
+   * Manage campaigns, placements, and audiences. A Campaign controls when and to whom paywalls are displayed.
+   */
   campaigns: API.Campaigns = new API.Campaigns(this);
+  /**
+   * Manage entitlements and manual grants. An Entitlement represents a feature or capability that can be unlocked for users through product purchases or manual grants.
+   */
   entitlements: API.Entitlements = new API.Entitlements(this);
+  /**
+   * Query manual entitlement grants by device or user.
+   */
   grants: API.Grants = new API.Grants(this);
+  /**
+   * Query chart data for analytics and reporting. Includes revenue metrics, subscription data, user analytics, and paywall performance.
+   */
   charts: API.Charts = new API.Charts(this);
+  /**
+   * Manage users, user attributes, events, and diagnostics for an application.
+   */
   users: API.Users = new API.Users(this);
 }
 
