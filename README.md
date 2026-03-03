@@ -1,8 +1,8 @@
-# Superwall API TypeScript API Library
+# Superwall TypeScript SDK
 
 [![NPM version](<https://img.shields.io/npm/v/superwall-api.svg?label=npm%20(stable)>)](https://npmjs.org/package/superwall-api) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/superwall-api)
 
-This library provides convenient access to the Superwall API REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the [Superwall REST API](https://superwall.com/docs/api) from TypeScript or JavaScript.
 
 The full API of this library can be found in [api.md](api.md).
 
@@ -15,8 +15,6 @@ npm install superwall-api
 ```
 
 ## Usage
-
-The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
@@ -319,8 +317,6 @@ const client = new SuperwallAPI({
   },
 });
 ```
-
-## Frequently Asked Questions
 
 ## Semantic versioning
 
