@@ -6,7 +6,7 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 /**
- * Manage webhook endpoints for receiving real-time event notifications. Webhooks deliver events to your specified URLs.
+ * Manage webhook endpoints for receiving real-time event notifications. Webhooks deliver events to your specified URLs. Note: Webhook endpoints use iterator-based pagination (via the underlying Svix service) rather than the cursor-based pagination used by other resources.
  */
 export class WebhookEndpoints extends APIResource {
   /**

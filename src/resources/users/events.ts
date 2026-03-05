@@ -11,7 +11,8 @@ import { path } from '../../internal/utils/path';
  */
 export class Events extends APIResource {
   /**
-   * Retrieve User Event
+   * Retrieves a single event by ID. The `application_id` query parameter is required
+   * for authorization. Requires users:read scope.
    */
   retrieve(
     eventID: string,
@@ -32,16 +33,32 @@ export class Events extends APIResource {
 export type JsonValue = string | number | boolean | null | Array<JsonValue> | unknown;
 
 export interface EventRetrieveResponse {
+  /**
+   * Unique event identifier
+   */
   id: string;
 
+  /**
+   * Categorized event origin: 'subscription' for payment/billing events, 'sdk' for
+   * client SDK events
+   */
   event_source: 'subscription' | 'sdk';
 
+  /**
+   * Event name
+   */
   name: string;
 
   properties: { [key: string]: JsonValue };
 
+  /**
+   * Human-readable source label for the event (e.g. integration name, SDK version)
+   */
   source: string;
 
+  /**
+   * ISO 8601 timestamp of when the event occurred
+   */
   timestamp: string;
 
   app_version?: string | null;
@@ -66,19 +83,31 @@ export interface EventListResponse {
 
   total_count: number;
 
-  url: '/v2/users/:app_user_id/events';
+  url: '/v2/users/events';
 }
 
 export namespace EventListResponse {
   export interface Data {
+    /**
+     * Unique event identifier
+     */
     id: string;
 
+    /**
+     * Event name
+     */
     name: string;
 
     properties: { [key: string]: EventsAPI.JsonValue };
 
+    /**
+     * Human-readable source label for the event (e.g. integration name, SDK version)
+     */
     source: string;
 
+    /**
+     * ISO 8601 timestamp of when the event occurred
+     */
     timestamp: string;
 
     app_version?: string | null;

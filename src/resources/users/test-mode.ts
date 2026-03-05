@@ -44,10 +44,19 @@ export interface TestModeListResponse {
 
 export namespace TestModeListResponse {
   export interface Data {
+    /**
+     * Internal test mode user record ID
+     */
     id: number;
 
+    /**
+     * App user identifier
+     */
     app_user_id: string;
 
+    /**
+     * ISO 8601 timestamp of when test mode was enabled
+     */
     created_at: string;
   }
 }

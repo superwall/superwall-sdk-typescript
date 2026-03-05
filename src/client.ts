@@ -831,19 +831,19 @@ export class SuperwallAPI {
   projects: API.Projects = new API.Projects(this);
   me: API.Me = new API.Me(this);
   /**
-   * Manage paywalls and paywall templates. A Paywall is a monetization screen shown to users.
+   * Manage paywalls and paywall templates. A Paywall is a monetization screen shown to users. Paywalls are scoped to a specific application (per-platform) since their design and behavior are platform-specific.
    */
   paywalls: API.Paywalls = new API.Paywalls(this);
   /**
-   * Manage products (in-app purchases and subscriptions). A Product represents a purchasable item shown on paywalls.
+   * Manage products (in-app purchases and subscriptions). A Product represents a purchasable item shown on paywalls. Products are scoped to a project (cross-platform) rather than a single application, so they can be shared across iOS, Android, and web.
    */
   products: API.Products = new API.Products(this);
   /**
-   * Manage campaigns, placements, and audiences. A Campaign controls when and to whom paywalls are displayed.
+   * Manage campaigns, placements, and audiences. A Campaign controls when and to whom paywalls are displayed. Campaigns are scoped to a specific application (per-platform) since triggers and audience rules are platform-specific.
    */
   campaigns: API.Campaigns = new API.Campaigns(this);
   /**
-   * Manage entitlements and manual grants. An Entitlement represents a feature or capability that can be unlocked for users through product purchases or manual grants.
+   * Manage entitlements and manual grants. An Entitlement represents a feature or capability that can be unlocked for users through product purchases or manual grants. Entitlements are scoped to a project (cross-platform) rather than a single application, so they can be shared across iOS, Android, and web.
    */
   entitlements: API.Entitlements = new API.Entitlements(this);
   /**
@@ -851,7 +851,7 @@ export class SuperwallAPI {
    */
   grants: API.Grants = new API.Grants(this);
   /**
-   * Query chart data for analytics and reporting. Includes revenue metrics, subscription data, user analytics, and paywall performance.
+   * Query chart data for analytics and reporting. Includes revenue metrics, subscription data, user analytics, and paywall performance. Charts are read-only; there is no charts:write scope since chart definitions are system-managed.
    */
   charts: API.Charts = new API.Charts(this);
   /**
