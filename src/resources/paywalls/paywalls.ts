@@ -9,7 +9,7 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 /**
- * Manage paywalls and paywall templates. A Paywall is a monetization screen shown to users.
+ * Manage paywalls and paywall templates. A Paywall is a monetization screen shown to users. Paywalls are scoped to a specific application (per-platform) since their design and behavior are platform-specific.
  */
 export class Paywalls extends APIResource {
   templates: TemplatesAPI.Templates = new TemplatesAPI.Templates(this._client);

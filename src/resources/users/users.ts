@@ -184,9 +184,15 @@ export namespace UserRetrieveDeviceAttributesResponse {
   export interface Data {
     key: string;
 
-    max_ts: string;
+    /**
+     * Maximum timestamp observed for this attribute
+     */
+    max_timestamp: string;
 
-    ts: string;
+    /**
+     * Timestamp of this attribute value
+     */
+    timestamp: string;
 
     type: string;
 

@@ -7,7 +7,7 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 /**
- * Manage entitlements and manual grants. An Entitlement represents a feature or capability that can be unlocked for users through product purchases or manual grants.
+ * Manage entitlements and manual grants. An Entitlement represents a feature or capability that can be unlocked for users through product purchases or manual grants. Entitlements are scoped to a project (cross-platform) rather than a single application, so they can be shared across iOS, Android, and web.
  */
 export class Grants extends APIResource {
   /**
