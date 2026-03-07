@@ -7,6 +7,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * View event logs and retry failed event deliveries. Events represent messages sent to webhook endpoints.
+ */
 export class Events extends APIResource {
   /**
    * Retrieves an event by ID. Requires webhooks:read scope.

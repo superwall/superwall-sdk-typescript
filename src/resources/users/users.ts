@@ -22,6 +22,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage users, user attributes, events, and diagnostics for an application.
+ */
 export class Users extends APIResource {
   events: EventsAPI.Events = new EventsAPI.Events(this._client);
   testMode: TestModeAPI.TestMode = new TestModeAPI.TestMode(this._client);
@@ -44,13 +47,6 @@ export class Users extends APIResource {
     options?: RequestOptions,
   ): APIPromise<UserListFilterPropertiesResponse> {
     return this._client.get('/v2/users/filter-properties', { query, ...options });
-  }
-
-  /**
-   * Query Users
-   */
-  query(body: UserQueryParams, options?: RequestOptions): APIPromise<UserQueryResponse> {
-    return this._client.post('/v2/users/query', { body, ...options });
   }
 
   /**
@@ -138,42 +134,6 @@ export interface UserListFilterPropertiesResponse {
   user_properties: { [key: string]: Array<string> };
 }
 
-export interface UserQueryResponse {
-  columns: Array<UserQueryResponse.Column>;
-
-  filtered_total: number;
-
-  keys: Array<UserQueryResponse.Key>;
-
-  object: 'users_query_result';
-
-  returned_count: number;
-
-  rows: Array<{ [key: string]: EventsAPI.JsonValue }>;
-
-  time_elapsed: number;
-
-  total: number;
-}
-
-export namespace UserQueryResponse {
-  export interface Column {
-    count: number;
-
-    key: string;
-
-    type: string;
-  }
-
-  export interface Key {
-    count: number;
-
-    key: string;
-
-    type: string;
-  }
-}
-
 export interface UserResolveResponse {
   application_user_aliases: Array<UserResolveResponse.ApplicationUserAlias>;
 
@@ -224,9 +184,15 @@ export namespace UserRetrieveDeviceAttributesResponse {
   export interface Data {
     key: string;
 
-    max_ts: string;
+    /**
+     * Maximum timestamp observed for this attribute
+     */
+    max_timestamp: string;
 
-    ts: string;
+    /**
+     * Timestamp of this attribute value
+     */
+    timestamp: string;
 
     type: string;
 
@@ -332,33 +298,6 @@ export interface UserListFilterPropertiesParams {
   application_id: string;
 }
 
-export interface UserQueryParams {
-  /**
-   * Application ID
-   */
-  application_id: string;
-
-  filters?: Array<UserQueryParams.Filter>;
-
-  is_download?: boolean;
-
-  match_mode?: 'all' | 'any';
-
-  search_term?: string;
-}
-
-export namespace UserQueryParams {
-  export interface Filter {
-    id: string;
-
-    field_id: string;
-
-    values: Array<string | number | boolean | null>;
-
-    operator?: string;
-  }
-}
-
 export interface UserResolveParams {
   /**
    * App user identifier
@@ -407,7 +346,6 @@ export declare namespace Users {
     type BooleanFromString as BooleanFromString,
     type UserListEventNamesResponse as UserListEventNamesResponse,
     type UserListFilterPropertiesResponse as UserListFilterPropertiesResponse,
-    type UserQueryResponse as UserQueryResponse,
     type UserResolveResponse as UserResolveResponse,
     type UserRetrieveActiveEntitlementsResponse as UserRetrieveActiveEntitlementsResponse,
     type UserRetrieveAttributesResponse as UserRetrieveAttributesResponse,
@@ -415,7 +353,6 @@ export declare namespace Users {
     type UserRetrieveSubscriptionSummaryResponse as UserRetrieveSubscriptionSummaryResponse,
     type UserListEventNamesParams as UserListEventNamesParams,
     type UserListFilterPropertiesParams as UserListFilterPropertiesParams,
-    type UserQueryParams as UserQueryParams,
     type UserResolveParams as UserResolveParams,
     type UserRetrieveActiveEntitlementsParams as UserRetrieveActiveEntitlementsParams,
     type UserRetrieveAttributesParams as UserRetrieveAttributesParams,

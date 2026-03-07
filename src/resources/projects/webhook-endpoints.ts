@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage webhook endpoints for receiving real-time event notifications. Webhooks deliver events to your specified URLs. Note: Webhook endpoints use iterator-based pagination (via the underlying Svix service) rather than the cursor-based pagination used by other resources.
+ */
 export class WebhookEndpoints extends APIResource {
   /**
    * Creates a new webhook endpoint for the project. Requires webhooks:write scope.

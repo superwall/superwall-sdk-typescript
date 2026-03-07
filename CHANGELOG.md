@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.3.0 (2026-03-07)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/superwall/superwall-sdk-typescript/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* **api:** api update ([8d9f822](https://github.com/superwall/superwall-sdk-typescript/commit/8d9f822c77e90aa559fba0adeb240a38f7ad61c8))
+* **api:** api update ([588c5c2](https://github.com/superwall/superwall-sdk-typescript/commit/588c5c2904f44c595b1c4205d9328ac6b23c6d4d))
+* **api:** api update ([141f0c6](https://github.com/superwall/superwall-sdk-typescript/commit/141f0c6b389bea367045be8e95d7935135f7e8d5))
+
+
+### Bug Fixes
+
+* **client:** preserve URL params already embedded in path ([7e60491](https://github.com/superwall/superwall-sdk-typescript/commit/7e6049110266a1e602f537c698332695285c2ec5))
+* **docs/contributing:** correct pnpm link command ([e49c4f8](https://github.com/superwall/superwall-sdk-typescript/commit/e49c4f8f57731dcaaa4d35cb1f11b17119d2da9c))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([267fe7b](https://github.com/superwall/superwall-sdk-typescript/commit/267fe7b60a8a4e03ec6527a22ed84fdcfbcaeebe))
+* **internal:** codegen related update ([40f2264](https://github.com/superwall/superwall-sdk-typescript/commit/40f2264835bdf0850935097359f6b07f40d972fd))
+* **internal:** codegen related update ([8feb753](https://github.com/superwall/superwall-sdk-typescript/commit/8feb7538c0721b06762cde13134c86eec53224c8))
+* **internal:** move stringifyQuery implementation to internal function ([2e7bc4d](https://github.com/superwall/superwall-sdk-typescript/commit/2e7bc4d4e465c2984c597107680c6649ceb01847))
+* **internal:** upgrade pnpm version ([23d3f69](https://github.com/superwall/superwall-sdk-typescript/commit/23d3f693ca641beb13fb60b83e2e0f65fb123b0c))
+
 ## 0.2.0 (2026-02-23)
 
 Full Changelog: [v0.1.1...v0.2.0](https://github.com/superwall/superwall-sdk-typescript/compare/v0.1.1...v0.2.0)

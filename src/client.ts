@@ -11,7 +11,7 @@ import type { APIResponseProps } from './internal/parse';
 import { getPlatformHeaders } from './internal/detect-platform';
 import * as Shims from './internal/shims';
 import * as Opts from './internal/request-options';
-import * as qs from './internal/qs';
+import { stringifyQuery } from './internal/utils/query';
 import { VERSION } from './version';
 import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
@@ -93,8 +93,6 @@ import {
   UserListEventNamesResponse,
   UserListFilterPropertiesParams,
   UserListFilterPropertiesResponse,
-  UserQueryParams,
-  UserQueryResponse,
   UserResolveParams,
   UserResolveResponse,
   UserRetrieveActiveEntitlementsParams,
@@ -324,8 +322,8 @@ export class SuperwallAPI {
     return buildHeaders([{ Authorization: `Bearer ${this.bearerToken}` }]);
   }
 
-  protected stringifyQuery(query: Record<string, unknown>): string {
-    return qs.stringify(query, { arrayFormat: 'comma' });
+  protected stringifyQuery(query: object | Record<string, unknown>): string {
+    return stringifyQuery(query);
   }
 
   private getUserAgent(): string {
@@ -357,12 +355,13 @@ export class SuperwallAPI {
       : new URL(baseURL + (baseURL.endsWith('/') && path.startsWith('/') ? path.slice(1) : path));
 
     const defaultQuery = this.defaultQuery();
-    if (!isEmptyObj(defaultQuery)) {
-      query = { ...defaultQuery, ...query };
+    const pathQuery = Object.fromEntries(url.searchParams);
+    if (!isEmptyObj(defaultQuery) || !isEmptyObj(pathQuery)) {
+      query = { ...pathQuery, ...defaultQuery, ...query };
     }
 
     if (typeof query === 'object' && query && !Array.isArray(query)) {
-      url.search = this.stringifyQuery(query as Record<string, unknown>);
+      url.search = this.stringifyQuery(query);
     }
 
     return url.toString();
@@ -667,9 +666,9 @@ export class SuperwallAPI {
       }
     }
 
-    // If the API asks us to wait a certain amount of time (and it's a reasonable amount),
-    // just do what it says, but otherwise calculate a default
-    if (!(timeoutMillis && 0 <= timeoutMillis && timeoutMillis < 60 * 1000)) {
+    // If the API asks us to wait a certain amount of time, just do what it
+    // says, but otherwise calculate a default
+    if (timeoutMillis === undefined) {
       const maxRetries = options.maxRetries ?? this.maxRetries;
       timeoutMillis = this.calculateDefaultRetryTimeoutMillis(retriesRemaining, maxRetries);
     }
@@ -801,7 +800,7 @@ export class SuperwallAPI {
     ) {
       return {
         bodyHeaders: { 'content-type': 'application/x-www-form-urlencoded' },
-        body: this.stringifyQuery(body as Record<string, unknown>),
+        body: this.stringifyQuery(body),
       };
     } else {
       return this.#encoder({ body, headers });
@@ -827,14 +826,38 @@ export class SuperwallAPI {
 
   static toFile = Uploads.toFile;
 
+  /**
+   * Manage projects for cross-platform app grouping. A Project groups multiple Applications (one per platform) for unified management.
+   */
   projects: API.Projects = new API.Projects(this);
   me: API.Me = new API.Me(this);
+  /**
+   * Manage paywalls and paywall templates. A Paywall is a monetization screen shown to users. Paywalls are scoped to a specific application (per-platform) since their design and behavior are platform-specific.
+   */
   paywalls: API.Paywalls = new API.Paywalls(this);
+  /**
+   * Manage products (in-app purchases and subscriptions). A Product represents a purchasable item shown on paywalls. Products are scoped to a project (cross-platform) rather than a single application, so they can be shared across iOS, Android, and web.
+   */
   products: API.Products = new API.Products(this);
+  /**
+   * Manage campaigns, placements, and audiences. A Campaign controls when and to whom paywalls are displayed. Campaigns are scoped to a specific application (per-platform) since triggers and audience rules are platform-specific.
+   */
   campaigns: API.Campaigns = new API.Campaigns(this);
+  /**
+   * Manage entitlements and manual grants. An Entitlement represents a feature or capability that can be unlocked for users through product purchases or manual grants. Entitlements are scoped to a project (cross-platform) rather than a single application, so they can be shared across iOS, Android, and web.
+   */
   entitlements: API.Entitlements = new API.Entitlements(this);
+  /**
+   * Query manual entitlement grants by device or user.
+   */
   grants: API.Grants = new API.Grants(this);
+  /**
+   * Query chart data for analytics and reporting. Includes revenue metrics, subscription data, user analytics, and paywall performance. Charts are read-only; there is no charts:write scope since chart definitions are system-managed.
+   */
   charts: API.Charts = new API.Charts(this);
+  /**
+   * Manage users, user attributes, events, and diagnostics for an application.
+   */
   users: API.Users = new API.Users(this);
 }
 
@@ -938,7 +961,6 @@ export declare namespace SuperwallAPI {
     type BooleanFromString as BooleanFromString,
     type UserListEventNamesResponse as UserListEventNamesResponse,
     type UserListFilterPropertiesResponse as UserListFilterPropertiesResponse,
-    type UserQueryResponse as UserQueryResponse,
     type UserResolveResponse as UserResolveResponse,
     type UserRetrieveActiveEntitlementsResponse as UserRetrieveActiveEntitlementsResponse,
     type UserRetrieveAttributesResponse as UserRetrieveAttributesResponse,
@@ -946,7 +968,6 @@ export declare namespace SuperwallAPI {
     type UserRetrieveSubscriptionSummaryResponse as UserRetrieveSubscriptionSummaryResponse,
     type UserListEventNamesParams as UserListEventNamesParams,
     type UserListFilterPropertiesParams as UserListFilterPropertiesParams,
-    type UserQueryParams as UserQueryParams,
     type UserResolveParams as UserResolveParams,
     type UserRetrieveActiveEntitlementsParams as UserRetrieveActiveEntitlementsParams,
     type UserRetrieveAttributesParams as UserRetrieveAttributesParams,
