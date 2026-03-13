@@ -16,7 +16,9 @@ export class Paywalls extends APIResource {
 
   /**
    * Creates a new paywall in the specified application. Optionally create from a
-   * template by providing the `template` field. Requires paywalls:write scope.
+   * template by providing the `template` field, or create a self-hosted paywall by
+   * providing `url`. Self-hosted `url` cannot be combined with `template`. Requires
+   * paywalls:write scope.
    */
   create(body: PaywallCreateParams, options?: RequestOptions): APIPromise<PaywallCreateResponse> {
     return this._client.post('/v2/paywalls', { body, ...options });
@@ -632,6 +634,12 @@ export interface PaywallCreateParams {
    * ID of the template to create the paywall from
    */
   template?: string;
+
+  /**
+   * Canonical self-hosted paywall URL for non-template creates. Cannot be combined
+   * with `template`.
+   */
+  url?: string;
 }
 
 export namespace PaywallCreateParams {

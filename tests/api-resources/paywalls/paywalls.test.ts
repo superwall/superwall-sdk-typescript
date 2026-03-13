@@ -38,6 +38,7 @@ describe('resource paywalls', () => {
         },
       ],
       template: 'template',
+      url: 'url',
     });
   });
 
