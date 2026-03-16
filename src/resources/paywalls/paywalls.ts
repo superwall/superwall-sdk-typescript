@@ -689,6 +689,11 @@ export interface PaywallUpdateParams {
    * List of product entries to attach to this paywall
    */
   products?: Array<PaywallUpdateParams.Product>;
+
+  /**
+   * Canonical self-hosted paywall URL
+   */
+  url?: string;
 }
 
 export namespace PaywallUpdateParams {
