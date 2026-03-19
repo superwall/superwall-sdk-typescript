@@ -48,6 +48,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage projects for cross-platform app grouping. A Project groups multiple Applications (one per platform) for unified management.
+ */
 export class Projects extends APIResource {
   applications: ApplicationsAPI.Applications = new ApplicationsAPI.Applications(this._client);
   webhookEndpoints: WebhookEndpointsAPI.WebhookEndpoints = new WebhookEndpointsAPI.WebhookEndpoints(

@@ -5,6 +5,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Manage users, user attributes, events, and diagnostics for an application.
+ */
 export class TestMode extends APIResource {
   /**
    * Update User Test Mode
@@ -41,10 +44,19 @@ export interface TestModeListResponse {
 
 export namespace TestModeListResponse {
   export interface Data {
+    /**
+     * Internal test mode user record ID
+     */
     id: number;
 
+    /**
+     * App user identifier
+     */
     app_user_id: string;
 
+    /**
+     * ISO 8601 timestamp of when test mode was enabled
+     */
     created_at: string;
   }
 }

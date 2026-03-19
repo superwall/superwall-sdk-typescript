@@ -50,36 +50,6 @@ describe('resource users', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('query: only required params', async () => {
-    const responsePromise = client.users.query({ application_id: 'application_id' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('query: required and optional params', async () => {
-    const response = await client.users.query({
-      application_id: 'application_id',
-      filters: [
-        {
-          id: 'id',
-          field_id: 'field_id',
-          values: ['string'],
-          operator: 'operator',
-        },
-      ],
-      is_download: true,
-      match_mode: 'all',
-      search_term: 'search_term',
-    });
-  });
-
-  // Mock server tests are disabled
   test.skip('resolve: only required params', async () => {
     const responsePromise = client.users.resolve({
       app_user_id: 'app_user_id',

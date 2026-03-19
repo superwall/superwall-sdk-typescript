@@ -30,8 +30,15 @@ describe('resource paywalls', () => {
       identifier: 'identifier',
       metadata: { foo: 'string' },
       presentation_style: 'fullscreen',
-      products: ['string'],
+      products: [
+        {
+          identifier: 'identifier',
+          reference_name: 'x',
+          store: 'app-store',
+        },
+      ],
       template: 'template',
+      url: 'url',
     });
   });
 

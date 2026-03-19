@@ -4,6 +4,9 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
+/**
+ * Query chart data for analytics and reporting. Includes revenue metrics, subscription data, user analytics, and paywall performance. Charts are read-only; there is no charts:write scope since chart definitions are system-managed.
+ */
 export class Charts extends APIResource {
   /**
    * Returns available chart definitions including y-axis metrics, x-axis dimensions,

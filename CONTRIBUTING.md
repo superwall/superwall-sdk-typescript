@@ -60,7 +60,7 @@ $ yarn link superwall-api
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global superwall-api
+$ pnpm link --global superwall-api
 ```
 
 ## Running tests

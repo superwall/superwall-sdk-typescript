@@ -235,7 +235,6 @@ Types:
 - <code><a href="./src/resources/users/users.ts">BooleanFromString</a></code>
 - <code><a href="./src/resources/users/users.ts">UserListEventNamesResponse</a></code>
 - <code><a href="./src/resources/users/users.ts">UserListFilterPropertiesResponse</a></code>
-- <code><a href="./src/resources/users/users.ts">UserQueryResponse</a></code>
 - <code><a href="./src/resources/users/users.ts">UserResolveResponse</a></code>
 - <code><a href="./src/resources/users/users.ts">UserRetrieveActiveEntitlementsResponse</a></code>
 - <code><a href="./src/resources/users/users.ts">UserRetrieveAttributesResponse</a></code>
@@ -246,7 +245,6 @@ Methods:
 
 - <code title="get /v2/users/event-names">client.users.<a href="./src/resources/users/users.ts">listEventNames</a>({ ...params }) -> UserListEventNamesResponse</code>
 - <code title="get /v2/users/filter-properties">client.users.<a href="./src/resources/users/users.ts">listFilterProperties</a>({ ...params }) -> UserListFilterPropertiesResponse</code>
-- <code title="post /v2/users/query">client.users.<a href="./src/resources/users/users.ts">query</a>({ ...params }) -> UserQueryResponse</code>
 - <code title="get /v2/users/resolve">client.users.<a href="./src/resources/users/users.ts">resolve</a>({ ...params }) -> UserResolveResponse</code>
 - <code title="get /v2/users/{app_user_id}/active-entitlements">client.users.<a href="./src/resources/users/users.ts">retrieveActiveEntitlements</a>(appUserID, { ...params }) -> UserRetrieveActiveEntitlementsResponse</code>
 - <code title="get /v2/users/{app_user_id}/attributes">client.users.<a href="./src/resources/users/users.ts">retrieveAttributes</a>(appUserID, { ...params }) -> UserRetrieveAttributesResponse</code>
