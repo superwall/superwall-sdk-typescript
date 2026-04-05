@@ -25,7 +25,10 @@ export class Organizations extends APIResource {
 }
 
 export interface OrganizationCreateResponse {
-  id: string;
+  /**
+   * an integer
+   */
+  id: number;
 
   created_at: string;
 
@@ -44,7 +47,10 @@ export interface OrganizationListResponse {
 
 export namespace OrganizationListResponse {
   export interface Data {
-    id: string;
+    /**
+     * an integer
+     */
+    id: number;
 
     name: string;
 
