@@ -177,7 +177,7 @@ export namespace PaywallCreateResponse {
     /**
      * Store this product belongs to
      */
-    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+    store: 'app-store' | 'play-store' | 'stripe' | 'paddle' | 'custom';
   }
 }
 
@@ -288,7 +288,7 @@ export namespace PaywallRetrieveResponse {
     /**
      * Store this product belongs to
      */
-    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+    store: 'app-store' | 'play-store' | 'stripe' | 'paddle' | 'custom';
   }
 }
 
@@ -399,7 +399,7 @@ export namespace PaywallUpdateResponse {
     /**
      * Store this product belongs to
      */
-    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+    store: 'app-store' | 'play-store' | 'stripe' | 'paddle' | 'custom';
   }
 }
 
@@ -533,7 +533,7 @@ export namespace PaywallListResponse {
       /**
        * Store this product belongs to
        */
-      store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+      store: 'app-store' | 'play-store' | 'stripe' | 'paddle' | 'custom';
     }
   }
 }
@@ -660,7 +660,7 @@ export namespace PaywallCreateParams {
     /**
      * Store this product belongs to
      */
-    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+    store: 'app-store' | 'play-store' | 'stripe' | 'paddle' | 'custom';
   }
 }
 
@@ -714,7 +714,7 @@ export namespace PaywallUpdateParams {
     /**
      * Store this product belongs to
      */
-    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+    store: 'app-store' | 'play-store' | 'stripe' | 'paddle' | 'custom';
   }
 }
 
