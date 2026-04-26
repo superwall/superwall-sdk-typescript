@@ -69,6 +69,6 @@ export declare namespace Organizations {
   export {
     type OrganizationCreateResponse as OrganizationCreateResponse,
     type OrganizationListResponse as OrganizationListResponse,
-    type OrganizationCreateParams as OrganizationCreateParams,
+    type OrganizationCreateParams as OrganizationCreateParams
   };
 }

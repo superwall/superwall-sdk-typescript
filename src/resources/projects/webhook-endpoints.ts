@@ -12,23 +12,15 @@ export class WebhookEndpoints extends APIResource {
   /**
    * Creates a new webhook endpoint for the project. Requires webhooks:write scope.
    */
-  create(
-    projectID: string,
-    body: WebhookEndpointCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<WebhookEndpointCreateResponse> {
+  create(projectID: string, body: WebhookEndpointCreateParams, options?: RequestOptions): APIPromise<WebhookEndpointCreateResponse> {
     return this._client.post(path`/v2/projects/${projectID}/webhook_endpoints`, { body, ...options });
   }
 
   /**
    * Retrieves a webhook endpoint by ID. Requires webhooks:read scope.
    */
-  retrieve(
-    endpointID: string,
-    params: WebhookEndpointRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<WebhookEndpointRetrieveResponse> {
-    const { project_id } = params;
+  retrieve(endpointID: string, params: WebhookEndpointRetrieveParams, options?: RequestOptions): APIPromise<WebhookEndpointRetrieveResponse> {
+    const { project_id } = params
     return this._client.get(path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}`, options);
   }
 
@@ -36,39 +28,24 @@ export class WebhookEndpoints extends APIResource {
    * Updates a webhook endpoint's URL, description, or other settings. Requires
    * webhooks:write scope.
    */
-  update(
-    endpointID: string,
-    params: WebhookEndpointUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<WebhookEndpointUpdateResponse> {
-    const { project_id, ...body } = params;
-    return this._client.patch(path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}`, {
-      body,
-      ...options,
-    });
+  update(endpointID: string, params: WebhookEndpointUpdateParams, options?: RequestOptions): APIPromise<WebhookEndpointUpdateResponse> {
+    const { project_id, ...body } = params
+    return this._client.patch(path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}`, { body, ...options });
   }
 
   /**
    * Returns a list of webhook endpoints for the project. Supports pagination.
    * Requires webhooks:read scope.
    */
-  list(
-    projectID: string,
-    query: WebhookEndpointListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<WebhookEndpointListResponse> {
+  list(projectID: string, query: WebhookEndpointListParams | null | undefined = {}, options?: RequestOptions): APIPromise<WebhookEndpointListResponse> {
     return this._client.get(path`/v2/projects/${projectID}/webhook_endpoints`, { query, ...options });
   }
 
   /**
    * Deletes a webhook endpoint. Requires webhooks:write scope.
    */
-  delete(
-    endpointID: string,
-    params: WebhookEndpointDeleteParams,
-    options?: RequestOptions,
-  ): APIPromise<WebhookEndpointDeleteResponse> {
-    const { project_id } = params;
+  delete(endpointID: string, params: WebhookEndpointDeleteParams, options?: RequestOptions): APIPromise<WebhookEndpointDeleteResponse> {
+    const { project_id } = params
     return this._client.delete(path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}`, options);
   }
 
@@ -76,16 +53,9 @@ export class WebhookEndpoints extends APIResource {
    * Rotates the signing secret for a webhook endpoint. The new secret will be used
    * immediately. Requires webhooks:write scope.
    */
-  rotateSecret(
-    endpointID: string,
-    params: WebhookEndpointRotateSecretParams,
-    options?: RequestOptions,
-  ): APIPromise<WebhookEndpointRotateSecretResponse> {
-    const { project_id } = params;
-    return this._client.post(
-      path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}/rotate_secret`,
-      options,
-    );
+  rotateSecret(endpointID: string, params: WebhookEndpointRotateSecretParams, options?: RequestOptions): APIPromise<WebhookEndpointRotateSecretResponse> {
+    const { project_id } = params
+    return this._client.post(path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}/rotate_secret`, options);
   }
 }
 
@@ -507,6 +477,6 @@ export declare namespace WebhookEndpoints {
     type WebhookEndpointUpdateParams as WebhookEndpointUpdateParams,
     type WebhookEndpointListParams as WebhookEndpointListParams,
     type WebhookEndpointDeleteParams as WebhookEndpointDeleteParams,
-    type WebhookEndpointRotateSecretParams as WebhookEndpointRotateSecretParams,
+    type WebhookEndpointRotateSecretParams as WebhookEndpointRotateSecretParams
   };
 }

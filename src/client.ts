@@ -17,105 +17,20 @@ import * as Errors from './core/error';
 import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
-import {
-  ChartGetDefinitionsParams,
-  ChartGetDefinitionsResponse,
-  ChartQueryDataParams,
-  ChartQueryDataResponse,
-  Charts,
-} from './resources/charts';
+import { ChartGetDefinitionsParams, ChartGetDefinitionsResponse, ChartQueryDataParams, ChartQueryDataResponse, Charts } from './resources/charts';
 import { GrantListParams, GrantListResponse, Grants } from './resources/grants';
-import {
-  ProductCreateParams,
-  ProductCreateResponse,
-  ProductDeleteResponse,
-  ProductListParams,
-  ProductListResponse,
-  ProductRetrieveResponse,
-  ProductUpdateParams,
-  ProductUpdateResponse,
-  Products,
-} from './resources/products';
-import {
-  CampaignArchiveResponse,
-  CampaignCreateParams,
-  CampaignCreateResponse,
-  CampaignListParams,
-  CampaignListResponse,
-  CampaignRetrieveResponse,
-  CampaignUnarchiveResponse,
-  CampaignUpdateAudienceParams,
-  CampaignUpdateAudienceResponse,
-  CampaignUpdateParams,
-  CampaignUpdateResponse,
-  Campaigns,
-} from './resources/campaigns/campaigns';
-import {
-  EntitlementCreateParams,
-  EntitlementCreateResponse,
-  EntitlementDeleteResponse,
-  EntitlementListParams,
-  EntitlementListResponse,
-  EntitlementRetrieveResponse,
-  EntitlementUpdateParams,
-  EntitlementUpdateResponse,
-  Entitlements,
-} from './resources/entitlements/entitlements';
+import { ProductCreateParams, ProductCreateResponse, ProductDeleteResponse, ProductListParams, ProductListResponse, ProductRetrieveResponse, ProductUpdateParams, ProductUpdateResponse, Products } from './resources/products';
+import { CampaignArchiveResponse, CampaignCreateParams, CampaignCreateResponse, CampaignListParams, CampaignListResponse, CampaignRetrieveResponse, CampaignUnarchiveResponse, CampaignUpdateAudienceParams, CampaignUpdateAudienceResponse, CampaignUpdateParams, CampaignUpdateResponse, Campaigns } from './resources/campaigns/campaigns';
+import { EntitlementCreateParams, EntitlementCreateResponse, EntitlementDeleteResponse, EntitlementListParams, EntitlementListResponse, EntitlementRetrieveResponse, EntitlementUpdateParams, EntitlementUpdateResponse, Entitlements } from './resources/entitlements/entitlements';
 import { Me } from './resources/me/me';
-import {
-  PaywallArchiveResponse,
-  PaywallCreateParams,
-  PaywallCreateResponse,
-  PaywallListParams,
-  PaywallListResponse,
-  PaywallPublishResponse,
-  PaywallRetrieveResponse,
-  PaywallUnarchiveResponse,
-  PaywallUpdateParams,
-  PaywallUpdateResponse,
-  Paywalls,
-} from './resources/paywalls/paywalls';
-import {
-  ProjectArchiveResponse,
-  ProjectCreateParams,
-  ProjectCreateResponse,
-  ProjectListParams,
-  ProjectListResponse,
-  ProjectRetrieveResponse,
-  ProjectUnarchiveResponse,
-  ProjectUpdateParams,
-  ProjectUpdateResponse,
-  Projects,
-} from './resources/projects/projects';
-import {
-  BooleanFromString,
-  UserListEventNamesParams,
-  UserListEventNamesResponse,
-  UserListFilterPropertiesParams,
-  UserListFilterPropertiesResponse,
-  UserResolveParams,
-  UserResolveResponse,
-  UserRetrieveActiveEntitlementsParams,
-  UserRetrieveActiveEntitlementsResponse,
-  UserRetrieveAttributesParams,
-  UserRetrieveAttributesResponse,
-  UserRetrieveDeviceAttributesParams,
-  UserRetrieveDeviceAttributesResponse,
-  UserRetrieveSubscriptionSummaryParams,
-  UserRetrieveSubscriptionSummaryResponse,
-  Users,
-} from './resources/users/users';
+import { PaywallArchiveResponse, PaywallCreateParams, PaywallCreateResponse, PaywallListParams, PaywallListResponse, PaywallPublishResponse, PaywallRetrieveResponse, PaywallUnarchiveResponse, PaywallUpdateParams, PaywallUpdateResponse, Paywalls } from './resources/paywalls/paywalls';
+import { ProjectArchiveResponse, ProjectCreateParams, ProjectCreateResponse, ProjectListParams, ProjectListResponse, ProjectRetrieveResponse, ProjectUnarchiveResponse, ProjectUpdateParams, ProjectUpdateResponse, Projects } from './resources/projects/projects';
+import { BooleanFromString, UserListEventNamesParams, UserListEventNamesResponse, UserListFilterPropertiesParams, UserListFilterPropertiesResponse, UserResolveParams, UserResolveResponse, UserRetrieveActiveEntitlementsParams, UserRetrieveActiveEntitlementsResponse, UserRetrieveAttributesParams, UserRetrieveAttributesResponse, UserRetrieveDeviceAttributesParams, UserRetrieveDeviceAttributesResponse, UserRetrieveSubscriptionSummaryParams, UserRetrieveSubscriptionSummaryResponse, Users } from './resources/users/users';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
 import { readEnv } from './internal/utils/env';
-import {
-  type LogLevel,
-  type Logger,
-  formatRequestDetails,
-  loggerFor,
-  parseLogLevel,
-} from './internal/utils/log';
+import { type LogLevel, type Logger, formatRequestDetails, loggerFor, parseLogLevel } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
@@ -199,7 +114,7 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Superwall API API.
+ * API Client for interfacing with the Superwall API API. 
  */
 export class SuperwallAPI {
   apiKey: string;
@@ -238,12 +153,12 @@ export class SuperwallAPI {
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
       throw new Errors.SuperwallAPIError(
-        "The SUPERWALL_API_API_KEY environment variable is missing or empty; either provide it, or instantiate the SuperwallAPI client with an apiKey option, like new SuperwallAPI({ apiKey: 'My API Key' }).",
+        'The SUPERWALL_API_API_KEY environment variable is missing or empty; either provide it, or instantiate the SuperwallAPI client with an apiKey option, like new SuperwallAPI({ apiKey: \'My API Key\' }).'
       );
     }
     if (bearerToken === undefined) {
       throw new Errors.SuperwallAPIError(
-        "The SUPERWALL_API_BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the SuperwallAPI client with an bearerToken option, like new SuperwallAPI({ bearerToken: 'My Bearer Token' }).",
+        'The SUPERWALL_API_BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the SuperwallAPI client with an bearerToken option, like new SuperwallAPI({ bearerToken: \'My Bearer Token\' }).'
       );
     }
 
@@ -260,10 +175,7 @@ export class SuperwallAPI {
     const defaultLogLevel = 'warn';
     // Set default logLevel early so that we can log a warning in parseLogLevel.
     this.logLevel = defaultLogLevel;
-    this.logLevel =
-      parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ??
-      parseLogLevel(readEnv('SUPERWALL_API_LOG'), "process.env['SUPERWALL_API_LOG']", this) ??
-      defaultLogLevel;
+    this.logLevel = parseLogLevel(options.logLevel, 'ClientOptions.logLevel', this) ?? parseLogLevel(readEnv('SUPERWALL_API_LOG'), 'process.env[\'SUPERWALL_API_LOG\']', this) ?? defaultLogLevel;
     this.fetchOptions = options.fetchOptions;
     this.maxRetries = options.maxRetries ?? 2;
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
@@ -290,7 +202,7 @@ export class SuperwallAPI {
       fetchOptions: this.fetchOptions,
       apiKey: this.apiKey,
       bearerToken: this.bearerToken,
-      ...options,
+      ...options
     });
     return client;
   }
@@ -303,7 +215,7 @@ export class SuperwallAPI {
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
-    return this._options.defaultQuery;
+    return this._options.defaultQuery
   }
 
   protected validateHeaders({ values, nulls }: NullableHeaders) {
@@ -343,11 +255,7 @@ export class SuperwallAPI {
     return Errors.APIError.generate(status, error, message, headers);
   }
 
-  buildURL(
-    path: string,
-    query: Record<string, unknown> | null | undefined,
-    defaultBaseURL?: string | undefined,
-  ): string {
+  buildURL(path: string, query: Record<string, unknown> | null | undefined, defaultBaseURL?: string | undefined): string {
     const baseURL = (!this.#baseURLOverridden() && defaultBaseURL) || this.baseURL;
     const url =
       isAbsoluteURL(path) ?
@@ -435,9 +343,7 @@ export class SuperwallAPI {
 
     await this.prepareOptions(options);
 
-    const { req, url, timeout } = await this.buildRequest(options, {
-      retryCount: maxRetries - retriesRemaining,
-    });
+    const { req, url, timeout } = await this.buildRequest(options, { retryCount: maxRetries - retriesRemaining });
 
     await this.prepareRequest(req, { url, options });
 
@@ -446,16 +352,7 @@ export class SuperwallAPI {
     const retryLogStr = retryOfRequestLogID === undefined ? '' : `, retryOf: ${retryOfRequestLogID}`;
     const startTime = Date.now();
 
-    loggerFor(this).debug(
-      `[${requestLogID}] sending request`,
-      formatRequestDetails({
-        retryOfRequestLogID,
-        method: options.method,
-        url,
-        options,
-        headers: req.headers,
-      }),
-    );
+    loggerFor(this).debug(`[${requestLogID}] sending request`, formatRequestDetails({ retryOfRequestLogID, method: options.method, url, options, headers: req.headers }));
 
     if (options.signal?.aborted) {
       throw new Errors.APIUserAbortError();
@@ -474,45 +371,21 @@ export class SuperwallAPI {
       // deno throws "TypeError: error sending request for url (https://example/): client error (Connect): tcp connect error: Operation timed out (os error 60): Operation timed out (os error 60)"
       // undici throws "TypeError: fetch failed" with cause "ConnectTimeoutError: Connect Timeout Error (attempted address: example:443, timeout: 1ms)"
       // others do not provide enough information to distinguish timeouts from other connection errors
-      const isTimeout =
-        isAbortError(response) ||
-        /timed? ?out/i.test(String(response) + ('cause' in response ? String(response.cause) : ''));
+      const isTimeout = isAbortError(response) || /timed? ?out/i.test(String(response) + ('cause' in response ? String(response.cause) : ''))
       if (retriesRemaining) {
-        loggerFor(this).info(
-          `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - ${retryMessage}`,
-        );
-        loggerFor(this).debug(
-          `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (${retryMessage})`,
-          formatRequestDetails({
-            retryOfRequestLogID,
-            url,
-            durationMs: headersTime - startTime,
-            message: response.message,
-          }),
-        );
+        loggerFor(this).info(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - ${retryMessage}`)
+        loggerFor(this).debug(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (${retryMessage})`, formatRequestDetails({ retryOfRequestLogID, url, durationMs: headersTime - startTime, message: response.message }));
         return this.retryRequest(options, retriesRemaining, retryOfRequestLogID ?? requestLogID);
       }
-      loggerFor(this).info(
-        `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - error; no more retries left`,
-      );
-      loggerFor(this).debug(
-        `[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (error; no more retries left)`,
-        formatRequestDetails({
-          retryOfRequestLogID,
-          url,
-          durationMs: headersTime - startTime,
-          message: response.message,
-        }),
-      );
+      loggerFor(this).info(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} - error; no more retries left`)
+      loggerFor(this).debug(`[${requestLogID}] connection ${isTimeout ? 'timed out' : 'failed'} (error; no more retries left)`, formatRequestDetails({ retryOfRequestLogID, url, durationMs: headersTime - startTime, message: response.message }));
       if (isTimeout) {
         throw new Errors.APIConnectionTimeoutError();
       }
       throw new Errors.APIConnectionError({ cause: response });
     }
 
-    const responseInfo = `[${requestLogID}${retryLogStr}] ${req.method} ${url} ${
-      response.ok ? 'succeeded' : 'failed'
-    } with status ${response.status} in ${headersTime - startTime}ms`;
+    const responseInfo = `[${requestLogID}${retryLogStr}] ${req.method} ${url} ${response.ok ? 'succeeded' : 'failed'} with status ${response.status} in ${headersTime - startTime}ms`;
 
     if (!response.ok) {
       const shouldRetry = await this.shouldRetry(response);
@@ -521,60 +394,27 @@ export class SuperwallAPI {
 
         // We don't need the body of this response.
         await Shims.CancelReadableStream(response.body);
-        loggerFor(this).info(`${responseInfo} - ${retryMessage}`);
-        loggerFor(this).debug(
-          `[${requestLogID}] response error (${retryMessage})`,
-          formatRequestDetails({
-            retryOfRequestLogID,
-            url: response.url,
-            status: response.status,
-            headers: response.headers,
-            durationMs: headersTime - startTime,
-          }),
-        );
-        return this.retryRequest(
-          options,
-          retriesRemaining,
-          retryOfRequestLogID ?? requestLogID,
-          response.headers,
-        );
+        loggerFor(this).info(`${responseInfo} - ${retryMessage}`)
+        loggerFor(this).debug(`[${requestLogID}] response error (${retryMessage})`, formatRequestDetails({ retryOfRequestLogID, url: response.url, status: response.status, headers: response.headers, durationMs: headersTime - startTime }));
+        return this.retryRequest(options, retriesRemaining, retryOfRequestLogID ?? requestLogID, response.headers);
       }
 
       const retryMessage = shouldRetry ? `error; no more retries left` : `error; not retryable`;
 
-      loggerFor(this).info(`${responseInfo} - ${retryMessage}`);
+      loggerFor(this).info(`${responseInfo} - ${retryMessage}`)
 
       const errText = await response.text().catch((err: any) => castToError(err).message);
       const errJSON = safeJSON(errText) as any;
       const errMessage = errJSON ? undefined : errText;
 
-      loggerFor(this).debug(
-        `[${requestLogID}] response error (${retryMessage})`,
-        formatRequestDetails({
-          retryOfRequestLogID,
-          url: response.url,
-          status: response.status,
-          headers: response.headers,
-          message: errMessage,
-          durationMs: Date.now() - startTime,
-        }),
-      );
+      loggerFor(this).debug(`[${requestLogID}] response error (${retryMessage})`, formatRequestDetails({ retryOfRequestLogID, url: response.url, status: response.status, headers: response.headers, message: errMessage, durationMs: Date.now() - startTime }));
 
       const err = this.makeStatusError(response.status, errJSON, errMessage, response.headers);
       throw err;
     }
 
-    loggerFor(this).info(responseInfo);
-    loggerFor(this).debug(
-      `[${requestLogID}] response start`,
-      formatRequestDetails({
-        retryOfRequestLogID,
-        url: response.url,
-        status: response.status,
-        headers: response.headers,
-        durationMs: headersTime - startTime,
-      }),
-    );
+    loggerFor(this).info(responseInfo)
+    loggerFor(this).debug(`[${requestLogID}] response start`, formatRequestDetails({ retryOfRequestLogID, url: response.url, status: response.status, headers: response.headers, durationMs: headersTime - startTime }));
 
     return { response, options, controller, requestLogID, retryOfRequestLogID, startTime };
   }
@@ -591,9 +431,7 @@ export class SuperwallAPI {
 
     const timeout = setTimeout(abort, ms);
 
-    const isReadableBody =
-      ((globalThis as any).ReadableStream && options.body instanceof (globalThis as any).ReadableStream) ||
-      (typeof options.body === 'object' && options.body !== null && Symbol.asyncIterator in options.body);
+    const isReadableBody = ((globalThis as any).ReadableStream && options.body instanceof (globalThis as any).ReadableStream) || (typeof options.body === "object" && options.body !== null && Symbol.asyncIterator in options.body);
 
     const fetchOptions: RequestInit = {
       signal: controller.signal as any,
@@ -608,6 +446,7 @@ export class SuperwallAPI {
     }
 
     try {
+
       // use undefined this binding; fetch errors if bound to something else in browser/cloudflare
       return await this.fetch.call(undefined, url, fetchOptions);
     } finally {
@@ -708,12 +547,11 @@ export class SuperwallAPI {
     const req: FinalizedRequestInit = {
       method,
       headers: reqHeaders,
-      ...(options.signal && { signal: options.signal }),
-      ...((globalThis as any).ReadableStream &&
-        body instanceof (globalThis as any).ReadableStream && { duplex: 'half' }),
+      ...(options.signal && { signal: options.signal}),
+      ...((globalThis as any).ReadableStream && body instanceof (globalThis as any).ReadableStream && { duplex: "half" }),
       ...(body && { body }),
-      ...((this.fetchOptions as any) ?? {}),
-      ...((options.fetchOptions as any) ?? {}),
+      ...(this.fetchOptions as any ?? {}),
+      ...(options.fetchOptions as any ?? {}),
     };
 
     return { req, url, timeout: options.timeout };
@@ -738,17 +576,15 @@ export class SuperwallAPI {
 
     const headers = buildHeaders([
       idempotencyHeaders,
-      {
-        Accept: 'application/json',
-        'User-Agent': this.getUserAgent(),
-        'X-Stainless-Retry-Count': String(retryCount),
-        ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
-        ...getPlatformHeaders(),
-      },
+      {Accept: 'application/json',
+      'User-Agent': this.getUserAgent(),
+      'X-Stainless-Retry-Count': String(retryCount),
+      ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
+      ...getPlatformHeaders()},
       await this.authHeaders(options),
       this._options.defaultHeaders,
       bodyHeaders,
-      options.headers,
+      options.headers
     ]);
 
     this.validateHeaders(headers);
@@ -775,9 +611,11 @@ export class SuperwallAPI {
       ArrayBuffer.isView(body) ||
       body instanceof ArrayBuffer ||
       body instanceof DataView ||
-      (typeof body === 'string' &&
+      (
+        typeof body === 'string' &&
         // Preserve legacy string encoding behavior for now
-        headers.values.has('content-type')) ||
+        headers.values.has('content-type')
+      ) ||
       // `Blob` is superset of `File`
       ((globalThis as any).Blob && body instanceof (globalThis as any).Blob) ||
       // `FormData` -> `multipart/form-data`
@@ -808,7 +646,7 @@ export class SuperwallAPI {
   }
 
   static SuperwallAPI = this;
-  static DEFAULT_TIMEOUT = 60000; // 1 minute
+  static DEFAULT_TIMEOUT = 60000 // 1 minute
 
   static SuperwallAPIError = Errors.SuperwallAPIError;
   static APIError = Errors.APIError;
@@ -872,106 +710,108 @@ SuperwallAPI.Charts = Charts;
 SuperwallAPI.Users = Users;
 
 export declare namespace SuperwallAPI {
-  export type RequestOptions = Opts.RequestOptions;
+      export type RequestOptions = Opts.RequestOptions;
 
-  export {
-    Projects as Projects,
-    type ProjectCreateResponse as ProjectCreateResponse,
-    type ProjectRetrieveResponse as ProjectRetrieveResponse,
-    type ProjectUpdateResponse as ProjectUpdateResponse,
-    type ProjectListResponse as ProjectListResponse,
-    type ProjectArchiveResponse as ProjectArchiveResponse,
-    type ProjectUnarchiveResponse as ProjectUnarchiveResponse,
-    type ProjectCreateParams as ProjectCreateParams,
-    type ProjectUpdateParams as ProjectUpdateParams,
-    type ProjectListParams as ProjectListParams,
-  };
+      export {
+  Projects as Projects,
+  type ProjectCreateResponse as ProjectCreateResponse,
+  type ProjectRetrieveResponse as ProjectRetrieveResponse,
+  type ProjectUpdateResponse as ProjectUpdateResponse,
+  type ProjectListResponse as ProjectListResponse,
+  type ProjectArchiveResponse as ProjectArchiveResponse,
+  type ProjectUnarchiveResponse as ProjectUnarchiveResponse,
+  type ProjectCreateParams as ProjectCreateParams,
+  type ProjectUpdateParams as ProjectUpdateParams,
+  type ProjectListParams as ProjectListParams
+};
 
-  export { Me as Me };
+export {
+  Me as Me
+};
 
-  export {
-    Paywalls as Paywalls,
-    type PaywallCreateResponse as PaywallCreateResponse,
-    type PaywallRetrieveResponse as PaywallRetrieveResponse,
-    type PaywallUpdateResponse as PaywallUpdateResponse,
-    type PaywallListResponse as PaywallListResponse,
-    type PaywallArchiveResponse as PaywallArchiveResponse,
-    type PaywallPublishResponse as PaywallPublishResponse,
-    type PaywallUnarchiveResponse as PaywallUnarchiveResponse,
-    type PaywallCreateParams as PaywallCreateParams,
-    type PaywallUpdateParams as PaywallUpdateParams,
-    type PaywallListParams as PaywallListParams,
-  };
+export {
+  Paywalls as Paywalls,
+  type PaywallCreateResponse as PaywallCreateResponse,
+  type PaywallRetrieveResponse as PaywallRetrieveResponse,
+  type PaywallUpdateResponse as PaywallUpdateResponse,
+  type PaywallListResponse as PaywallListResponse,
+  type PaywallArchiveResponse as PaywallArchiveResponse,
+  type PaywallPublishResponse as PaywallPublishResponse,
+  type PaywallUnarchiveResponse as PaywallUnarchiveResponse,
+  type PaywallCreateParams as PaywallCreateParams,
+  type PaywallUpdateParams as PaywallUpdateParams,
+  type PaywallListParams as PaywallListParams
+};
 
-  export {
-    Products as Products,
-    type ProductCreateResponse as ProductCreateResponse,
-    type ProductRetrieveResponse as ProductRetrieveResponse,
-    type ProductUpdateResponse as ProductUpdateResponse,
-    type ProductListResponse as ProductListResponse,
-    type ProductDeleteResponse as ProductDeleteResponse,
-    type ProductCreateParams as ProductCreateParams,
-    type ProductUpdateParams as ProductUpdateParams,
-    type ProductListParams as ProductListParams,
-  };
+export {
+  Products as Products,
+  type ProductCreateResponse as ProductCreateResponse,
+  type ProductRetrieveResponse as ProductRetrieveResponse,
+  type ProductUpdateResponse as ProductUpdateResponse,
+  type ProductListResponse as ProductListResponse,
+  type ProductDeleteResponse as ProductDeleteResponse,
+  type ProductCreateParams as ProductCreateParams,
+  type ProductUpdateParams as ProductUpdateParams,
+  type ProductListParams as ProductListParams
+};
 
-  export {
-    Campaigns as Campaigns,
-    type CampaignCreateResponse as CampaignCreateResponse,
-    type CampaignRetrieveResponse as CampaignRetrieveResponse,
-    type CampaignUpdateResponse as CampaignUpdateResponse,
-    type CampaignListResponse as CampaignListResponse,
-    type CampaignArchiveResponse as CampaignArchiveResponse,
-    type CampaignUnarchiveResponse as CampaignUnarchiveResponse,
-    type CampaignUpdateAudienceResponse as CampaignUpdateAudienceResponse,
-    type CampaignCreateParams as CampaignCreateParams,
-    type CampaignUpdateParams as CampaignUpdateParams,
-    type CampaignListParams as CampaignListParams,
-    type CampaignUpdateAudienceParams as CampaignUpdateAudienceParams,
-  };
+export {
+  Campaigns as Campaigns,
+  type CampaignCreateResponse as CampaignCreateResponse,
+  type CampaignRetrieveResponse as CampaignRetrieveResponse,
+  type CampaignUpdateResponse as CampaignUpdateResponse,
+  type CampaignListResponse as CampaignListResponse,
+  type CampaignArchiveResponse as CampaignArchiveResponse,
+  type CampaignUnarchiveResponse as CampaignUnarchiveResponse,
+  type CampaignUpdateAudienceResponse as CampaignUpdateAudienceResponse,
+  type CampaignCreateParams as CampaignCreateParams,
+  type CampaignUpdateParams as CampaignUpdateParams,
+  type CampaignListParams as CampaignListParams,
+  type CampaignUpdateAudienceParams as CampaignUpdateAudienceParams
+};
 
-  export {
-    Entitlements as Entitlements,
-    type EntitlementCreateResponse as EntitlementCreateResponse,
-    type EntitlementRetrieveResponse as EntitlementRetrieveResponse,
-    type EntitlementUpdateResponse as EntitlementUpdateResponse,
-    type EntitlementListResponse as EntitlementListResponse,
-    type EntitlementDeleteResponse as EntitlementDeleteResponse,
-    type EntitlementCreateParams as EntitlementCreateParams,
-    type EntitlementUpdateParams as EntitlementUpdateParams,
-    type EntitlementListParams as EntitlementListParams,
-  };
+export {
+  Entitlements as Entitlements,
+  type EntitlementCreateResponse as EntitlementCreateResponse,
+  type EntitlementRetrieveResponse as EntitlementRetrieveResponse,
+  type EntitlementUpdateResponse as EntitlementUpdateResponse,
+  type EntitlementListResponse as EntitlementListResponse,
+  type EntitlementDeleteResponse as EntitlementDeleteResponse,
+  type EntitlementCreateParams as EntitlementCreateParams,
+  type EntitlementUpdateParams as EntitlementUpdateParams,
+  type EntitlementListParams as EntitlementListParams
+};
 
-  export {
-    Grants as Grants,
-    type GrantListResponse as GrantListResponse,
-    type GrantListParams as GrantListParams,
-  };
+export {
+  Grants as Grants,
+  type GrantListResponse as GrantListResponse,
+  type GrantListParams as GrantListParams
+};
 
-  export {
-    Charts as Charts,
-    type ChartGetDefinitionsResponse as ChartGetDefinitionsResponse,
-    type ChartQueryDataResponse as ChartQueryDataResponse,
-    type ChartGetDefinitionsParams as ChartGetDefinitionsParams,
-    type ChartQueryDataParams as ChartQueryDataParams,
-  };
+export {
+  Charts as Charts,
+  type ChartGetDefinitionsResponse as ChartGetDefinitionsResponse,
+  type ChartQueryDataResponse as ChartQueryDataResponse,
+  type ChartGetDefinitionsParams as ChartGetDefinitionsParams,
+  type ChartQueryDataParams as ChartQueryDataParams
+};
 
-  export {
-    Users as Users,
-    type BooleanFromString as BooleanFromString,
-    type UserListEventNamesResponse as UserListEventNamesResponse,
-    type UserListFilterPropertiesResponse as UserListFilterPropertiesResponse,
-    type UserResolveResponse as UserResolveResponse,
-    type UserRetrieveActiveEntitlementsResponse as UserRetrieveActiveEntitlementsResponse,
-    type UserRetrieveAttributesResponse as UserRetrieveAttributesResponse,
-    type UserRetrieveDeviceAttributesResponse as UserRetrieveDeviceAttributesResponse,
-    type UserRetrieveSubscriptionSummaryResponse as UserRetrieveSubscriptionSummaryResponse,
-    type UserListEventNamesParams as UserListEventNamesParams,
-    type UserListFilterPropertiesParams as UserListFilterPropertiesParams,
-    type UserResolveParams as UserResolveParams,
-    type UserRetrieveActiveEntitlementsParams as UserRetrieveActiveEntitlementsParams,
-    type UserRetrieveAttributesParams as UserRetrieveAttributesParams,
-    type UserRetrieveDeviceAttributesParams as UserRetrieveDeviceAttributesParams,
-    type UserRetrieveSubscriptionSummaryParams as UserRetrieveSubscriptionSummaryParams,
-  };
-}
+export {
+  Users as Users,
+  type BooleanFromString as BooleanFromString,
+  type UserListEventNamesResponse as UserListEventNamesResponse,
+  type UserListFilterPropertiesResponse as UserListFilterPropertiesResponse,
+  type UserResolveResponse as UserResolveResponse,
+  type UserRetrieveActiveEntitlementsResponse as UserRetrieveActiveEntitlementsResponse,
+  type UserRetrieveAttributesResponse as UserRetrieveAttributesResponse,
+  type UserRetrieveDeviceAttributesResponse as UserRetrieveDeviceAttributesResponse,
+  type UserRetrieveSubscriptionSummaryResponse as UserRetrieveSubscriptionSummaryResponse,
+  type UserListEventNamesParams as UserListEventNamesParams,
+  type UserListFilterPropertiesParams as UserListFilterPropertiesParams,
+  type UserResolveParams as UserResolveParams,
+  type UserRetrieveActiveEntitlementsParams as UserRetrieveActiveEntitlementsParams,
+  type UserRetrieveAttributesParams as UserRetrieveAttributesParams,
+  type UserRetrieveDeviceAttributesParams as UserRetrieveDeviceAttributesParams,
+  type UserRetrieveSubscriptionSummaryParams as UserRetrieveSubscriptionSummaryParams
+};
+    }
