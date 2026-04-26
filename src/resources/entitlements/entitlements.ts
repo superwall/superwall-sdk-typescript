@@ -2,15 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as GrantsAPI from './grants';
-import {
-  GrantCreateParams,
-  GrantCreateResponse,
-  GrantListParams,
-  GrantListResponse,
-  GrantRevokeParams,
-  GrantRevokeResponse,
-  Grants,
-} from './grants';
+import { GrantCreateParams, GrantCreateResponse, GrantListParams, GrantListResponse, GrantRevokeParams, GrantRevokeResponse, Grants } from './grants';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -40,11 +32,7 @@ export class Entitlements extends APIResource {
    * Updates an entitlement's name, description, products, or metadata. Requires
    * entitlements:write scope.
    */
-  update(
-    id: string,
-    body: EntitlementUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<EntitlementUpdateResponse> {
+  update(id: string, body: EntitlementUpdateParams, options?: RequestOptions): APIPromise<EntitlementUpdateResponse> {
     return this._client.patch(path`/v2/entitlements/${id}`, { body, ...options });
   }
 
@@ -382,7 +370,7 @@ export declare namespace Entitlements {
     type EntitlementDeleteResponse as EntitlementDeleteResponse,
     type EntitlementCreateParams as EntitlementCreateParams,
     type EntitlementUpdateParams as EntitlementUpdateParams,
-    type EntitlementListParams as EntitlementListParams,
+    type EntitlementListParams as EntitlementListParams
   };
 
   export {
@@ -392,6 +380,6 @@ export declare namespace Entitlements {
     type GrantRevokeResponse as GrantRevokeResponse,
     type GrantCreateParams as GrantCreateParams,
     type GrantListParams as GrantListParams,
-    type GrantRevokeParams as GrantRevokeParams,
+    type GrantRevokeParams as GrantRevokeParams
   };
 }

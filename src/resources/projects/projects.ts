@@ -2,47 +2,11 @@
 
 import { APIResource } from '../../core/resource';
 import * as ApplicationsAPI from './applications';
-import {
-  ApplicationCreateParams,
-  ApplicationCreateResponse,
-  ApplicationGetStatisticsParams,
-  ApplicationGetStatisticsResponse,
-  ApplicationListRecentTransactionsParams,
-  ApplicationListRecentTransactionsResponse,
-  ApplicationUpdateParams,
-  ApplicationUpdateResponse,
-  ApplicationUpdateSettingsParams,
-  ApplicationUpdateSettingsResponse,
-  Applications,
-} from './applications';
+import { ApplicationCreateParams, ApplicationCreateResponse, ApplicationGetStatisticsParams, ApplicationGetStatisticsResponse, ApplicationListRecentTransactionsParams, ApplicationListRecentTransactionsResponse, ApplicationUpdateParams, ApplicationUpdateResponse, ApplicationUpdateSettingsParams, ApplicationUpdateSettingsResponse, Applications } from './applications';
 import * as EventsAPI from './events';
-import {
-  EventListAttemptsParams,
-  EventListAttemptsResponse,
-  EventListParams,
-  EventListResponse,
-  EventRetrieveParams,
-  EventRetrieveResponse,
-  EventRetryDeliveryParams,
-  EventRetryDeliveryResponse,
-  Events,
-} from './events';
+import { EventListAttemptsParams, EventListAttemptsResponse, EventListParams, EventListResponse, EventRetrieveParams, EventRetrieveResponse, EventRetryDeliveryParams, EventRetryDeliveryResponse, Events } from './events';
 import * as WebhookEndpointsAPI from './webhook-endpoints';
-import {
-  WebhookEndpointCreateParams,
-  WebhookEndpointCreateResponse,
-  WebhookEndpointDeleteParams,
-  WebhookEndpointDeleteResponse,
-  WebhookEndpointListParams,
-  WebhookEndpointListResponse,
-  WebhookEndpointRetrieveParams,
-  WebhookEndpointRetrieveResponse,
-  WebhookEndpointRotateSecretParams,
-  WebhookEndpointRotateSecretResponse,
-  WebhookEndpointUpdateParams,
-  WebhookEndpointUpdateResponse,
-  WebhookEndpoints,
-} from './webhook-endpoints';
+import { WebhookEndpointCreateParams, WebhookEndpointCreateResponse, WebhookEndpointDeleteParams, WebhookEndpointDeleteResponse, WebhookEndpointListParams, WebhookEndpointListResponse, WebhookEndpointRetrieveParams, WebhookEndpointRetrieveResponse, WebhookEndpointRotateSecretParams, WebhookEndpointRotateSecretResponse, WebhookEndpointUpdateParams, WebhookEndpointUpdateResponse, WebhookEndpoints } from './webhook-endpoints';
 import * as UsersAPI from '../users/users';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -53,9 +17,7 @@ import { path } from '../../internal/utils/path';
  */
 export class Projects extends APIResource {
   applications: ApplicationsAPI.Applications = new ApplicationsAPI.Applications(this._client);
-  webhookEndpoints: WebhookEndpointsAPI.WebhookEndpoints = new WebhookEndpointsAPI.WebhookEndpoints(
-    this._client,
-  );
+  webhookEndpoints: WebhookEndpointsAPI.WebhookEndpoints = new WebhookEndpointsAPI.WebhookEndpoints(this._client);
   events: EventsAPI.Events = new EventsAPI.Events(this._client);
 
   /**
@@ -83,10 +45,7 @@ export class Projects extends APIResource {
    * Returns a list of projects for the organization. Supports pagination and
    * filtering by archived status. Requires projects:read scope.
    */
-  list(
-    query: ProjectListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ProjectListResponse> {
+  list(query: ProjectListParams | null | undefined = {}, options?: RequestOptions): APIPromise<ProjectListResponse> {
     return this._client.get('/v2/projects', { query, ...options });
   }
 
@@ -666,7 +625,7 @@ export declare namespace Projects {
     type ProjectUnarchiveResponse as ProjectUnarchiveResponse,
     type ProjectCreateParams as ProjectCreateParams,
     type ProjectUpdateParams as ProjectUpdateParams,
-    type ProjectListParams as ProjectListParams,
+    type ProjectListParams as ProjectListParams
   };
 
   export {
@@ -680,7 +639,7 @@ export declare namespace Projects {
     type ApplicationUpdateParams as ApplicationUpdateParams,
     type ApplicationGetStatisticsParams as ApplicationGetStatisticsParams,
     type ApplicationListRecentTransactionsParams as ApplicationListRecentTransactionsParams,
-    type ApplicationUpdateSettingsParams as ApplicationUpdateSettingsParams,
+    type ApplicationUpdateSettingsParams as ApplicationUpdateSettingsParams
   };
 
   export {
@@ -696,7 +655,7 @@ export declare namespace Projects {
     type WebhookEndpointUpdateParams as WebhookEndpointUpdateParams,
     type WebhookEndpointListParams as WebhookEndpointListParams,
     type WebhookEndpointDeleteParams as WebhookEndpointDeleteParams,
-    type WebhookEndpointRotateSecretParams as WebhookEndpointRotateSecretParams,
+    type WebhookEndpointRotateSecretParams as WebhookEndpointRotateSecretParams
   };
 
   export {
@@ -708,6 +667,6 @@ export declare namespace Projects {
     type EventRetrieveParams as EventRetrieveParams,
     type EventListParams as EventListParams,
     type EventListAttemptsParams as EventListAttemptsParams,
-    type EventRetryDeliveryParams as EventRetryDeliveryParams,
+    type EventRetryDeliveryParams as EventRetryDeliveryParams
   };
 }

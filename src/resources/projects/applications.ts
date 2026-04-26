@@ -14,11 +14,7 @@ export class Applications extends APIResource {
    * already has an application for that platform. Requires projects:write scope. For
    * web platform, domain is required.
    */
-  create(
-    id: string,
-    body: ApplicationCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<ApplicationCreateResponse> {
+  create(id: string, body: ApplicationCreateParams, options?: RequestOptions): APIPromise<ApplicationCreateResponse> {
     return this._client.post(path`/v2/projects/${id}/applications`, { body, ...options });
   }
 
@@ -26,12 +22,8 @@ export class Applications extends APIResource {
    * Updates core application identity fields (name, app_id, bundle_id) within a
    * project. Requires applications:write scope.
    */
-  update(
-    applicationID: string,
-    params: ApplicationUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<ApplicationUpdateResponse> {
-    const { id, ...body } = params;
+  update(applicationID: string, params: ApplicationUpdateParams, options?: RequestOptions): APIPromise<ApplicationUpdateResponse> {
+    const { id, ...body } = params
     return this._client.patch(path`/v2/projects/${id}/applications/${applicationID}`, { body, ...options });
   }
 
@@ -39,48 +31,27 @@ export class Applications extends APIResource {
    * Returns overview statistics for the given application and date range within a
    * project. Requires applications:read scope.
    */
-  getStatistics(
-    applicationID: string,
-    params: ApplicationGetStatisticsParams,
-    options?: RequestOptions,
-  ): APIPromise<ApplicationGetStatisticsResponse> {
-    const { id, ...query } = params;
-    return this._client.get(path`/v2/projects/${id}/applications/${applicationID}/statistics`, {
-      query,
-      ...options,
-    });
+  getStatistics(applicationID: string, params: ApplicationGetStatisticsParams, options?: RequestOptions): APIPromise<ApplicationGetStatisticsResponse> {
+    const { id, ...query } = params
+    return this._client.get(path`/v2/projects/${id}/applications/${applicationID}/statistics`, { query, ...options });
   }
 
   /**
    * Returns recent transactions for the given application and date range within a
    * project. Requires applications:read scope.
    */
-  listRecentTransactions(
-    applicationID: string,
-    params: ApplicationListRecentTransactionsParams,
-    options?: RequestOptions,
-  ): APIPromise<ApplicationListRecentTransactionsResponse> {
-    const { id, ...query } = params;
-    return this._client.get(path`/v2/projects/${id}/applications/${applicationID}/recent-transactions`, {
-      query,
-      ...options,
-    });
+  listRecentTransactions(applicationID: string, params: ApplicationListRecentTransactionsParams, options?: RequestOptions): APIPromise<ApplicationListRecentTransactionsResponse> {
+    const { id, ...query } = params
+    return this._client.get(path`/v2/projects/${id}/applications/${applicationID}/recent-transactions`, { query, ...options });
   }
 
   /**
    * Updates platform-scoped application settings. Only settings supported by the
    * application's platform are accepted. Requires applications:write scope.
    */
-  updateSettings(
-    applicationID: string,
-    params: ApplicationUpdateSettingsParams,
-    options?: RequestOptions,
-  ): APIPromise<ApplicationUpdateSettingsResponse> {
-    const { id, ...body } = params;
-    return this._client.patch(path`/v2/projects/${id}/applications/${applicationID}/settings`, {
-      body,
-      ...options,
-    });
+  updateSettings(applicationID: string, params: ApplicationUpdateSettingsParams, options?: RequestOptions): APIPromise<ApplicationUpdateSettingsResponse> {
+    const { id, ...body } = params
+    return this._client.patch(path`/v2/projects/${id}/applications/${applicationID}/settings`, { body, ...options });
   }
 }
 
@@ -575,6 +546,6 @@ export declare namespace Applications {
     type ApplicationUpdateParams as ApplicationUpdateParams,
     type ApplicationGetStatisticsParams as ApplicationGetStatisticsParams,
     type ApplicationListRecentTransactionsParams as ApplicationListRecentTransactionsParams,
-    type ApplicationUpdateSettingsParams as ApplicationUpdateSettingsParams,
+    type ApplicationUpdateSettingsParams as ApplicationUpdateSettingsParams
   };
 }

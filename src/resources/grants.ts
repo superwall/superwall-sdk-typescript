@@ -136,5 +136,8 @@ export interface GrantListParams {
 }
 
 export declare namespace Grants {
-  export { type GrantListResponse as GrantListResponse, type GrantListParams as GrantListParams };
+  export {
+    type GrantListResponse as GrantListResponse,
+    type GrantListParams as GrantListParams
+  };
 }

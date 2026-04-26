@@ -14,12 +14,8 @@ export class Events extends APIResource {
   /**
    * Retrieves an event by ID. Requires webhooks:read scope.
    */
-  retrieve(
-    eventID: string,
-    params: EventRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<EventRetrieveResponse> {
-    const { project_id } = params;
+  retrieve(eventID: string, params: EventRetrieveParams, options?: RequestOptions): APIPromise<EventRetrieveResponse> {
+    const { project_id } = params
     return this._client.get(path`/v2/projects/${project_id}/events/${eventID}`, options);
   }
 
@@ -27,39 +23,24 @@ export class Events extends APIResource {
    * Returns a list of events (webhook messages) for the project. Supports pagination
    * and filtering. Requires webhooks:read scope.
    */
-  list(
-    projectID: string,
-    query: EventListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<EventListResponse> {
+  list(projectID: string, query: EventListParams | null | undefined = {}, options?: RequestOptions): APIPromise<EventListResponse> {
     return this._client.get(path`/v2/projects/${projectID}/events`, { query, ...options });
   }
 
   /**
    * Returns a list of delivery attempts for an event. Requires webhooks:read scope.
    */
-  listAttempts(
-    eventID: string,
-    params: EventListAttemptsParams,
-    options?: RequestOptions,
-  ): APIPromise<EventListAttemptsResponse> {
-    const { project_id, ...query } = params;
-    return this._client.get(path`/v2/projects/${project_id}/events/${eventID}/attempts`, {
-      query,
-      ...options,
-    });
+  listAttempts(eventID: string, params: EventListAttemptsParams, options?: RequestOptions): APIPromise<EventListAttemptsResponse> {
+    const { project_id, ...query } = params
+    return this._client.get(path`/v2/projects/${project_id}/events/${eventID}/attempts`, { query, ...options });
   }
 
   /**
    * Retries delivery of an event to a specific endpoint. Requires webhooks:write
    * scope.
    */
-  retryDelivery(
-    eventID: string,
-    params: EventRetryDeliveryParams,
-    options?: RequestOptions,
-  ): APIPromise<EventRetryDeliveryResponse> {
-    const { project_id, ...body } = params;
+  retryDelivery(eventID: string, params: EventRetryDeliveryParams, options?: RequestOptions): APIPromise<EventRetryDeliveryResponse> {
+    const { project_id, ...body } = params
     return this._client.post(path`/v2/projects/${project_id}/events/${eventID}/retry`, { body, ...options });
   }
 }
@@ -365,6 +346,6 @@ export declare namespace Events {
     type EventRetrieveParams as EventRetrieveParams,
     type EventListParams as EventListParams,
     type EventListAttemptsParams as EventListAttemptsParams,
-    type EventRetryDeliveryParams as EventRetryDeliveryParams,
+    type EventRetryDeliveryParams as EventRetryDeliveryParams
   };
 }
