@@ -683,6 +683,6 @@ export declare namespace Products {
     type ProductDeleteResponse as ProductDeleteResponse,
     type ProductCreateParams as ProductCreateParams,
     type ProductUpdateParams as ProductUpdateParams,
-    type ProductListParams as ProductListParams
+    type ProductListParams as ProductListParams,
   };
 }

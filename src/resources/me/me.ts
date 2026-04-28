@@ -2,7 +2,12 @@
 
 import { APIResource } from '../../core/resource';
 import * as OrganizationsAPI from './organizations';
-import { OrganizationCreateParams, OrganizationCreateResponse, OrganizationListResponse, Organizations } from './organizations';
+import {
+  OrganizationCreateParams,
+  OrganizationCreateResponse,
+  OrganizationListResponse,
+  Organizations,
+} from './organizations';
 
 export class Me extends APIResource {
   organizations: OrganizationsAPI.Organizations = new OrganizationsAPI.Organizations(this._client);
@@ -15,6 +20,6 @@ export declare namespace Me {
     Organizations as Organizations,
     type OrganizationCreateResponse as OrganizationCreateResponse,
     type OrganizationListResponse as OrganizationListResponse,
-    type OrganizationCreateParams as OrganizationCreateParams
+    type OrganizationCreateParams as OrganizationCreateParams,
   };
 }

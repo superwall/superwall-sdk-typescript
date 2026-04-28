@@ -5,7 +5,7 @@ import SuperwallAPI from 'superwall-api';
 const client = new SuperwallAPI({
   apiKey: 'My API Key',
   bearerToken: 'My Bearer Token',
-  baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010',
+  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource products', () => {
@@ -24,18 +24,18 @@ describe('resource products', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.products.create({
-    identifier: 'x',
-    project_id: 'project_id',
-    entitlements: ['string'],
-    metadata: { foo: 'string' },
-    name: 'name',
-    price: { amount: 0, currency: 'currency' },
-    subscription: {
-    period: 'day',
-    period_count: 0,
-    trial_period_days: 0,
-  },
-  });
+      identifier: 'x',
+      project_id: 'project_id',
+      entitlements: ['string'],
+      metadata: { foo: 'string' },
+      name: 'name',
+      price: { amount: 0, currency: 'currency' },
+      subscription: {
+        period: 'day',
+        period_count: 0,
+        trial_period_days: 0,
+      },
+    });
   });
 
   // Mock server tests are disabled
@@ -77,12 +77,12 @@ describe('resource products', () => {
   // Mock server tests are disabled
   test.skip('list: required and optional params', async () => {
     const response = await client.products.list({
-    project_id: 'project_id',
-    ending_before: 'ending_before',
-    limit: 'limit',
-    platform: 'ios',
-    starting_after: 'starting_after',
-  });
+      project_id: 'project_id',
+      ending_before: 'ending_before',
+      limit: 'limit',
+      platform: 'ios',
+      starting_after: 'starting_after',
+    });
   });
 
   // Mock server tests are disabled

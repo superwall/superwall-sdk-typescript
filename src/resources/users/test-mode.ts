@@ -12,7 +12,11 @@ export class TestMode extends APIResource {
   /**
    * Update User Test Mode
    */
-  update(appUserID: string, body: TestModeUpdateParams, options?: RequestOptions): APIPromise<TestModeUpdateResponse> {
+  update(
+    appUserID: string,
+    body: TestModeUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<TestModeUpdateResponse> {
     return this._client.patch(path`/v2/users/${appUserID}/test-mode`, { body, ...options });
   }
 
@@ -78,6 +82,6 @@ export declare namespace TestMode {
     type TestModeUpdateResponse as TestModeUpdateResponse,
     type TestModeListResponse as TestModeListResponse,
     type TestModeUpdateParams as TestModeUpdateParams,
-    type TestModeListParams as TestModeListParams
+    type TestModeListParams as TestModeListParams,
   };
 }

@@ -14,7 +14,11 @@ export class Events extends APIResource {
    * Retrieves a single event by ID. The `application_id` query parameter is required
    * for authorization. Requires users:read scope.
    */
-  retrieve(eventID: string, query: EventRetrieveParams, options?: RequestOptions): APIPromise<EventRetrieveResponse> {
+  retrieve(
+    eventID: string,
+    query: EventRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<EventRetrieveResponse> {
     return this._client.get(path`/v2/users/events/${eventID}`, { query, ...options });
   }
 
@@ -26,7 +30,7 @@ export class Events extends APIResource {
   }
 }
 
-export type JsonValue = string | number | boolean | null | Array<JsonValue> | unknown
+export type JsonValue = string | number | boolean | null | Array<JsonValue> | unknown;
 
 export interface EventRetrieveResponse {
   /**
@@ -152,6 +156,6 @@ export declare namespace Events {
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventRetrieveParams as EventRetrieveParams,
-    type EventListParams as EventListParams
+    type EventListParams as EventListParams,
   };
 }

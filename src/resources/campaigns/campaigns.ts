@@ -2,7 +2,15 @@
 
 import { APIResource } from '../../core/resource';
 import * as PlacementsAPI from './placements';
-import { PlacementAddParams, PlacementAddResponse, PlacementRemoveParams, PlacementRemoveResponse, PlacementUpdateParams, PlacementUpdateResponse, Placements } from './placements';
+import {
+  PlacementAddParams,
+  PlacementAddResponse,
+  PlacementRemoveParams,
+  PlacementRemoveResponse,
+  PlacementUpdateParams,
+  PlacementUpdateResponse,
+  Placements,
+} from './placements';
 import * as UsersAPI from '../users/users';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
@@ -32,7 +40,11 @@ export class Campaigns extends APIResource {
   /**
    * Updates a campaign's description or notes. Requires campaigns:write scope.
    */
-  update(id: string, body: CampaignUpdateParams, options?: RequestOptions): APIPromise<CampaignUpdateResponse> {
+  update(
+    id: string,
+    body: CampaignUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<CampaignUpdateResponse> {
     return this._client.patch(path`/v2/campaigns/${id}`, { body, ...options });
   }
 
@@ -63,8 +75,12 @@ export class Campaigns extends APIResource {
    * Updates an audience's enabled status or description. Requires campaigns:write
    * scope.
    */
-  updateAudience(audienceID: string, params: CampaignUpdateAudienceParams, options?: RequestOptions): APIPromise<CampaignUpdateAudienceResponse> {
-    const { id, ...body } = params
+  updateAudience(
+    audienceID: string,
+    params: CampaignUpdateAudienceParams,
+    options?: RequestOptions,
+  ): APIPromise<CampaignUpdateAudienceResponse> {
+    const { id, ...body } = params;
     return this._client.patch(path`/v2/campaigns/${id}/audiences/${audienceID}`, { body, ...options });
   }
 }
@@ -966,7 +982,7 @@ export declare namespace Campaigns {
     type CampaignCreateParams as CampaignCreateParams,
     type CampaignUpdateParams as CampaignUpdateParams,
     type CampaignListParams as CampaignListParams,
-    type CampaignUpdateAudienceParams as CampaignUpdateAudienceParams
+    type CampaignUpdateAudienceParams as CampaignUpdateAudienceParams,
   };
 
   export {
@@ -976,6 +992,6 @@ export declare namespace Campaigns {
     type PlacementRemoveResponse as PlacementRemoveResponse,
     type PlacementUpdateParams as PlacementUpdateParams,
     type PlacementAddParams as PlacementAddParams,
-    type PlacementRemoveParams as PlacementRemoveParams
+    type PlacementRemoveParams as PlacementRemoveParams,
   };
 }
