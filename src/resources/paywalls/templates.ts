@@ -186,6 +186,6 @@ export declare namespace Templates {
   export {
     type TemplateRetrieveResponse as TemplateRetrieveResponse,
     type TemplateListResponse as TemplateListResponse,
-    type TemplateListParams as TemplateListParams
+    type TemplateListParams as TemplateListParams,
   };
 }

@@ -13,8 +13,12 @@ export class Placements extends APIResource {
    * Updates a placement's event name or enabled status. Requires campaigns:write
    * scope.
    */
-  update(placementID: string, params: PlacementUpdateParams, options?: RequestOptions): APIPromise<PlacementUpdateResponse> {
-    const { id, ...body } = params
+  update(
+    placementID: string,
+    params: PlacementUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<PlacementUpdateResponse> {
+    const { id, ...body } = params;
     return this._client.patch(path`/v2/campaigns/${id}/placements/${placementID}`, { body, ...options });
   }
 
@@ -28,8 +32,12 @@ export class Placements extends APIResource {
   /**
    * Removes a placement from a campaign. Requires campaigns:write scope.
    */
-  remove(placementID: string, params: PlacementRemoveParams, options?: RequestOptions): APIPromise<PlacementRemoveResponse> {
-    const { id } = params
+  remove(
+    placementID: string,
+    params: PlacementRemoveParams,
+    options?: RequestOptions,
+  ): APIPromise<PlacementRemoveResponse> {
+    const { id } = params;
     return this._client.delete(path`/v2/campaigns/${id}/placements/${placementID}`, options);
   }
 }
@@ -144,6 +152,6 @@ export declare namespace Placements {
     type PlacementRemoveResponse as PlacementRemoveResponse,
     type PlacementUpdateParams as PlacementUpdateParams,
     type PlacementAddParams as PlacementAddParams,
-    type PlacementRemoveParams as PlacementRemoveParams
+    type PlacementRemoveParams as PlacementRemoveParams,
   };
 }

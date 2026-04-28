@@ -21,15 +21,23 @@ export class Grants extends APIResource {
    * Returns a list of manual grants for the specified entitlement. Requires
    * entitlements:read scope.
    */
-  list(id: string, query: GrantListParams | null | undefined = {}, options?: RequestOptions): APIPromise<GrantListResponse> {
+  list(
+    id: string,
+    query: GrantListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<GrantListResponse> {
     return this._client.get(path`/v2/entitlements/${id}/grants`, { query, ...options });
   }
 
   /**
    * Revokes a manual grant. Requires entitlements:write scope.
    */
-  revoke(grantID: string, params: GrantRevokeParams, options?: RequestOptions): APIPromise<GrantRevokeResponse> {
-    const { id } = params
+  revoke(
+    grantID: string,
+    params: GrantRevokeParams,
+    options?: RequestOptions,
+  ): APIPromise<GrantRevokeResponse> {
+    const { id } = params;
     return this._client.delete(path`/v2/entitlements/${id}/grants/${grantID}`, options);
   }
 }
@@ -252,6 +260,6 @@ export declare namespace Grants {
     type GrantRevokeResponse as GrantRevokeResponse,
     type GrantCreateParams as GrantCreateParams,
     type GrantListParams as GrantListParams,
-    type GrantRevokeParams as GrantRevokeParams
+    type GrantRevokeParams as GrantRevokeParams,
   };
 }

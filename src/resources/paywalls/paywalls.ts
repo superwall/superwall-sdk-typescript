@@ -763,13 +763,13 @@ export declare namespace Paywalls {
     type PaywallUnarchiveResponse as PaywallUnarchiveResponse,
     type PaywallCreateParams as PaywallCreateParams,
     type PaywallUpdateParams as PaywallUpdateParams,
-    type PaywallListParams as PaywallListParams
+    type PaywallListParams as PaywallListParams,
   };
 
   export {
     Templates as Templates,
     type TemplateRetrieveResponse as TemplateRetrieveResponse,
     type TemplateListResponse as TemplateListResponse,
-    type TemplateListParams as TemplateListParams
+    type TemplateListParams as TemplateListParams,
   };
 }

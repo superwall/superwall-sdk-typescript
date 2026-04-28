@@ -2,9 +2,22 @@
 
 import { APIResource } from '../../core/resource';
 import * as EventsAPI from './events';
-import { EventListParams, EventListResponse, EventRetrieveParams, EventRetrieveResponse, Events, JsonValue } from './events';
+import {
+  EventListParams,
+  EventListResponse,
+  EventRetrieveParams,
+  EventRetrieveResponse,
+  Events,
+  JsonValue,
+} from './events';
 import * as TestModeAPI from './test-mode';
-import { TestMode, TestModeListParams, TestModeListResponse, TestModeUpdateParams, TestModeUpdateResponse } from './test-mode';
+import {
+  TestMode,
+  TestModeListParams,
+  TestModeListResponse,
+  TestModeUpdateParams,
+  TestModeUpdateResponse,
+} from './test-mode';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -19,14 +32,20 @@ export class Users extends APIResource {
   /**
    * List User Event Names
    */
-  listEventNames(query: UserListEventNamesParams, options?: RequestOptions): APIPromise<UserListEventNamesResponse> {
+  listEventNames(
+    query: UserListEventNamesParams,
+    options?: RequestOptions,
+  ): APIPromise<UserListEventNamesResponse> {
     return this._client.get('/v2/users/event-names', { query, ...options });
   }
 
   /**
    * List User Filter Properties
    */
-  listFilterProperties(query: UserListFilterPropertiesParams, options?: RequestOptions): APIPromise<UserListFilterPropertiesResponse> {
+  listFilterProperties(
+    query: UserListFilterPropertiesParams,
+    options?: RequestOptions,
+  ): APIPromise<UserListFilterPropertiesResponse> {
     return this._client.get('/v2/users/filter-properties', { query, ...options });
   }
 
@@ -40,28 +59,44 @@ export class Users extends APIResource {
   /**
    * Get User Active Entitlements
    */
-  retrieveActiveEntitlements(appUserID: string, query: UserRetrieveActiveEntitlementsParams, options?: RequestOptions): APIPromise<UserRetrieveActiveEntitlementsResponse> {
+  retrieveActiveEntitlements(
+    appUserID: string,
+    query: UserRetrieveActiveEntitlementsParams,
+    options?: RequestOptions,
+  ): APIPromise<UserRetrieveActiveEntitlementsResponse> {
     return this._client.get(path`/v2/users/${appUserID}/active-entitlements`, { query, ...options });
   }
 
   /**
    * Get User Attributes
    */
-  retrieveAttributes(appUserID: string, query: UserRetrieveAttributesParams, options?: RequestOptions): APIPromise<UserRetrieveAttributesResponse> {
+  retrieveAttributes(
+    appUserID: string,
+    query: UserRetrieveAttributesParams,
+    options?: RequestOptions,
+  ): APIPromise<UserRetrieveAttributesResponse> {
     return this._client.get(path`/v2/users/${appUserID}/attributes`, { query, ...options });
   }
 
   /**
    * Get User Device Attributes
    */
-  retrieveDeviceAttributes(appUserID: string, query: UserRetrieveDeviceAttributesParams, options?: RequestOptions): APIPromise<UserRetrieveDeviceAttributesResponse> {
+  retrieveDeviceAttributes(
+    appUserID: string,
+    query: UserRetrieveDeviceAttributesParams,
+    options?: RequestOptions,
+  ): APIPromise<UserRetrieveDeviceAttributesResponse> {
     return this._client.get(path`/v2/users/${appUserID}/device-attributes`, { query, ...options });
   }
 
   /**
    * Get User Subscription Summary
    */
-  retrieveSubscriptionSummary(appUserID: string, query: UserRetrieveSubscriptionSummaryParams, options?: RequestOptions): APIPromise<UserRetrieveSubscriptionSummaryResponse> {
+  retrieveSubscriptionSummary(
+    appUserID: string,
+    query: UserRetrieveSubscriptionSummaryParams,
+    options?: RequestOptions,
+  ): APIPromise<UserRetrieveSubscriptionSummaryResponse> {
     return this._client.get(path`/v2/users/${appUserID}/subscription-summary`, { query, ...options });
   }
 }
@@ -69,7 +104,7 @@ export class Users extends APIResource {
 /**
  * a string to be decoded into a boolean
  */
-export type BooleanFromString = 'true' | 'false'
+export type BooleanFromString = 'true' | 'false';
 
 export interface UserListEventNamesResponse {
   data: Array<UserListEventNamesResponse.Data>;
@@ -322,7 +357,7 @@ export declare namespace Users {
     type UserRetrieveActiveEntitlementsParams as UserRetrieveActiveEntitlementsParams,
     type UserRetrieveAttributesParams as UserRetrieveAttributesParams,
     type UserRetrieveDeviceAttributesParams as UserRetrieveDeviceAttributesParams,
-    type UserRetrieveSubscriptionSummaryParams as UserRetrieveSubscriptionSummaryParams
+    type UserRetrieveSubscriptionSummaryParams as UserRetrieveSubscriptionSummaryParams,
   };
 
   export {
@@ -331,7 +366,7 @@ export declare namespace Users {
     type EventRetrieveResponse as EventRetrieveResponse,
     type EventListResponse as EventListResponse,
     type EventRetrieveParams as EventRetrieveParams,
-    type EventListParams as EventListParams
+    type EventListParams as EventListParams,
   };
 
   export {
@@ -339,6 +374,6 @@ export declare namespace Users {
     type TestModeUpdateResponse as TestModeUpdateResponse,
     type TestModeListResponse as TestModeListResponse,
     type TestModeUpdateParams as TestModeUpdateParams,
-    type TestModeListParams as TestModeListParams
+    type TestModeListParams as TestModeListParams,
   };
 }

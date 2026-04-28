@@ -13,7 +13,10 @@ export class Charts extends APIResource {
    * breakdowns, filters, and date presets. This is static configuration data.
    * Requires charts:read scope.
    */
-  getDefinitions(query: ChartGetDefinitionsParams, options?: RequestOptions): APIPromise<ChartGetDefinitionsResponse> {
+  getDefinitions(
+    query: ChartGetDefinitionsParams,
+    options?: RequestOptions,
+  ): APIPromise<ChartGetDefinitionsResponse> {
     return this._client.get('/v2/charts/definitions', { query, ...options });
   }
 
@@ -46,7 +49,18 @@ export interface ChartGetDefinitionsResponse {
   /**
    * Available date presets
    */
-  date_presets: Array<'last_24_hours' | 'today' | 'yesterday' | 'last_7_days' | 'last_30_days' | 'last_90_days' | 'last_180_days' | 'last_365_days' | 'year_to_date' | 'custom'>;
+  date_presets: Array<
+    | 'last_24_hours'
+    | 'today'
+    | 'yesterday'
+    | 'last_7_days'
+    | 'last_30_days'
+    | 'last_90_days'
+    | 'last_180_days'
+    | 'last_365_days'
+    | 'year_to_date'
+    | 'custom'
+  >;
 
   /**
    * Available filters
@@ -378,7 +392,17 @@ export namespace ChartQueryDataResponse {
     /**
      * Active preset
      */
-    preset: 'last_24_hours' | 'today' | 'yesterday' | 'last_7_days' | 'last_30_days' | 'last_90_days' | 'last_180_days' | 'last_365_days' | 'year_to_date' | 'custom';
+    preset:
+      | 'last_24_hours'
+      | 'today'
+      | 'yesterday'
+      | 'last_7_days'
+      | 'last_30_days'
+      | 'last_90_days'
+      | 'last_180_days'
+      | 'last_365_days'
+      | 'year_to_date'
+      | 'custom';
 
     /**
      * Resolved date range
@@ -665,7 +689,17 @@ export namespace ChartQueryDataParams {
     /**
      * Preset date range
      */
-    preset?: 'last_24_hours' | 'today' | 'yesterday' | 'last_7_days' | 'last_30_days' | 'last_90_days' | 'last_180_days' | 'last_365_days' | 'year_to_date' | 'custom';
+    preset?:
+      | 'last_24_hours'
+      | 'today'
+      | 'yesterday'
+      | 'last_7_days'
+      | 'last_30_days'
+      | 'last_90_days'
+      | 'last_180_days'
+      | 'last_365_days'
+      | 'year_to_date'
+      | 'custom';
 
     /**
      * Custom date range (required when preset is `custom`)
@@ -696,6 +730,6 @@ export declare namespace Charts {
     type ChartGetDefinitionsResponse as ChartGetDefinitionsResponse,
     type ChartQueryDataResponse as ChartQueryDataResponse,
     type ChartGetDefinitionsParams as ChartGetDefinitionsParams,
-    type ChartQueryDataParams as ChartQueryDataParams
+    type ChartQueryDataParams as ChartQueryDataParams,
   };
 }
