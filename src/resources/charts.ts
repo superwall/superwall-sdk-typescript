@@ -153,6 +153,11 @@ export namespace ChartGetDefinitionsResponse {
     y_axis: string;
 
     /**
+     * Allowed visualization types
+     */
+    chart_type_options?: Array<'line' | 'stackedArea' | 'bar' | 'stackedBar'>;
+
+    /**
      * Default breakdown dimension
      */
     default_breakdown?: string;
@@ -166,6 +171,11 @@ export namespace ChartGetDefinitionsResponse {
      * Group this chart type belongs to
      */
     group?: string;
+
+    /**
+     * Dashboard icon key
+     */
+    icon?: string;
   }
 
   export interface DateInterval {
@@ -210,6 +220,16 @@ export namespace ChartGetDefinitionsResponse {
      * Value type of the filter
      */
     value_type: 'string' | 'date';
+
+    /**
+     * Filter key that must be selected before this filter is available
+     */
+    depends_on?: string;
+
+    /**
+     * Currently selected values
+     */
+    value?: Array<string | number>;
   }
 
   export interface XAxi {
@@ -232,6 +252,37 @@ export namespace ChartGetDefinitionsResponse {
      * Value type of the dimension
      */
     value_type: 'date' | 'string';
+
+    /**
+     * Supported date interval options for this x-axis
+     */
+    date_intervals?: Array<XAxi.DateInterval>;
+
+    /**
+     * How missing x-axis values are filled
+     */
+    fill_missing_values?: 'zero' | 'cumulative';
+  }
+
+  export namespace XAxi {
+    export interface DateInterval {
+      /**
+       * Description of the interval
+       */
+      description: string;
+
+      /**
+       * Interval key
+       */
+      key: 'auto' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year' | 'totals';
+
+      /**
+       * Display name
+       */
+      name: string;
+
+      active?: boolean;
+    }
   }
 
   export interface YAxi {
@@ -254,6 +305,35 @@ export namespace ChartGetDefinitionsResponse {
      * How to format the value
      */
     value_type: 'number' | 'percentage' | 'currency';
+
+    /**
+     * Additional values rendered as sub-rows in chart tables
+     */
+    extra?: Array<YAxi.Extra>;
+  }
+
+  export namespace YAxi {
+    export interface Extra {
+      /**
+       * Description of the metric
+       */
+      description: string;
+
+      /**
+       * Metric key
+       */
+      key: string;
+
+      /**
+       * Display name
+       */
+      name: string;
+
+      /**
+       * How to format the value
+       */
+      value_type: 'number' | 'percentage' | 'currency';
+    }
   }
 }
 
@@ -312,6 +392,11 @@ export interface ChartQueryDataResponse {
    * Y-axis definition
    */
   y_axis: ChartQueryDataResponse.YAxis;
+
+  /**
+   * Table-specific metadata
+   */
+  table?: ChartQueryDataResponse.Table;
 }
 
 export namespace ChartQueryDataResponse {
@@ -375,6 +460,11 @@ export namespace ChartQueryDataResponse {
        * Y-axis value
        */
       y: number;
+
+      /**
+       * Additional point metadata, for example retention partial rows
+       */
+      meta?: { [key: string]: boolean | number | string };
     }
   }
 
@@ -472,6 +562,16 @@ export namespace ChartQueryDataResponse {
      * Value type of the filter
      */
     value_type: 'string' | 'date';
+
+    /**
+     * Filter key that must be selected before this filter is available
+     */
+    depends_on?: string;
+
+    /**
+     * Currently selected values
+     */
+    value?: Array<string | number>;
   }
 
   export interface Series {
@@ -509,6 +609,37 @@ export namespace ChartQueryDataResponse {
      * Value type of the dimension
      */
     value_type: 'date' | 'string';
+
+    /**
+     * Supported date interval options for this x-axis
+     */
+    date_intervals?: Array<XAxis.DateInterval>;
+
+    /**
+     * How missing x-axis values are filled
+     */
+    fill_missing_values?: 'zero' | 'cumulative';
+  }
+
+  export namespace XAxis {
+    export interface DateInterval {
+      /**
+       * Description of the interval
+       */
+      description: string;
+
+      /**
+       * Interval key
+       */
+      key: 'auto' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year' | 'totals';
+
+      /**
+       * Display name
+       */
+      name: string;
+
+      active?: boolean;
+    }
   }
 
   /**
@@ -534,6 +665,70 @@ export namespace ChartQueryDataResponse {
      * How to format the value
      */
     value_type: 'number' | 'percentage' | 'currency';
+
+    /**
+     * Additional values rendered as sub-rows in chart tables
+     */
+    extra?: Array<YAxis.Extra>;
+  }
+
+  export namespace YAxis {
+    export interface Extra {
+      /**
+       * Description of the metric
+       */
+      description: string;
+
+      /**
+       * Metric key
+       */
+      key: string;
+
+      /**
+       * Display name
+       */
+      name: string;
+
+      /**
+       * How to format the value
+       */
+      value_type: 'number' | 'percentage' | 'currency';
+    }
+  }
+
+  /**
+   * Table-specific metadata
+   */
+  export interface Table {
+    column_meta?: { [key: string]: Table.ColumnMeta };
+
+    hidden_columns?: Array<string>;
+
+    hidden_series?: Array<string>;
+
+    kind?: 'standard' | 'cohort';
+
+    leading_columns?: Array<Table.LeadingColumn>;
+
+    row_meta?: { [key: string]: { [key: string]: number | string | null } };
+  }
+
+  export namespace Table {
+    export interface ColumnMeta {
+      incomplete?: boolean;
+    }
+
+    export interface LeadingColumn {
+      key: string;
+
+      label: string;
+
+      align?: 'start' | 'end';
+
+      sortable?: boolean;
+
+      value_type?: 'number' | 'percentage' | 'currency' | 'string';
+    }
   }
 }
 
