@@ -23,8 +23,11 @@ export class Campaigns extends APIResource {
   placements: PlacementsAPI.Placements = new PlacementsAPI.Placements(this._client);
 
   /**
-   * Creates a new campaign with placements and audiences. Requires campaigns:write
-   * scope.
+   * Creates a new campaign with placements and audiences. Each audience may supply a
+   * structured `rule_conditions` targeting rule (preferred), which is compiled into
+   * the audience's expression and drives `expression_cel` for modern SDKs; the
+   * legacy raw `expression` is ignored when `rule_conditions` is present. Requires
+   * campaigns:write scope.
    */
   create(body: CampaignCreateParams, options?: RequestOptions): APIPromise<CampaignCreateResponse> {
     return this._client.post('/v2/campaigns', { body, ...options });
@@ -72,9 +75,13 @@ export class Campaigns extends APIResource {
   }
 
   /**
-   * Updates an audience's enabled status, description, filter expression, variant
-   * optimization, or variants. When variants are provided they replace the existing
-   * set. Requires campaigns:write scope.
+   * Updates an audience's enabled status, description, targeting rule, variant
+   * optimization, or variants. Provide a structured `rule_conditions` rule to update
+   * targeting (preferred): it is compiled into the audience's expression and drives
+   * `expression_cel` for modern SDKs, and the audience is switched to the rule
+   * editor so it stays in sync with the dashboard. The legacy raw `expression` is
+   * ignored when `rule_conditions` is present. When variants are provided they
+   * replace the existing set. Requires campaigns:write scope.
    */
   updateAudience(
     audienceID: string,
@@ -161,9 +168,15 @@ export namespace CampaignCreateResponse {
     enabled: boolean;
 
     /**
-     * Filter expression for matching users, or null for all users
+     * Compiled filter expression for matching users, or null for all users
      */
     expression: string | null;
+
+    /**
+     * The CEL expression evaluated by modern SDKs, derived from `rule_conditions`.
+     * Null when the audience has no structured rule.
+     */
+    expression_cel: string | null;
 
     /**
      * Object type, always `audience`
@@ -174,6 +187,13 @@ export namespace CampaignCreateResponse {
      * Priority rank of this audience within the campaign
      */
     rank: string;
+
+    /**
+     * Structured targeting rule (RuleConditions AST) when this audience uses the rule
+     * editor, or null for legacy raw-expression audiences. Returned as stored; send it
+     * back via the typed `rule_conditions` field on update.
+     */
+    rule_conditions: unknown;
 
     /**
      * Optimization strategy for variant allocation
@@ -313,9 +333,15 @@ export namespace CampaignRetrieveResponse {
     enabled: boolean;
 
     /**
-     * Filter expression for matching users, or null for all users
+     * Compiled filter expression for matching users, or null for all users
      */
     expression: string | null;
+
+    /**
+     * The CEL expression evaluated by modern SDKs, derived from `rule_conditions`.
+     * Null when the audience has no structured rule.
+     */
+    expression_cel: string | null;
 
     /**
      * Object type, always `audience`
@@ -326,6 +352,13 @@ export namespace CampaignRetrieveResponse {
      * Priority rank of this audience within the campaign
      */
     rank: string;
+
+    /**
+     * Structured targeting rule (RuleConditions AST) when this audience uses the rule
+     * editor, or null for legacy raw-expression audiences. Returned as stored; send it
+     * back via the typed `rule_conditions` field on update.
+     */
+    rule_conditions: unknown;
 
     /**
      * Optimization strategy for variant allocation
@@ -465,9 +498,15 @@ export namespace CampaignUpdateResponse {
     enabled: boolean;
 
     /**
-     * Filter expression for matching users, or null for all users
+     * Compiled filter expression for matching users, or null for all users
      */
     expression: string | null;
+
+    /**
+     * The CEL expression evaluated by modern SDKs, derived from `rule_conditions`.
+     * Null when the audience has no structured rule.
+     */
+    expression_cel: string | null;
 
     /**
      * Object type, always `audience`
@@ -478,6 +517,13 @@ export namespace CampaignUpdateResponse {
      * Priority rank of this audience within the campaign
      */
     rank: string;
+
+    /**
+     * Structured targeting rule (RuleConditions AST) when this audience uses the rule
+     * editor, or null for legacy raw-expression audiences. Returned as stored; send it
+     * back via the typed `rule_conditions` field on update.
+     */
+    rule_conditions: unknown;
 
     /**
      * Optimization strategy for variant allocation
@@ -640,9 +686,15 @@ export namespace CampaignListResponse {
       enabled: boolean;
 
       /**
-       * Filter expression for matching users, or null for all users
+       * Compiled filter expression for matching users, or null for all users
        */
       expression: string | null;
+
+      /**
+       * The CEL expression evaluated by modern SDKs, derived from `rule_conditions`.
+       * Null when the audience has no structured rule.
+       */
+      expression_cel: string | null;
 
       /**
        * Object type, always `audience`
@@ -653,6 +705,13 @@ export namespace CampaignListResponse {
        * Priority rank of this audience within the campaign
        */
       rank: string;
+
+      /**
+       * Structured targeting rule (RuleConditions AST) when this audience uses the rule
+       * editor, or null for legacy raw-expression audiences. Returned as stored; send it
+       * back via the typed `rule_conditions` field on update.
+       */
+      rule_conditions: unknown;
 
       /**
        * Optimization strategy for variant allocation
@@ -769,9 +828,15 @@ export interface CampaignUpdateAudienceResponse {
   enabled: boolean;
 
   /**
-   * Filter expression for matching users, or null for all users
+   * Compiled filter expression for matching users, or null for all users
    */
   expression: string | null;
+
+  /**
+   * The CEL expression evaluated by modern SDKs, derived from `rule_conditions`.
+   * Null when the audience has no structured rule.
+   */
+  expression_cel: string | null;
 
   /**
    * Object type, always `audience`
@@ -782,6 +847,13 @@ export interface CampaignUpdateAudienceResponse {
    * Priority rank of this audience within the campaign
    */
   rank: string;
+
+  /**
+   * Structured targeting rule (RuleConditions AST) when this audience uses the rule
+   * editor, or null for legacy raw-expression audiences. Returned as stored; send it
+   * back via the typed `rule_conditions` field on update.
+   */
+  rule_conditions: unknown;
 
   /**
    * Optimization strategy for variant allocation
@@ -868,9 +940,17 @@ export namespace CampaignCreateParams {
     enabled?: boolean;
 
     /**
-     * Filter expression for matching users
+     * Legacy raw filter expression for matching users. Ignored when `rule_conditions`
+     * is provided. Prefer `rule_conditions`.
      */
     expression?: string | null;
+
+    /**
+     * Structured audience targeting rule (the dashboard rule-editor AST). Compiled
+     * server-side into the runtime expression and `expression_cel`. Provide an empty
+     * `conditions` array to match all users.
+     */
+    rule_conditions?: Audience.RuleConditions;
 
     /**
      * Optimization strategy for variant allocation. Defaults to `none`
@@ -891,6 +971,176 @@ export namespace CampaignCreateParams {
        * Whether this is a treatment or holdout variant
        */
       type: 'treatment' | 'holdout';
+    }
+
+    /**
+     * Structured audience targeting rule (the dashboard rule-editor AST). Compiled
+     * server-side into the runtime expression and `expression_cel`. Provide an empty
+     * `conditions` array to match all users.
+     */
+    export interface RuleConditions {
+      conditions: Array<RuleConditions.UnionMember0 | RuleConditions.UnionMember1>;
+
+      operator: 'and' | 'or';
+
+      entitlements?: RuleConditions.Entitlements;
+    }
+
+    export namespace RuleConditions {
+      export interface UnionMember0 {
+        lhs: UnionMember0.UnionMember0 | UnionMember0.UnionMember1;
+
+        operator: 'eq' | 'neq' | 'c' | 'gt' | 'gte' | 'lt' | 'lte' | 't' | 'f' | 'null' | 'nnull';
+
+        rhs:
+          | UnionMember0.UnionMember0
+          | UnionMember0.UnionMember1
+          | UnionMember0.UnionMember2
+          | UnionMember0.UnionMember3
+          | UnionMember0.UnionMember4;
+
+        type: 'condition';
+      }
+
+      export namespace UnionMember0 {
+        export interface UnionMember0 {
+          args: string;
+
+          caller: 'device' | 'user' | 'params' | 'computed';
+
+          name:
+            | 'minutesSince'
+            | 'hoursSince'
+            | 'daysSince'
+            | 'placementsInHour'
+            | 'placementsInDay'
+            | 'placementsInWeek'
+            | 'placementsInMonth'
+            | 'placementsSinceInstall';
+
+          type: 'computed_function';
+
+          value?: string;
+        }
+
+        export interface UnionMember1 {
+          type: 'property';
+
+          value: string;
+        }
+
+        export interface UnionMember0 {
+          type: 'number';
+
+          value: string;
+        }
+
+        export interface UnionMember1 {
+          type: 'string';
+
+          value: string;
+        }
+
+        export interface UnionMember2 {
+          type: 'boolean';
+
+          value: string;
+        }
+
+        export interface UnionMember3 {
+          args: string;
+
+          caller: 'device' | 'user' | 'params' | 'computed';
+
+          name:
+            | 'minutesSince'
+            | 'hoursSince'
+            | 'daysSince'
+            | 'placementsInHour'
+            | 'placementsInDay'
+            | 'placementsInWeek'
+            | 'placementsInMonth'
+            | 'placementsSinceInstall';
+
+          type: 'computed_function';
+
+          value?: string;
+        }
+
+        export interface UnionMember4 {
+          type: 'property';
+
+          value: string;
+        }
+      }
+
+      export interface UnionMember1 {
+        conditions: Array<unknown>;
+
+        operator: 'and' | 'or';
+
+        type: 'group';
+      }
+
+      export interface Entitlements {
+        rule:
+          | Entitlements.Type
+          | Entitlements.Type
+          | Entitlements.UnionMember2
+          | Entitlements.Type
+          | Entitlements.Type
+          | Entitlements.Type
+          | Entitlements.Type
+          | Entitlements.Type;
+
+        type: 'entitlement';
+      }
+
+      export namespace Entitlements {
+        export interface Type {
+          type: 'no_active_entitlements';
+        }
+
+        export interface Type {
+          type: 'always_true';
+        }
+
+        export interface UnionMember2 {
+          conditions: Array<UnionMember2.Condition>;
+
+          type: 'entitlement_conditions';
+        }
+
+        export namespace UnionMember2 {
+          export interface Condition {
+            identifier: string;
+
+            status: 'active' | 'inactive' | 'will_not_renew' | 'in_trial' | 'expired' | 'in_billing_retry';
+
+            type: 'entitlement_condition';
+          }
+        }
+
+        export interface Type {
+          type: 'any_will_not_renew';
+        }
+
+        export interface Type {
+          type: 'any_in_trial';
+        }
+
+        export interface Type {
+          type: 'any_expired_no_active';
+        }
+
+        export interface Type {
+          type: 'any_active_subs_auto_renew_disabled';
+        }
+
+        export interface Type {
+          type: 'any_in_billing_retry';
+        }
+      }
     }
   }
 
@@ -969,9 +1219,17 @@ export interface CampaignUpdateAudienceParams {
   enabled?: boolean;
 
   /**
-   * Body param: Filter expression for matching users. Pass null to match all users
+   * Body param: Legacy raw filter expression for matching users. Pass null to match
+   * all users. Ignored when `rule_conditions` is provided. Prefer `rule_conditions`.
    */
   expression?: string | null;
+
+  /**
+   * Body param: Structured audience targeting rule (the dashboard rule-editor AST).
+   * Compiled server-side into the runtime expression and `expression_cel`. Provide
+   * an empty `conditions` array to match all users.
+   */
+  rule_conditions?: CampaignUpdateAudienceParams.RuleConditions;
 
   /**
    * Body param: Optimization strategy for variant allocation
@@ -986,6 +1244,176 @@ export interface CampaignUpdateAudienceParams {
 }
 
 export namespace CampaignUpdateAudienceParams {
+  /**
+   * Structured audience targeting rule (the dashboard rule-editor AST). Compiled
+   * server-side into the runtime expression and `expression_cel`. Provide an empty
+   * `conditions` array to match all users.
+   */
+  export interface RuleConditions {
+    conditions: Array<RuleConditions.UnionMember0 | RuleConditions.UnionMember1>;
+
+    operator: 'and' | 'or';
+
+    entitlements?: RuleConditions.Entitlements;
+  }
+
+  export namespace RuleConditions {
+    export interface UnionMember0 {
+      lhs: UnionMember0.UnionMember0 | UnionMember0.UnionMember1;
+
+      operator: 'eq' | 'neq' | 'c' | 'gt' | 'gte' | 'lt' | 'lte' | 't' | 'f' | 'null' | 'nnull';
+
+      rhs:
+        | UnionMember0.UnionMember0
+        | UnionMember0.UnionMember1
+        | UnionMember0.UnionMember2
+        | UnionMember0.UnionMember3
+        | UnionMember0.UnionMember4;
+
+      type: 'condition';
+    }
+
+    export namespace UnionMember0 {
+      export interface UnionMember0 {
+        args: string;
+
+        caller: 'device' | 'user' | 'params' | 'computed';
+
+        name:
+          | 'minutesSince'
+          | 'hoursSince'
+          | 'daysSince'
+          | 'placementsInHour'
+          | 'placementsInDay'
+          | 'placementsInWeek'
+          | 'placementsInMonth'
+          | 'placementsSinceInstall';
+
+        type: 'computed_function';
+
+        value?: string;
+      }
+
+      export interface UnionMember1 {
+        type: 'property';
+
+        value: string;
+      }
+
+      export interface UnionMember0 {
+        type: 'number';
+
+        value: string;
+      }
+
+      export interface UnionMember1 {
+        type: 'string';
+
+        value: string;
+      }
+
+      export interface UnionMember2 {
+        type: 'boolean';
+
+        value: string;
+      }
+
+      export interface UnionMember3 {
+        args: string;
+
+        caller: 'device' | 'user' | 'params' | 'computed';
+
+        name:
+          | 'minutesSince'
+          | 'hoursSince'
+          | 'daysSince'
+          | 'placementsInHour'
+          | 'placementsInDay'
+          | 'placementsInWeek'
+          | 'placementsInMonth'
+          | 'placementsSinceInstall';
+
+        type: 'computed_function';
+
+        value?: string;
+      }
+
+      export interface UnionMember4 {
+        type: 'property';
+
+        value: string;
+      }
+    }
+
+    export interface UnionMember1 {
+      conditions: Array<unknown>;
+
+      operator: 'and' | 'or';
+
+      type: 'group';
+    }
+
+    export interface Entitlements {
+      rule:
+        | Entitlements.Type
+        | Entitlements.Type
+        | Entitlements.UnionMember2
+        | Entitlements.Type
+        | Entitlements.Type
+        | Entitlements.Type
+        | Entitlements.Type
+        | Entitlements.Type;
+
+      type: 'entitlement';
+    }
+
+    export namespace Entitlements {
+      export interface Type {
+        type: 'no_active_entitlements';
+      }
+
+      export interface Type {
+        type: 'always_true';
+      }
+
+      export interface UnionMember2 {
+        conditions: Array<UnionMember2.Condition>;
+
+        type: 'entitlement_conditions';
+      }
+
+      export namespace UnionMember2 {
+        export interface Condition {
+          identifier: string;
+
+          status: 'active' | 'inactive' | 'will_not_renew' | 'in_trial' | 'expired' | 'in_billing_retry';
+
+          type: 'entitlement_condition';
+        }
+      }
+
+      export interface Type {
+        type: 'any_will_not_renew';
+      }
+
+      export interface Type {
+        type: 'any_in_trial';
+      }
+
+      export interface Type {
+        type: 'any_expired_no_active';
+      }
+
+      export interface Type {
+        type: 'any_active_subs_auto_renew_disabled';
+      }
+
+      export interface Type {
+        type: 'any_in_billing_retry';
+      }
+    }
+  }
+
   export interface Variant {
     /**
      * a string to be decoded into a number
