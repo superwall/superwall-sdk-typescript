@@ -52,6 +52,21 @@ describe('resource campaigns', () => {
           description: 'description',
           enabled: true,
           expression: 'expression',
+          rule_conditions: {
+            conditions: [
+              {
+                lhs: { type: 'property', value: 'device.appVersion' },
+                operator: 'gte',
+                rhs: { type: 'string', value: '1.2.3' },
+                type: 'condition',
+              },
+            ],
+            operator: 'and',
+            entitlements: {
+              rule: { type: 'no_active_entitlements' },
+              type: 'entitlement',
+            },
+          },
           variant_optimization: 'none',
         },
       ],
@@ -157,6 +172,21 @@ describe('resource campaigns', () => {
       description: 'description',
       enabled: true,
       expression: 'expression',
+      rule_conditions: {
+        conditions: [
+          {
+            lhs: { type: 'property', value: 'device.appVersion' },
+            operator: 'gte',
+            rhs: { type: 'string', value: '1.2.3' },
+            type: 'condition',
+          },
+        ],
+        operator: 'and',
+        entitlements: {
+          rule: { type: 'no_active_entitlements' },
+          type: 'entitlement',
+        },
+      },
       variant_optimization: 'none',
       variants: [
         {
