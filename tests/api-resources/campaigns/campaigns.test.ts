@@ -156,6 +156,15 @@ describe('resource campaigns', () => {
       id: 'id',
       description: 'description',
       enabled: true,
+      expression: 'expression',
+      variant_optimization: 'none',
+      variants: [
+        {
+          paywall: 'paywall',
+          percentage: 0,
+          type: 'treatment',
+        },
+      ],
     });
   });
 });

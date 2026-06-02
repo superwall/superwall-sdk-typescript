@@ -72,8 +72,9 @@ export class Campaigns extends APIResource {
   }
 
   /**
-   * Updates an audience's enabled status or description. Requires campaigns:write
-   * scope.
+   * Updates an audience's enabled status, description, filter expression, variant
+   * optimization, or variants. When variants are provided they replace the existing
+   * set. Requires campaigns:write scope.
    */
   updateAudience(
     audienceID: string,
@@ -966,6 +967,38 @@ export interface CampaignUpdateAudienceParams {
    * Body param: Whether this audience is enabled
    */
   enabled?: boolean;
+
+  /**
+   * Body param: Filter expression for matching users. Pass null to match all users
+   */
+  expression?: string | null;
+
+  /**
+   * Body param: Optimization strategy for variant allocation
+   */
+  variant_optimization?: 'none' | 'ucb1_bandit';
+
+  /**
+   * Body param: Replaces the audience's variants with this list. At least one
+   * variant is required
+   */
+  variants?: Array<CampaignUpdateAudienceParams.Variant>;
+}
+
+export namespace CampaignUpdateAudienceParams {
+  export interface Variant {
+    /**
+     * a string to be decoded into a number
+     */
+    paywall: string | null;
+
+    percentage: number;
+
+    /**
+     * Whether this is a treatment or holdout variant
+     */
+    type: 'treatment' | 'holdout';
+  }
 }
 
 Campaigns.Placements = Placements;

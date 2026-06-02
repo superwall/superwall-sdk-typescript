@@ -32,6 +32,11 @@ export interface TemplateRetrieveResponse {
   id: string;
 
   /**
+   * ID of the application that owns this template
+   */
+  application_id: string;
+
+  /**
    * Categories this template belongs to
    */
   categories: Array<string>;
@@ -55,6 +60,11 @@ export interface TemplateRetrieveResponse {
    * Object type, always `paywall_template`
    */
   object: 'paywall_template';
+
+  /**
+   * URL to the interactive template paywall
+   */
+  paywall_url: string;
 
   /**
    * Default presentation style of the template
@@ -107,6 +117,11 @@ export namespace TemplateListResponse {
     id: string;
 
     /**
+     * ID of the application that owns this template
+     */
+    application_id: string;
+
+    /**
      * Categories this template belongs to
      */
     categories: Array<string>;
@@ -130,6 +145,11 @@ export namespace TemplateListResponse {
      * Object type, always `paywall_template`
      */
     object: 'paywall_template';
+
+    /**
+     * URL to the interactive template paywall
+     */
+    paywall_url: string;
 
     /**
      * Default presentation style of the template
@@ -167,7 +187,7 @@ export interface TemplateListParams {
   ending_before?: string;
 
   /**
-   * Maximum number of items to return (1-100, default: 10)
+   * Maximum number of items to return (1-300, default: 10)
    */
   limit?: string;
 
