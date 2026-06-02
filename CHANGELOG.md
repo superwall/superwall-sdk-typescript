@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.4.0 (2026-06-02)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/superwall/superwall-sdk-typescript/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** api update ([18631bb](https://github.com/superwall/superwall-sdk-typescript/commit/18631bba19f30675f8413e2ba3e52344e5d3016d))
+* **api:** api update ([41d7591](https://github.com/superwall/superwall-sdk-typescript/commit/41d75910eae6486a232c504280f3b072c43cddf5))
+* **api:** api update ([395d9c3](https://github.com/superwall/superwall-sdk-typescript/commit/395d9c33b440cc2bd3ada50c61dcb0461f3c25d7))
+* **api:** api update ([d2194c5](https://github.com/superwall/superwall-sdk-typescript/commit/d2194c57fad5d00a6ccdecc1a5382e0e3ccabbc5))
+* **api:** api update ([7e1c460](https://github.com/superwall/superwall-sdk-typescript/commit/7e1c4606938a6d959f86e371771744287e028619))
+* **api:** api update ([4a22fbf](https://github.com/superwall/superwall-sdk-typescript/commit/4a22fbf0e305a352d50c703cb9ef0d63d05e62f8))
+* support setting headers via env ([454d412](https://github.com/superwall/superwall-sdk-typescript/commit/454d412cf04f2038e827312dd261017d165c6424))
+
+
+### Bug Fixes
+
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([4e387e8](https://github.com/superwall/superwall-sdk-typescript/commit/4e387e85c9015b9dc06a1b5a24ca2913550f6164))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([be93869](https://github.com/superwall/superwall-sdk-typescript/commit/be93869d4fc6fdaa81a0f80d6f2a76dcb4634273))
+* **format:** run eslint and prettier separately ([aa977e0](https://github.com/superwall/superwall-sdk-typescript/commit/aa977e028fc00bf39e8d3dec390288a72be5f737))
+* **formatter:** run prettier and eslint separately ([624cb88](https://github.com/superwall/superwall-sdk-typescript/commit/624cb881f0eb495cb0d28e7d7cd252e5afd28620))
+* **internal:** codegen related update ([f9215a4](https://github.com/superwall/superwall-sdk-typescript/commit/f9215a4439cee90959da5384acb4da1c21b5070a))
+* **internal:** codegen related update ([9f0ffa0](https://github.com/superwall/superwall-sdk-typescript/commit/9f0ffa05a31e5ebf667efccc17f6cd6a6450a434))
+* **internal:** more robust bootstrap script ([683ef0c](https://github.com/superwall/superwall-sdk-typescript/commit/683ef0ca266a231bbaba478d3ffb2da72c00a3e1))
+* **internal:** update gitignore ([9450ea4](https://github.com/superwall/superwall-sdk-typescript/commit/9450ea469048b4d0a0dd858076e98b8f2ab638e5))
+* redact api-key headers in debug logs ([01083ea](https://github.com/superwall/superwall-sdk-typescript/commit/01083eafb0b14d43ef2c72d6787aa4274d66dfab))
+* **tests:** remove redundant File import ([0e9550c](https://github.com/superwall/superwall-sdk-typescript/commit/0e9550c1fedd61076a34b1a446520a98fdcffaf7))
+
 ## 0.3.0 (2026-03-17)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/superwall/superwall-sdk-typescript/compare/v0.2.0...v0.3.0)

@@ -85,7 +85,7 @@ export interface ProductCreateResponse {
   /**
    * Platform the product belongs to
    */
-  platform: 'ios' | 'android' | 'stripe' | 'paddle' | 'promotional';
+  platform: 'ios' | 'android' | 'stripe' | 'promotional' | 'custom';
 
   /**
    * Price of the product, or null
@@ -203,7 +203,7 @@ export interface ProductRetrieveResponse {
   /**
    * Platform the product belongs to
    */
-  platform: 'ios' | 'android' | 'stripe' | 'paddle' | 'promotional';
+  platform: 'ios' | 'android' | 'stripe' | 'promotional' | 'custom';
 
   /**
    * Price of the product, or null
@@ -321,7 +321,7 @@ export interface ProductUpdateResponse {
   /**
    * Platform the product belongs to
    */
-  platform: 'ios' | 'android' | 'stripe' | 'paddle' | 'promotional';
+  platform: 'ios' | 'android' | 'stripe' | 'promotional' | 'custom';
 
   /**
    * Price of the product, or null
@@ -462,7 +462,7 @@ export namespace ProductListResponse {
     /**
      * Platform the product belongs to
      */
-    platform: 'ios' | 'android' | 'stripe' | 'paddle' | 'promotional';
+    platform: 'ios' | 'android' | 'stripe' | 'promotional' | 'custom';
 
     /**
      * Price of the product, or null
@@ -666,7 +666,7 @@ export interface ProductListParams {
   /**
    * Platform the product belongs to
    */
-  platform?: 'ios' | 'android' | 'stripe' | 'paddle' | 'promotional';
+  platform?: 'ios' | 'android' | 'stripe' | 'promotional' | 'custom';
 
   /**
    * a string to be decoded into a number
