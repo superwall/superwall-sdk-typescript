@@ -105,6 +105,7 @@ describe('resource applications', () => {
       environment: 'PRODUCTION',
       from: 'from',
       to: 'to',
+      event_type: 'event_type',
     });
   });
 

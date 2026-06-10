@@ -365,13 +365,21 @@ export interface ApplicationListRecentTransactionsResponse {
   data: Array<ApplicationListRecentTransactionsResponse.Data>;
 
   object: 'list';
+
+  event_types?: Array<ApplicationListRecentTransactionsResponse.EventType>;
 }
 
 export namespace ApplicationListRecentTransactionsResponse {
   export interface Data {
     id: string;
 
+    campaign_placement: Data.CampaignPlacement | null;
+
+    country_code: string | null;
+
     event_type: string;
+
+    install_date: string | null;
 
     integration: string;
 
@@ -379,11 +387,17 @@ export namespace ApplicationListRecentTransactionsResponse {
 
     object: 'recent_transaction';
 
+    original_transaction_id: string | null;
+
     paywall: Data.Paywall | null;
 
     placement: string | null;
 
     price: number | null;
+
+    product: Data.Product | null;
+
+    product_id: string | null;
 
     purchased_at: string;
 
@@ -393,10 +407,26 @@ export namespace ApplicationListRecentTransactionsResponse {
   }
 
   export namespace Data {
+    export interface CampaignPlacement {
+      object: 'recent_transaction_campaign_placement';
+
+      trigger_experiment_group_id: number | null;
+    }
+
     export interface Paywall {
       name: string;
 
       object: 'recent_transaction_paywall';
+
+      id?: number;
+    }
+
+    export interface Product {
+      identifier: string;
+
+      label: string;
+
+      object: 'recent_transaction_product';
     }
 
     export interface User {
@@ -404,6 +434,14 @@ export namespace ApplicationListRecentTransactionsResponse {
 
       object: 'recent_transaction_user';
     }
+  }
+
+  export interface EventType {
+    active: boolean;
+
+    label: string;
+
+    value: string;
   }
 }
 
@@ -520,6 +558,11 @@ export interface ApplicationListRecentTransactionsParams {
    * Query param: End datetime
    */
   to: string;
+
+  /**
+   * Query param: Recent transaction event type filter
+   */
+  event_type?: string;
 }
 
 export interface ApplicationUpdateSettingsParams {
