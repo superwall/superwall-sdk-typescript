@@ -746,12 +746,16 @@ export interface ChartQueryDataParams {
   application_id: string;
 
   /**
-   * X-axis dimension (e.g. `purchaseDate`, `installDate`)
+   * X-axis dimension (e.g. `purchaseDate`, `installDate`). Must be an exact
+   * dimension key from `GET /v2/charts/definitions`.
    */
   x_axis: string;
 
   /**
-   * Y-axis metric to display (e.g. `netProceeds`, `newUsers`, `trialConversionRate`)
+   * Y-axis metric to display (e.g. `netProceeds`, `newUsers`,
+   * `trialConversionRate`). Must be an exact metric key from
+   * `GET /v2/charts/definitions` — e.g. proceeds charts use `netProceeds`, not
+   * `proceeds`.
    */
   y_axis: string;
 
