@@ -195,7 +195,7 @@ export namespace ProjectCreateResponse {
     /**
      * Platform of the application
      */
-    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web';
+    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
 
     /**
      * Public API key for SDK integration
@@ -303,7 +303,7 @@ export namespace ProjectRetrieveResponse {
     /**
      * Platform of the application
      */
-    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web';
+    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
 
     /**
      * Public API key for SDK integration
@@ -411,7 +411,7 @@ export namespace ProjectUpdateResponse {
     /**
      * Platform of the application
      */
-    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web';
+    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
 
     /**
      * Public API key for SDK integration
@@ -542,7 +542,7 @@ export namespace ProjectListResponse {
       /**
        * Platform of the application
        */
-      platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web';
+      platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
 
       /**
        * Public API key for SDK integration

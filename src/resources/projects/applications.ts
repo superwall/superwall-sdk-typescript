@@ -173,7 +173,7 @@ export namespace ApplicationCreateResponse {
     /**
      * Platform of the application
      */
-    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web';
+    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
 
     /**
      * Public API key for SDK integration
@@ -281,7 +281,7 @@ export namespace ApplicationUpdateResponse {
     /**
      * Platform of the application
      */
-    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web';
+    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
 
     /**
      * Public API key for SDK integration
