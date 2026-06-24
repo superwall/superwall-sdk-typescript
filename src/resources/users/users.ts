@@ -50,6 +50,15 @@ export class Users extends APIResource {
   }
 
   /**
+   * Query users with filters, search term, and a download flag. Returns dynamic
+   * attribute columns alongside each user row (app_user_id, a nested properties
+   * object, and flattened attributes). Requires users:read scope.
+   */
+  query(body: UserQueryParams, options?: RequestOptions): APIPromise<UserQueryResponse> {
+    return this._client.post('/v2/users/query', { body, ...options });
+  }
+
+  /**
    * Resolve User
    */
   resolve(query: UserResolveParams, options?: RequestOptions): APIPromise<UserResolveResponse> {
@@ -132,6 +141,76 @@ export interface UserListFilterPropertiesResponse {
   other_properties: { [key: string]: Array<string> };
 
   user_properties: { [key: string]: Array<string> };
+}
+
+export interface UserQueryResponse {
+  /**
+   * Ordered columns to render: app_user_id first, then attributes by frequency
+   */
+  columns: Array<UserQueryResponse.Column>;
+
+  /**
+   * Users matching the filters after the search term is applied
+   */
+  filtered_total: number;
+
+  /**
+   * Attribute columns only
+   */
+  keys: Array<UserQueryResponse.Key>;
+
+  object: 'user_query_result';
+
+  /**
+   * Users returned in this page
+   */
+  returned_count: number;
+
+  /**
+   * User rows; each has app_user_id, a nested properties object, and flattened
+   * attributes
+   */
+  rows: Array<{ [key: string]: EventsAPI.JsonValue }>;
+
+  /**
+   * Query duration in seconds
+   */
+  time_elapsed: number;
+
+  /**
+   * Total users in the application
+   */
+  total: number;
+}
+
+export namespace UserQueryResponse {
+  export interface Column {
+    /**
+     * Number of users with this attribute
+     */
+    count: number;
+
+    key: string;
+
+    /**
+     * Inferred type, e.g. String, Int64, Float64, Bool, Date
+     */
+    type: string;
+  }
+
+  export interface Key {
+    /**
+     * Number of users with this attribute
+     */
+    count: number;
+
+    key: string;
+
+    /**
+     * Inferred type, e.g. String, Int64, Float64, Bool, Date
+     */
+    type: string;
+  }
 }
 
 export interface UserResolveResponse {
@@ -298,6 +377,52 @@ export interface UserListFilterPropertiesParams {
   application_id: string;
 }
 
+export interface UserQueryParams {
+  /**
+   * Application ID
+   */
+  application_id: string;
+
+  filters?: Array<UserQueryParams.Filter>;
+
+  /**
+   * When true, raises the row limit for CSV export
+   */
+  is_download?: boolean;
+
+  /**
+   * Whether a row must match all filters or any of them
+   */
+  match_mode?: 'all' | 'any';
+
+  search_term?: string;
+}
+
+export namespace UserQueryParams {
+  export interface Filter {
+    /**
+     * Client-supplied filter identifier
+     */
+    id: string;
+
+    /**
+     * Field to filter on: 'user\_<attributeKey>' for an attribute, 'user_appUserId'
+     * for the id, or 'event' for an event name
+     */
+    field_id: string;
+
+    /**
+     * Operand value(s) for the operator
+     */
+    values: Array<EventsAPI.JsonValue>;
+
+    /**
+     * Comparison operator, e.g. is, isNot, contains, greaterThan, between, before
+     */
+    operator?: string;
+  }
+}
+
 export interface UserResolveParams {
   /**
    * App user identifier
@@ -346,6 +471,7 @@ export declare namespace Users {
     type BooleanFromString as BooleanFromString,
     type UserListEventNamesResponse as UserListEventNamesResponse,
     type UserListFilterPropertiesResponse as UserListFilterPropertiesResponse,
+    type UserQueryResponse as UserQueryResponse,
     type UserResolveResponse as UserResolveResponse,
     type UserRetrieveActiveEntitlementsResponse as UserRetrieveActiveEntitlementsResponse,
     type UserRetrieveAttributesResponse as UserRetrieveAttributesResponse,
@@ -353,6 +479,7 @@ export declare namespace Users {
     type UserRetrieveSubscriptionSummaryResponse as UserRetrieveSubscriptionSummaryResponse,
     type UserListEventNamesParams as UserListEventNamesParams,
     type UserListFilterPropertiesParams as UserListFilterPropertiesParams,
+    type UserQueryParams as UserQueryParams,
     type UserResolveParams as UserResolveParams,
     type UserRetrieveActiveEntitlementsParams as UserRetrieveActiveEntitlementsParams,
     type UserRetrieveAttributesParams as UserRetrieveAttributesParams,
