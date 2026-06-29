@@ -22,8 +22,8 @@ describe('resource templates', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.paywalls.templates.list({ application_id: 'application_id' });
+  test.skip('list', async () => {
+    const responsePromise = client.paywalls.templates.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -34,14 +34,18 @@ describe('resource templates', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.paywalls.templates.list({
-      application_id: 'application_id',
-      category: 'category',
-      ending_before: 'ending_before',
-      limit: 'limit',
-      starting_after: 'starting_after',
-      visibility: 'public',
-    });
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.paywalls.templates.list(
+        {
+          category: 'category',
+          ending_before: 'ending_before',
+          limit: 'limit',
+          starting_after: 'starting_after',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(SuperwallAPI.NotFoundError);
   });
 });

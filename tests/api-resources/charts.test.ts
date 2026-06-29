@@ -50,6 +50,7 @@ describe('resource charts', () => {
       y_axis: 'y_axis',
       app_version: ['string'],
       auto_renew_status: ['string'],
+      billing_plan_type: ['UP_FRONT'],
       breakdown: 'breakdown',
       campaign_id: ['string'],
       conversion_timeframe: 'd1',

@@ -770,6 +770,11 @@ export interface ChartQueryDataParams {
   auto_renew_status?: Array<string>;
 
   /**
+   * Filter by App Store billing plan type (UP_FRONT, MONTHLY)
+   */
+  billing_plan_type?: Array<'UP_FRONT' | 'MONTHLY'>;
+
+  /**
    * Optional breakdown dimension (e.g. `countryCode`, `placement`)
    */
   breakdown?: string | null;
