@@ -5,9 +5,6 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
-/**
- * Manage paywalls and paywall templates. A Paywall is a monetization screen shown to users. Paywalls are scoped to a specific application (per-platform) since their design and behavior are platform-specific.
- */
 export class Templates extends APIResource {
   /**
    * Retrieves a paywall template by ID. Requires paywalls:read scope.
@@ -17,11 +14,14 @@ export class Templates extends APIResource {
   }
 
   /**
-   * Returns a list of available paywall templates. Filter by category or visibility.
-   * Requires paywalls:read scope.
+   * Returns a list of globally-available paywall templates. Public endpoint — no
+   * authentication required. Filter by category.
    */
-  list(query: TemplateListParams, options?: RequestOptions): APIPromise<TemplateListResponse> {
-    return this._client.get('/v2/paywalls/templates', { query, ...options });
+  list(
+    query: TemplateListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TemplateListResponse> {
+    return this._client.get('/v2/paywalls/templates', { query, ...options, __security: {} });
   }
 }
 
@@ -174,11 +174,6 @@ export namespace TemplateListResponse {
 }
 
 export interface TemplateListParams {
-  /**
-   * Filter by application ID (required)
-   */
-  application_id: string;
-
   category?: string;
 
   /**
@@ -195,11 +190,6 @@ export interface TemplateListParams {
    * a string to be decoded into a number
    */
   starting_after?: string;
-
-  /**
-   * Visibility scope of the template
-   */
-  visibility?: 'public' | 'organization';
 }
 
 export declare namespace Templates {
