@@ -124,7 +124,11 @@ describe('resource campaigns', () => {
       application_id: 'application_id',
       archived: 'true',
       ending_before: 'ending_before',
+      include_sort_metrics: 'true',
       limit: 'limit',
+      sort_metric: 'transactionCompletes',
+      sort_metrics_date_preset: 'last_24_hours',
+      sort_metrics_environment: 'PRODUCTION',
       starting_after: 'starting_after',
     });
   });

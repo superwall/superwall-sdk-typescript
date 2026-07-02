@@ -608,6 +608,11 @@ export interface CampaignListResponse {
    * API endpoint URL for this list
    */
   url: '/v2/campaigns';
+
+  /**
+   * Optional lightweight metrics used by clients to sort the campaigns list
+   */
+  sort_metrics?: CampaignListResponse.SortMetrics;
 }
 
 export namespace CampaignListResponse {
@@ -774,6 +779,26 @@ export namespace CampaignListResponse {
        */
       object: 'placement';
     }
+  }
+
+  /**
+   * Optional lightweight metrics used by clients to sort the campaigns list
+   */
+  export interface SortMetrics {
+    /**
+     * Transaction conversion count keyed by campaign ID
+     */
+    data: { [key: string]: number };
+
+    /**
+     * Metric included for list ordering
+     */
+    metric: 'transactionCompletes';
+
+    /**
+     * Whether campaign sort metrics were loaded successfully
+     */
+    status: 'ready' | 'unavailable';
   }
 }
 
@@ -1192,9 +1217,32 @@ export interface CampaignListParams {
   ending_before?: string;
 
   /**
+   * a string to be decoded into a boolean
+   */
+  include_sort_metrics?: UsersAPI.BooleanFromString;
+
+  /**
    * Maximum number of items to return (1-100, default: 10)
    */
   limit?: string;
+
+  sort_metric?: 'transactionCompletes';
+
+  /**
+   * Preset date range for included campaign sort metrics
+   */
+  sort_metrics_date_preset?:
+    | 'last_24_hours'
+    | 'today'
+    | 'yesterday'
+    | 'last_7_days'
+    | 'last_30_days'
+    | 'last_90_days'
+    | 'last_180_days'
+    | 'last_365_days'
+    | 'year_to_date';
+
+  sort_metrics_environment?: 'PRODUCTION' | 'SANDBOX';
 
   /**
    * a string to be decoded into a number
