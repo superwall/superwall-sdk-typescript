@@ -168,6 +168,12 @@ export namespace ChartGetDefinitionsResponse {
     default_chart_type?: 'line' | 'stackedArea' | 'bar' | 'stackedBar';
 
     /**
+     * When true, this chart must always render as a single combined series (no
+     * breakdown)
+     */
+    force_no_breakdown?: boolean;
+
+    /**
      * Group this chart type belongs to
      */
     group?: string;
