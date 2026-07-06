@@ -51,7 +51,7 @@ describe('resource campaigns', () => {
           ],
           description: 'description',
           enabled: true,
-          expression: 'expression',
+          expression: {},
           rule_conditions: {
             conditions: [
               {
@@ -175,7 +175,7 @@ describe('resource campaigns', () => {
       id: 'id',
       description: 'description',
       enabled: true,
-      expression: 'expression',
+      expression: {},
       rule_conditions: {
         conditions: [
           {
