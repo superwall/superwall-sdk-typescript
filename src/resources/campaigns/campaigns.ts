@@ -23,10 +23,10 @@ export class Campaigns extends APIResource {
   placements: PlacementsAPI.Placements = new PlacementsAPI.Placements(this._client);
 
   /**
-   * Creates a new campaign with placements and audiences. Each audience may supply a
-   * structured `rule_conditions` targeting rule (preferred), which is compiled into
-   * the audience's expression and drives `expression_cel` for modern SDKs; the
-   * legacy raw `expression` is ignored when `rule_conditions` is present. Requires
+   * Creates a new campaign with placements and audiences. Audience targeting is set
+   * with a structured `rule_conditions` rule, which is compiled into the audience's
+   * expression and drives `expression_cel` for modern SDKs; omit it to match all
+   * users. The legacy raw `expression` field is no longer accepted. Requires
    * campaigns:write scope.
    */
   create(body: CampaignCreateParams, options?: RequestOptions): APIPromise<CampaignCreateResponse> {
@@ -77,11 +77,11 @@ export class Campaigns extends APIResource {
   /**
    * Updates an audience's enabled status, description, targeting rule, variant
    * optimization, or variants. Provide a structured `rule_conditions` rule to update
-   * targeting (preferred): it is compiled into the audience's expression and drives
+   * targeting: it is compiled into the audience's expression and drives
    * `expression_cel` for modern SDKs, and the audience is switched to the rule
-   * editor so it stays in sync with the dashboard. The legacy raw `expression` is
-   * ignored when `rule_conditions` is present. When variants are provided they
-   * replace the existing set. Requires campaigns:write scope.
+   * editor so it stays in sync with the dashboard. The legacy raw `expression` field
+   * is no longer accepted. When variants are provided they replace the existing set.
+   * Requires campaigns:write scope.
    */
   updateAudience(
     audienceID: string,
@@ -964,11 +964,7 @@ export namespace CampaignCreateParams {
      */
     enabled?: boolean;
 
-    /**
-     * Legacy raw filter expression for matching users. Ignored when `rule_conditions`
-     * is provided. Prefer `rule_conditions`.
-     */
-    expression?: string | null;
+    expression?: unknown;
 
     /**
      * Structured audience targeting rule (the dashboard rule-editor AST). Compiled
@@ -1267,10 +1263,9 @@ export interface CampaignUpdateAudienceParams {
   enabled?: boolean;
 
   /**
-   * Body param: Legacy raw filter expression for matching users. Pass null to match
-   * all users. Ignored when `rule_conditions` is provided. Prefer `rule_conditions`.
+   * Body param
    */
-  expression?: string | null;
+  expression?: unknown;
 
   /**
    * Body param: Structured audience targeting rule (the dashboard rule-editor AST).
