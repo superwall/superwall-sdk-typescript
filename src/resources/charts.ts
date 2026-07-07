@@ -313,12 +313,32 @@ export namespace ChartGetDefinitionsResponse {
     value_type: 'number' | 'percentage' | 'currency';
 
     /**
+     * How to aggregate percentage totals from extra metric values
+     */
+    aggregate_total?: YAxi.AggregateTotal;
+
+    /**
      * Additional values rendered as sub-rows in chart tables
      */
     extra?: Array<YAxi.Extra>;
   }
 
   export namespace YAxi {
+    /**
+     * How to aggregate percentage totals from extra metric values
+     */
+    export interface AggregateTotal {
+      /**
+       * Extra metric key to sum for the aggregate total denominator
+       */
+      denominator_key: string;
+
+      /**
+       * Extra metric key to sum for the aggregate total numerator
+       */
+      numerator_key: string;
+    }
+
     export interface Extra {
       /**
        * Description of the metric
@@ -673,12 +693,32 @@ export namespace ChartQueryDataResponse {
     value_type: 'number' | 'percentage' | 'currency';
 
     /**
+     * How to aggregate percentage totals from extra metric values
+     */
+    aggregate_total?: YAxis.AggregateTotal;
+
+    /**
      * Additional values rendered as sub-rows in chart tables
      */
     extra?: Array<YAxis.Extra>;
   }
 
   export namespace YAxis {
+    /**
+     * How to aggregate percentage totals from extra metric values
+     */
+    export interface AggregateTotal {
+      /**
+       * Extra metric key to sum for the aggregate total denominator
+       */
+      denominator_key: string;
+
+      /**
+       * Extra metric key to sum for the aggregate total numerator
+       */
+      numerator_key: string;
+    }
+
     export interface Extra {
       /**
        * Description of the metric
