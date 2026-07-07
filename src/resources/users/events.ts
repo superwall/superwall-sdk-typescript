@@ -61,6 +61,8 @@ export interface EventRetrieveResponse {
    */
   timestamp: string;
 
+  app_user_id?: string | null;
+
   app_version?: string | null;
 
   debug?: JsonValue | null;
@@ -109,6 +111,8 @@ export namespace EventListResponse {
      * ISO 8601 timestamp of when the event occurred
      */
     timestamp: string;
+
+    app_user_id?: string | null;
 
     app_version?: string | null;
 

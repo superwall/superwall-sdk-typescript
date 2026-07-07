@@ -141,6 +141,11 @@ export namespace ApplicationCreateResponse {
     app_id: string | null;
 
     /**
+     * Whether Apple Search Ads is configured for this application
+     */
+    apple_search_ads_configured: boolean;
+
+    /**
      * ISO 8601 timestamp of when the application was archived, or null if active
      */
     archived_at: string | null;
@@ -166,6 +171,11 @@ export namespace ApplicationCreateResponse {
     integrated: boolean;
 
     /**
+     * Whether this application is the legacy Stripe application type
+     */
+    is_stripe_application: boolean;
+
+    /**
      * Display name of the application
      */
     name: string;
@@ -174,6 +184,17 @@ export namespace ApplicationCreateResponse {
      * Platform of the application
      */
     platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
+
+    /**
+     * Whether this application's project contains a legacy Stripe application, or null
+     * for standalone applications
+     */
+    project_has_stripe_application: boolean | null;
+
+    /**
+     * a string to be decoded into a number
+     */
+    project_id: string | null;
 
     /**
      * Public API key for SDK integration
@@ -249,6 +270,11 @@ export namespace ApplicationUpdateResponse {
     app_id: string | null;
 
     /**
+     * Whether Apple Search Ads is configured for this application
+     */
+    apple_search_ads_configured: boolean;
+
+    /**
      * ISO 8601 timestamp of when the application was archived, or null if active
      */
     archived_at: string | null;
@@ -274,6 +300,11 @@ export namespace ApplicationUpdateResponse {
     integrated: boolean;
 
     /**
+     * Whether this application is the legacy Stripe application type
+     */
+    is_stripe_application: boolean;
+
+    /**
      * Display name of the application
      */
     name: string;
@@ -282,6 +313,17 @@ export namespace ApplicationUpdateResponse {
      * Platform of the application
      */
     platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
+
+    /**
+     * Whether this application's project contains a legacy Stripe application, or null
+     * for standalone applications
+     */
+    project_has_stripe_application: boolean | null;
+
+    /**
+     * a string to be decoded into a number
+     */
+    project_id: string | null;
 
     /**
      * Public API key for SDK integration
