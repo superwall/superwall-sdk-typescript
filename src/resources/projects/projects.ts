@@ -163,6 +163,11 @@ export namespace ProjectCreateResponse {
     app_id: string | null;
 
     /**
+     * Whether Apple Search Ads is configured for this application
+     */
+    apple_search_ads_configured: boolean;
+
+    /**
      * ISO 8601 timestamp of when the application was archived, or null if active
      */
     archived_at: string | null;
@@ -188,6 +193,11 @@ export namespace ProjectCreateResponse {
     integrated: boolean;
 
     /**
+     * Whether this application is the legacy Stripe application type
+     */
+    is_stripe_application: boolean;
+
+    /**
      * Display name of the application
      */
     name: string;
@@ -196,6 +206,17 @@ export namespace ProjectCreateResponse {
      * Platform of the application
      */
     platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
+
+    /**
+     * Whether this application's project contains a legacy Stripe application, or null
+     * for standalone applications
+     */
+    project_has_stripe_application: boolean | null;
+
+    /**
+     * a string to be decoded into a number
+     */
+    project_id: string | null;
 
     /**
      * Public API key for SDK integration
@@ -271,6 +292,11 @@ export namespace ProjectRetrieveResponse {
     app_id: string | null;
 
     /**
+     * Whether Apple Search Ads is configured for this application
+     */
+    apple_search_ads_configured: boolean;
+
+    /**
      * ISO 8601 timestamp of when the application was archived, or null if active
      */
     archived_at: string | null;
@@ -296,6 +322,11 @@ export namespace ProjectRetrieveResponse {
     integrated: boolean;
 
     /**
+     * Whether this application is the legacy Stripe application type
+     */
+    is_stripe_application: boolean;
+
+    /**
      * Display name of the application
      */
     name: string;
@@ -304,6 +335,17 @@ export namespace ProjectRetrieveResponse {
      * Platform of the application
      */
     platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
+
+    /**
+     * Whether this application's project contains a legacy Stripe application, or null
+     * for standalone applications
+     */
+    project_has_stripe_application: boolean | null;
+
+    /**
+     * a string to be decoded into a number
+     */
+    project_id: string | null;
 
     /**
      * Public API key for SDK integration
@@ -379,6 +421,11 @@ export namespace ProjectUpdateResponse {
     app_id: string | null;
 
     /**
+     * Whether Apple Search Ads is configured for this application
+     */
+    apple_search_ads_configured: boolean;
+
+    /**
      * ISO 8601 timestamp of when the application was archived, or null if active
      */
     archived_at: string | null;
@@ -404,6 +451,11 @@ export namespace ProjectUpdateResponse {
     integrated: boolean;
 
     /**
+     * Whether this application is the legacy Stripe application type
+     */
+    is_stripe_application: boolean;
+
+    /**
      * Display name of the application
      */
     name: string;
@@ -412,6 +464,17 @@ export namespace ProjectUpdateResponse {
      * Platform of the application
      */
     platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
+
+    /**
+     * Whether this application's project contains a legacy Stripe application, or null
+     * for standalone applications
+     */
+    project_has_stripe_application: boolean | null;
+
+    /**
+     * a string to be decoded into a number
+     */
+    project_id: string | null;
 
     /**
      * Public API key for SDK integration
@@ -510,6 +573,11 @@ export namespace ProjectListResponse {
       app_id: string | null;
 
       /**
+       * Whether Apple Search Ads is configured for this application
+       */
+      apple_search_ads_configured: boolean;
+
+      /**
        * ISO 8601 timestamp of when the application was archived, or null if active
        */
       archived_at: string | null;
@@ -535,6 +603,11 @@ export namespace ProjectListResponse {
       integrated: boolean;
 
       /**
+       * Whether this application is the legacy Stripe application type
+       */
+      is_stripe_application: boolean;
+
+      /**
        * Display name of the application
        */
       name: string;
@@ -543,6 +616,17 @@ export namespace ProjectListResponse {
        * Platform of the application
        */
       platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
+
+      /**
+       * Whether this application's project contains a legacy Stripe application, or null
+       * for standalone applications
+       */
+      project_has_stripe_application: boolean | null;
+
+      /**
+       * a string to be decoded into a number
+       */
+      project_id: string | null;
 
       /**
        * Public API key for SDK integration
