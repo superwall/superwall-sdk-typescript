@@ -42,6 +42,7 @@ describe('resource events', () => {
   test.skip('list: required and optional params', async () => {
     const response = await client.users.events.list('app_user_id', {
       application_id: 'application_id',
+      environment: 'production',
       event_group: 'app',
       limit: 'limit',
       offset: 'offset',
