@@ -139,6 +139,8 @@ export interface EventListParams {
    */
   application_id: string;
 
+  environment?: 'production' | 'sandbox';
+
   event_group?: 'app' | 'sdk' | 'integration' | 'subscription' | 'overview' | 'all';
 
   /**
