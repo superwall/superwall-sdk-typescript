@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as UsersAPI from '../users/users';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -343,6 +344,11 @@ export namespace ApplicationUpdateResponse {
 }
 
 export interface ApplicationGetStatisticsResponse {
+  /**
+   * Unix epoch (ms) when this statistics snapshot was computed
+   */
+  computed_at: number;
+
   object: 'application_statistics';
 
   params: ApplicationGetStatisticsResponse.Params;
@@ -357,11 +363,21 @@ export namespace ApplicationGetStatisticsResponse {
      */
     application_id: string;
 
+    /**
+     * Preset reporting window
+     */
+    date_preset:
+      | 'last_24_hours'
+      | 'today'
+      | 'yesterday'
+      | 'last_7_days'
+      | 'last_30_days'
+      | 'last_90_days'
+      | 'last_180_days'
+      | 'last_365_days'
+      | 'year_to_date';
+
     environment: 'PRODUCTION' | 'SANDBOX';
-
-    from: string;
-
-    to: string;
   }
 
   export interface Statistic {
@@ -565,19 +581,29 @@ export interface ApplicationGetStatisticsParams {
   id: string;
 
   /**
+   * Query param: Preset reporting window
+   */
+  date_preset:
+    | 'last_24_hours'
+    | 'today'
+    | 'yesterday'
+    | 'last_7_days'
+    | 'last_30_days'
+    | 'last_90_days'
+    | 'last_180_days'
+    | 'last_365_days'
+    | 'year_to_date';
+
+  /**
    * Query param: Environment to query
    */
   environment: 'PRODUCTION' | 'SANDBOX';
 
   /**
-   * Query param: Start datetime
+   * Query param: Bypass the cached snapshot and force a fresh server recompute for
+   * this window
    */
-  from: string;
-
-  /**
-   * Query param: End datetime
-   */
-  to: string;
+  refresh?: UsersAPI.BooleanFromString;
 }
 
 export interface ApplicationListRecentTransactionsParams {
