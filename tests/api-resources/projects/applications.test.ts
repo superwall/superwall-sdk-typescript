@@ -58,9 +58,8 @@ describe('resource applications', () => {
   test.skip('getStatistics: only required params', async () => {
     const responsePromise = client.projects.applications.getStatistics('application_id', {
       id: 'id',
+      date_preset: 'last_24_hours',
       environment: 'PRODUCTION',
-      from: 'from',
-      to: 'to',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -75,9 +74,9 @@ describe('resource applications', () => {
   test.skip('getStatistics: required and optional params', async () => {
     const response = await client.projects.applications.getStatistics('application_id', {
       id: 'id',
+      date_preset: 'last_24_hours',
       environment: 'PRODUCTION',
-      from: 'from',
-      to: 'to',
+      refresh: 'true',
     });
   });
 
