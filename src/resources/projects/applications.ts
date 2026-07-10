@@ -363,10 +363,16 @@ export namespace ApplicationGetStatisticsResponse {
      */
     application_id: string;
 
+    environment: 'PRODUCTION' | 'SANDBOX';
+
+    from: string;
+
+    to: string;
+
     /**
      * Preset reporting window
      */
-    date_preset:
+    date_preset?:
       | 'last_24_hours'
       | 'today'
       | 'yesterday'
@@ -376,8 +382,6 @@ export namespace ApplicationGetStatisticsResponse {
       | 'last_180_days'
       | 'last_365_days'
       | 'year_to_date';
-
-    environment: 'PRODUCTION' | 'SANDBOX';
   }
 
   export interface Statistic {
@@ -581,9 +585,14 @@ export interface ApplicationGetStatisticsParams {
   id: string;
 
   /**
+   * Query param: Environment to query
+   */
+  environment: 'PRODUCTION' | 'SANDBOX';
+
+  /**
    * Query param: Preset reporting window
    */
-  date_preset:
+  date_preset?:
     | 'last_24_hours'
     | 'today'
     | 'yesterday'
@@ -595,15 +604,20 @@ export interface ApplicationGetStatisticsParams {
     | 'year_to_date';
 
   /**
-   * Query param: Environment to query
+   * Query param: Start datetime (legacy; used when date_preset is absent)
    */
-  environment: 'PRODUCTION' | 'SANDBOX';
+  from?: string;
 
   /**
    * Query param: Bypass the cached snapshot and force a fresh server recompute for
    * this window
    */
   refresh?: UsersAPI.BooleanFromString;
+
+  /**
+   * Query param: End datetime (legacy; used when date_preset is absent)
+   */
+  to?: string;
 }
 
 export interface ApplicationListRecentTransactionsParams {
