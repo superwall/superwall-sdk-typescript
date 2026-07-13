@@ -198,6 +198,12 @@ export namespace ProjectCreateResponse {
     is_stripe_application: boolean;
 
     /**
+     * Detected language/framework for the application (e.g. `flutter`,
+     * `react-native`), sourced from marketing metadata, or null if unknown
+     */
+    language_and_framework: string | null;
+
+    /**
      * Display name of the application
      */
     name: string;
@@ -232,6 +238,13 @@ export namespace ProjectCreateResponse {
      * ISO 8601 timestamp of when the application was last updated
      */
     updated_at: string;
+
+    /**
+     * Exact SDK framework selected for this application platform (e.g. `expo`,
+     * `swiftui`), or null if unknown. Optional for compatibility with older API
+     * deployments.
+     */
+    sdk_framework?: string | null;
   }
 }
 
@@ -327,6 +340,12 @@ export namespace ProjectRetrieveResponse {
     is_stripe_application: boolean;
 
     /**
+     * Detected language/framework for the application (e.g. `flutter`,
+     * `react-native`), sourced from marketing metadata, or null if unknown
+     */
+    language_and_framework: string | null;
+
+    /**
      * Display name of the application
      */
     name: string;
@@ -361,6 +380,13 @@ export namespace ProjectRetrieveResponse {
      * ISO 8601 timestamp of when the application was last updated
      */
     updated_at: string;
+
+    /**
+     * Exact SDK framework selected for this application platform (e.g. `expo`,
+     * `swiftui`), or null if unknown. Optional for compatibility with older API
+     * deployments.
+     */
+    sdk_framework?: string | null;
   }
 }
 
@@ -456,6 +482,12 @@ export namespace ProjectUpdateResponse {
     is_stripe_application: boolean;
 
     /**
+     * Detected language/framework for the application (e.g. `flutter`,
+     * `react-native`), sourced from marketing metadata, or null if unknown
+     */
+    language_and_framework: string | null;
+
+    /**
      * Display name of the application
      */
     name: string;
@@ -490,6 +522,13 @@ export namespace ProjectUpdateResponse {
      * ISO 8601 timestamp of when the application was last updated
      */
     updated_at: string;
+
+    /**
+     * Exact SDK framework selected for this application platform (e.g. `expo`,
+     * `swiftui`), or null if unknown. Optional for compatibility with older API
+     * deployments.
+     */
+    sdk_framework?: string | null;
   }
 }
 
@@ -608,6 +647,12 @@ export namespace ProjectListResponse {
       is_stripe_application: boolean;
 
       /**
+       * Detected language/framework for the application (e.g. `flutter`,
+       * `react-native`), sourced from marketing metadata, or null if unknown
+       */
+      language_and_framework: string | null;
+
+      /**
        * Display name of the application
        */
       name: string;
@@ -642,6 +687,13 @@ export namespace ProjectListResponse {
        * ISO 8601 timestamp of when the application was last updated
        */
       updated_at: string;
+
+      /**
+       * Exact SDK framework selected for this application platform (e.g. `expo`,
+       * `swiftui`), or null if unknown. Optional for compatibility with older API
+       * deployments.
+       */
+      sdk_framework?: string | null;
     }
   }
 }

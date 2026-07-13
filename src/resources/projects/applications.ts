@@ -177,6 +177,12 @@ export namespace ApplicationCreateResponse {
     is_stripe_application: boolean;
 
     /**
+     * Detected language/framework for the application (e.g. `flutter`,
+     * `react-native`), sourced from marketing metadata, or null if unknown
+     */
+    language_and_framework: string | null;
+
+    /**
      * Display name of the application
      */
     name: string;
@@ -211,6 +217,13 @@ export namespace ApplicationCreateResponse {
      * ISO 8601 timestamp of when the application was last updated
      */
     updated_at: string;
+
+    /**
+     * Exact SDK framework selected for this application platform (e.g. `expo`,
+     * `swiftui`), or null if unknown. Optional for compatibility with older API
+     * deployments.
+     */
+    sdk_framework?: string | null;
   }
 }
 
@@ -306,6 +319,12 @@ export namespace ApplicationUpdateResponse {
     is_stripe_application: boolean;
 
     /**
+     * Detected language/framework for the application (e.g. `flutter`,
+     * `react-native`), sourced from marketing metadata, or null if unknown
+     */
+    language_and_framework: string | null;
+
+    /**
      * Display name of the application
      */
     name: string;
@@ -340,6 +359,13 @@ export namespace ApplicationUpdateResponse {
      * ISO 8601 timestamp of when the application was last updated
      */
     updated_at: string;
+
+    /**
+     * Exact SDK framework selected for this application platform (e.g. `expo`,
+     * `swiftui`), or null if unknown. Optional for compatibility with older API
+     * deployments.
+     */
+    sdk_framework?: string | null;
   }
 }
 
