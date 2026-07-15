@@ -125,13 +125,24 @@ describe('resource applications', () => {
   test.skip('updateSettings: required and optional params', async () => {
     const response = await client.projects.applications.updateSettings('application_id', {
       id: 'id',
+      android_app_fingerprints: ['string'],
+      app_id: 'app_id',
       app_store_connect_shared_secret: 'app_store_connect_shared_secret',
       apple_small_business_end_date: 'apple_small_business_end_date',
       apple_small_business_start_date: 'apple_small_business_start_date',
       apple_url_scheme: 'apple_url_scheme',
+      application_icon: 'application_icon',
+      bundle_id: 'bundle_id',
+      name: 'x',
       notification_redirect_url: 'notification_redirect_url',
+      redeemable_on_desktop: true,
       revenue_cat_public_api_key: 'revenue_cat_public_api_key',
       stripe_private_key: 'stripe_private_key',
+      support_email: 'support_email',
+      support_url: 'support_url',
+      team_id: 'team_id',
+      web_2_app_disable_customer_emails: true,
+      web_2_app_post_purchase_behavior: { type: 'redeem' },
     });
   });
 });
