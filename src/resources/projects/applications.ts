@@ -137,6 +137,11 @@ export namespace ApplicationCreateResponse {
     id: string;
 
     /**
+     * Android app signing certificate fingerprints
+     */
+    android_app_fingerprints: Array<string> | null;
+
+    /**
      * App Store or Play Store app ID
      */
     app_id: string | null;
@@ -145,6 +150,26 @@ export namespace ApplicationCreateResponse {
      * Whether Apple Search Ads is configured for this application
      */
     apple_search_ads_configured: boolean;
+
+    /**
+     * Apple Small Business Program end date
+     */
+    apple_small_business_end_date: string | null;
+
+    /**
+     * Apple Small Business Program start date
+     */
+    apple_small_business_start_date: string | null;
+
+    /**
+     * URL scheme used for deep links on mobile
+     */
+    apple_url_scheme: string | null;
+
+    /**
+     * Custom application icon URL shown on management pages and in emails
+     */
+    application_icon: string | null;
 
     /**
      * ISO 8601 timestamp of when the application was archived, or null if active
@@ -165,6 +190,11 @@ export namespace ApplicationCreateResponse {
      * List of enabled feature flags for the application
      */
     features_enabled: Array<string>;
+
+    /**
+     * Whether all paywalls are disabled for this application
+     */
+    globally_disabled: boolean;
 
     /**
      * Whether the application has been integrated with the SDK
@@ -188,6 +218,11 @@ export namespace ApplicationCreateResponse {
     name: string;
 
     /**
+     * Notification redirect URL for iOS applications
+     */
+    notification_redirect_url: string | null;
+
+    /**
      * Platform of the application
      */
     platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
@@ -209,9 +244,34 @@ export namespace ApplicationCreateResponse {
     public_api_key: string;
 
     /**
+     * Whether web purchases can be redeemed on desktop devices
+     */
+    redeemable_on_desktop: boolean | null;
+
+    /**
+     * RevenueCat public API key
+     */
+    revenue_cat_public_api_key: string | null;
+
+    /**
      * URL-safe identifier for the application
      */
     slug: string;
+
+    /**
+     * Reply-to support email for web checkout emails
+     */
+    support_email: string | null;
+
+    /**
+     * Support URL shown during web checkout redemption
+     */
+    support_url: string | null;
+
+    /**
+     * Apple Developer Team ID for iOS applications
+     */
+    team_id: string | null;
 
     /**
      * ISO 8601 timestamp of when the application was last updated
@@ -219,11 +279,33 @@ export namespace ApplicationCreateResponse {
     updated_at: string;
 
     /**
+     * Whether Superwall post-purchase customer emails are disabled
+     */
+    web_2_app_disable_customer_emails: boolean | null;
+
+    /**
+     * Behavior after a web-to-app purchase
+     */
+    web_2_app_post_purchase_behavior: Application.Type | Application.UnionMember1 | null;
+
+    /**
      * Exact SDK framework selected for this application platform (e.g. `expo`,
      * `swiftui`), or null if unknown. Optional for compatibility with older API
      * deployments.
      */
     sdk_framework?: string | null;
+  }
+
+  export namespace Application {
+    export interface Type {
+      type: 'redeem';
+    }
+
+    export interface UnionMember1 {
+      type: 'redirect';
+
+      url: string;
+    }
   }
 }
 
@@ -279,6 +361,11 @@ export namespace ApplicationUpdateResponse {
     id: string;
 
     /**
+     * Android app signing certificate fingerprints
+     */
+    android_app_fingerprints: Array<string> | null;
+
+    /**
      * App Store or Play Store app ID
      */
     app_id: string | null;
@@ -287,6 +374,26 @@ export namespace ApplicationUpdateResponse {
      * Whether Apple Search Ads is configured for this application
      */
     apple_search_ads_configured: boolean;
+
+    /**
+     * Apple Small Business Program end date
+     */
+    apple_small_business_end_date: string | null;
+
+    /**
+     * Apple Small Business Program start date
+     */
+    apple_small_business_start_date: string | null;
+
+    /**
+     * URL scheme used for deep links on mobile
+     */
+    apple_url_scheme: string | null;
+
+    /**
+     * Custom application icon URL shown on management pages and in emails
+     */
+    application_icon: string | null;
 
     /**
      * ISO 8601 timestamp of when the application was archived, or null if active
@@ -307,6 +414,11 @@ export namespace ApplicationUpdateResponse {
      * List of enabled feature flags for the application
      */
     features_enabled: Array<string>;
+
+    /**
+     * Whether all paywalls are disabled for this application
+     */
+    globally_disabled: boolean;
 
     /**
      * Whether the application has been integrated with the SDK
@@ -330,6 +442,11 @@ export namespace ApplicationUpdateResponse {
     name: string;
 
     /**
+     * Notification redirect URL for iOS applications
+     */
+    notification_redirect_url: string | null;
+
+    /**
      * Platform of the application
      */
     platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
@@ -351,9 +468,34 @@ export namespace ApplicationUpdateResponse {
     public_api_key: string;
 
     /**
+     * Whether web purchases can be redeemed on desktop devices
+     */
+    redeemable_on_desktop: boolean | null;
+
+    /**
+     * RevenueCat public API key
+     */
+    revenue_cat_public_api_key: string | null;
+
+    /**
      * URL-safe identifier for the application
      */
     slug: string;
+
+    /**
+     * Reply-to support email for web checkout emails
+     */
+    support_email: string | null;
+
+    /**
+     * Support URL shown during web checkout redemption
+     */
+    support_url: string | null;
+
+    /**
+     * Apple Developer Team ID for iOS applications
+     */
+    team_id: string | null;
 
     /**
      * ISO 8601 timestamp of when the application was last updated
@@ -361,11 +503,33 @@ export namespace ApplicationUpdateResponse {
     updated_at: string;
 
     /**
+     * Whether Superwall post-purchase customer emails are disabled
+     */
+    web_2_app_disable_customer_emails: boolean | null;
+
+    /**
+     * Behavior after a web-to-app purchase
+     */
+    web_2_app_post_purchase_behavior: Application.Type | Application.UnionMember1 | null;
+
+    /**
      * Exact SDK framework selected for this application platform (e.g. `expo`,
      * `swiftui`), or null if unknown. Optional for compatibility with older API
      * deployments.
      */
     sdk_framework?: string | null;
+  }
+
+  export namespace Application {
+    export interface Type {
+      type: 'redeem';
+    }
+
+    export interface UnionMember1 {
+      type: 'redirect';
+
+      url: string;
+    }
   }
 }
 
@@ -680,6 +844,16 @@ export interface ApplicationUpdateSettingsParams {
   id: string;
 
   /**
+   * Body param: Android app signing certificate fingerprints
+   */
+  android_app_fingerprints?: Array<string> | null;
+
+  /**
+   * Body param: App Store or Play Store app ID
+   */
+  app_id?: string | null;
+
+  /**
    * Body param: App Store Connect shared secret
    */
   app_store_connect_shared_secret?: string | null;
@@ -700,9 +874,29 @@ export interface ApplicationUpdateSettingsParams {
   apple_url_scheme?: string | null;
 
   /**
+   * Body param: Custom application icon URL shown on management pages and in emails
+   */
+  application_icon?: string | null;
+
+  /**
+   * Body param: Bundle identifier (iOS) or package name (Android)
+   */
+  bundle_id?: string | null;
+
+  /**
+   * Body param: Display name of the application
+   */
+  name?: string;
+
+  /**
    * Body param: Notification redirect URL for iOS applications
    */
   notification_redirect_url?: string | null;
+
+  /**
+   * Body param: Whether web purchases can be redeemed on desktop devices
+   */
+  redeemable_on_desktop?: boolean | null;
 
   /**
    * Body param: RevenueCat public API key
@@ -713,6 +907,46 @@ export interface ApplicationUpdateSettingsParams {
    * Body param: Stripe private key for web/stripe applications
    */
   stripe_private_key?: string | null;
+
+  /**
+   * Body param: Reply-to support email for web checkout emails
+   */
+  support_email?: string | null;
+
+  /**
+   * Body param: Support URL shown during web checkout redemption
+   */
+  support_url?: string | null;
+
+  /**
+   * Body param: Apple Developer Team ID for iOS applications
+   */
+  team_id?: string | null;
+
+  /**
+   * Body param: Whether Superwall post-purchase customer emails are disabled
+   */
+  web_2_app_disable_customer_emails?: boolean | null;
+
+  /**
+   * Body param: Behavior after a web-to-app purchase
+   */
+  web_2_app_post_purchase_behavior?:
+    | ApplicationUpdateSettingsParams.Type
+    | ApplicationUpdateSettingsParams.UnionMember1
+    | null;
+}
+
+export namespace ApplicationUpdateSettingsParams {
+  export interface Type {
+    type: 'redeem';
+  }
+
+  export interface UnionMember1 {
+    type: 'redirect';
+
+    url: string;
+  }
 }
 
 export declare namespace Applications {

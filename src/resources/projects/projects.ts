@@ -158,6 +158,11 @@ export namespace ProjectCreateResponse {
     id: string;
 
     /**
+     * Android app signing certificate fingerprints
+     */
+    android_app_fingerprints: Array<string> | null;
+
+    /**
      * App Store or Play Store app ID
      */
     app_id: string | null;
@@ -166,6 +171,26 @@ export namespace ProjectCreateResponse {
      * Whether Apple Search Ads is configured for this application
      */
     apple_search_ads_configured: boolean;
+
+    /**
+     * Apple Small Business Program end date
+     */
+    apple_small_business_end_date: string | null;
+
+    /**
+     * Apple Small Business Program start date
+     */
+    apple_small_business_start_date: string | null;
+
+    /**
+     * URL scheme used for deep links on mobile
+     */
+    apple_url_scheme: string | null;
+
+    /**
+     * Custom application icon URL shown on management pages and in emails
+     */
+    application_icon: string | null;
 
     /**
      * ISO 8601 timestamp of when the application was archived, or null if active
@@ -186,6 +211,11 @@ export namespace ProjectCreateResponse {
      * List of enabled feature flags for the application
      */
     features_enabled: Array<string>;
+
+    /**
+     * Whether all paywalls are disabled for this application
+     */
+    globally_disabled: boolean;
 
     /**
      * Whether the application has been integrated with the SDK
@@ -209,6 +239,11 @@ export namespace ProjectCreateResponse {
     name: string;
 
     /**
+     * Notification redirect URL for iOS applications
+     */
+    notification_redirect_url: string | null;
+
+    /**
      * Platform of the application
      */
     platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
@@ -230,9 +265,34 @@ export namespace ProjectCreateResponse {
     public_api_key: string;
 
     /**
+     * Whether web purchases can be redeemed on desktop devices
+     */
+    redeemable_on_desktop: boolean | null;
+
+    /**
+     * RevenueCat public API key
+     */
+    revenue_cat_public_api_key: string | null;
+
+    /**
      * URL-safe identifier for the application
      */
     slug: string;
+
+    /**
+     * Reply-to support email for web checkout emails
+     */
+    support_email: string | null;
+
+    /**
+     * Support URL shown during web checkout redemption
+     */
+    support_url: string | null;
+
+    /**
+     * Apple Developer Team ID for iOS applications
+     */
+    team_id: string | null;
 
     /**
      * ISO 8601 timestamp of when the application was last updated
@@ -240,11 +300,33 @@ export namespace ProjectCreateResponse {
     updated_at: string;
 
     /**
+     * Whether Superwall post-purchase customer emails are disabled
+     */
+    web_2_app_disable_customer_emails: boolean | null;
+
+    /**
+     * Behavior after a web-to-app purchase
+     */
+    web_2_app_post_purchase_behavior: Application.Type | Application.UnionMember1 | null;
+
+    /**
      * Exact SDK framework selected for this application platform (e.g. `expo`,
      * `swiftui`), or null if unknown. Optional for compatibility with older API
      * deployments.
      */
     sdk_framework?: string | null;
+  }
+
+  export namespace Application {
+    export interface Type {
+      type: 'redeem';
+    }
+
+    export interface UnionMember1 {
+      type: 'redirect';
+
+      url: string;
+    }
   }
 }
 
@@ -300,6 +382,11 @@ export namespace ProjectRetrieveResponse {
     id: string;
 
     /**
+     * Android app signing certificate fingerprints
+     */
+    android_app_fingerprints: Array<string> | null;
+
+    /**
      * App Store or Play Store app ID
      */
     app_id: string | null;
@@ -308,6 +395,26 @@ export namespace ProjectRetrieveResponse {
      * Whether Apple Search Ads is configured for this application
      */
     apple_search_ads_configured: boolean;
+
+    /**
+     * Apple Small Business Program end date
+     */
+    apple_small_business_end_date: string | null;
+
+    /**
+     * Apple Small Business Program start date
+     */
+    apple_small_business_start_date: string | null;
+
+    /**
+     * URL scheme used for deep links on mobile
+     */
+    apple_url_scheme: string | null;
+
+    /**
+     * Custom application icon URL shown on management pages and in emails
+     */
+    application_icon: string | null;
 
     /**
      * ISO 8601 timestamp of when the application was archived, or null if active
@@ -328,6 +435,11 @@ export namespace ProjectRetrieveResponse {
      * List of enabled feature flags for the application
      */
     features_enabled: Array<string>;
+
+    /**
+     * Whether all paywalls are disabled for this application
+     */
+    globally_disabled: boolean;
 
     /**
      * Whether the application has been integrated with the SDK
@@ -351,6 +463,11 @@ export namespace ProjectRetrieveResponse {
     name: string;
 
     /**
+     * Notification redirect URL for iOS applications
+     */
+    notification_redirect_url: string | null;
+
+    /**
      * Platform of the application
      */
     platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
@@ -372,9 +489,34 @@ export namespace ProjectRetrieveResponse {
     public_api_key: string;
 
     /**
+     * Whether web purchases can be redeemed on desktop devices
+     */
+    redeemable_on_desktop: boolean | null;
+
+    /**
+     * RevenueCat public API key
+     */
+    revenue_cat_public_api_key: string | null;
+
+    /**
      * URL-safe identifier for the application
      */
     slug: string;
+
+    /**
+     * Reply-to support email for web checkout emails
+     */
+    support_email: string | null;
+
+    /**
+     * Support URL shown during web checkout redemption
+     */
+    support_url: string | null;
+
+    /**
+     * Apple Developer Team ID for iOS applications
+     */
+    team_id: string | null;
 
     /**
      * ISO 8601 timestamp of when the application was last updated
@@ -382,11 +524,33 @@ export namespace ProjectRetrieveResponse {
     updated_at: string;
 
     /**
+     * Whether Superwall post-purchase customer emails are disabled
+     */
+    web_2_app_disable_customer_emails: boolean | null;
+
+    /**
+     * Behavior after a web-to-app purchase
+     */
+    web_2_app_post_purchase_behavior: Application.Type | Application.UnionMember1 | null;
+
+    /**
      * Exact SDK framework selected for this application platform (e.g. `expo`,
      * `swiftui`), or null if unknown. Optional for compatibility with older API
      * deployments.
      */
     sdk_framework?: string | null;
+  }
+
+  export namespace Application {
+    export interface Type {
+      type: 'redeem';
+    }
+
+    export interface UnionMember1 {
+      type: 'redirect';
+
+      url: string;
+    }
   }
 }
 
@@ -442,6 +606,11 @@ export namespace ProjectUpdateResponse {
     id: string;
 
     /**
+     * Android app signing certificate fingerprints
+     */
+    android_app_fingerprints: Array<string> | null;
+
+    /**
      * App Store or Play Store app ID
      */
     app_id: string | null;
@@ -450,6 +619,26 @@ export namespace ProjectUpdateResponse {
      * Whether Apple Search Ads is configured for this application
      */
     apple_search_ads_configured: boolean;
+
+    /**
+     * Apple Small Business Program end date
+     */
+    apple_small_business_end_date: string | null;
+
+    /**
+     * Apple Small Business Program start date
+     */
+    apple_small_business_start_date: string | null;
+
+    /**
+     * URL scheme used for deep links on mobile
+     */
+    apple_url_scheme: string | null;
+
+    /**
+     * Custom application icon URL shown on management pages and in emails
+     */
+    application_icon: string | null;
 
     /**
      * ISO 8601 timestamp of when the application was archived, or null if active
@@ -470,6 +659,11 @@ export namespace ProjectUpdateResponse {
      * List of enabled feature flags for the application
      */
     features_enabled: Array<string>;
+
+    /**
+     * Whether all paywalls are disabled for this application
+     */
+    globally_disabled: boolean;
 
     /**
      * Whether the application has been integrated with the SDK
@@ -493,6 +687,11 @@ export namespace ProjectUpdateResponse {
     name: string;
 
     /**
+     * Notification redirect URL for iOS applications
+     */
+    notification_redirect_url: string | null;
+
+    /**
      * Platform of the application
      */
     platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
@@ -514,9 +713,34 @@ export namespace ProjectUpdateResponse {
     public_api_key: string;
 
     /**
+     * Whether web purchases can be redeemed on desktop devices
+     */
+    redeemable_on_desktop: boolean | null;
+
+    /**
+     * RevenueCat public API key
+     */
+    revenue_cat_public_api_key: string | null;
+
+    /**
      * URL-safe identifier for the application
      */
     slug: string;
+
+    /**
+     * Reply-to support email for web checkout emails
+     */
+    support_email: string | null;
+
+    /**
+     * Support URL shown during web checkout redemption
+     */
+    support_url: string | null;
+
+    /**
+     * Apple Developer Team ID for iOS applications
+     */
+    team_id: string | null;
 
     /**
      * ISO 8601 timestamp of when the application was last updated
@@ -524,11 +748,33 @@ export namespace ProjectUpdateResponse {
     updated_at: string;
 
     /**
+     * Whether Superwall post-purchase customer emails are disabled
+     */
+    web_2_app_disable_customer_emails: boolean | null;
+
+    /**
+     * Behavior after a web-to-app purchase
+     */
+    web_2_app_post_purchase_behavior: Application.Type | Application.UnionMember1 | null;
+
+    /**
      * Exact SDK framework selected for this application platform (e.g. `expo`,
      * `swiftui`), or null if unknown. Optional for compatibility with older API
      * deployments.
      */
     sdk_framework?: string | null;
+  }
+
+  export namespace Application {
+    export interface Type {
+      type: 'redeem';
+    }
+
+    export interface UnionMember1 {
+      type: 'redirect';
+
+      url: string;
+    }
   }
 }
 
@@ -607,6 +853,11 @@ export namespace ProjectListResponse {
       id: string;
 
       /**
+       * Android app signing certificate fingerprints
+       */
+      android_app_fingerprints: Array<string> | null;
+
+      /**
        * App Store or Play Store app ID
        */
       app_id: string | null;
@@ -615,6 +866,26 @@ export namespace ProjectListResponse {
        * Whether Apple Search Ads is configured for this application
        */
       apple_search_ads_configured: boolean;
+
+      /**
+       * Apple Small Business Program end date
+       */
+      apple_small_business_end_date: string | null;
+
+      /**
+       * Apple Small Business Program start date
+       */
+      apple_small_business_start_date: string | null;
+
+      /**
+       * URL scheme used for deep links on mobile
+       */
+      apple_url_scheme: string | null;
+
+      /**
+       * Custom application icon URL shown on management pages and in emails
+       */
+      application_icon: string | null;
 
       /**
        * ISO 8601 timestamp of when the application was archived, or null if active
@@ -635,6 +906,11 @@ export namespace ProjectListResponse {
        * List of enabled feature flags for the application
        */
       features_enabled: Array<string>;
+
+      /**
+       * Whether all paywalls are disabled for this application
+       */
+      globally_disabled: boolean;
 
       /**
        * Whether the application has been integrated with the SDK
@@ -658,6 +934,11 @@ export namespace ProjectListResponse {
       name: string;
 
       /**
+       * Notification redirect URL for iOS applications
+       */
+      notification_redirect_url: string | null;
+
+      /**
        * Platform of the application
        */
       platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
@@ -679,9 +960,34 @@ export namespace ProjectListResponse {
       public_api_key: string;
 
       /**
+       * Whether web purchases can be redeemed on desktop devices
+       */
+      redeemable_on_desktop: boolean | null;
+
+      /**
+       * RevenueCat public API key
+       */
+      revenue_cat_public_api_key: string | null;
+
+      /**
        * URL-safe identifier for the application
        */
       slug: string;
+
+      /**
+       * Reply-to support email for web checkout emails
+       */
+      support_email: string | null;
+
+      /**
+       * Support URL shown during web checkout redemption
+       */
+      support_url: string | null;
+
+      /**
+       * Apple Developer Team ID for iOS applications
+       */
+      team_id: string | null;
 
       /**
        * ISO 8601 timestamp of when the application was last updated
@@ -689,11 +995,33 @@ export namespace ProjectListResponse {
       updated_at: string;
 
       /**
+       * Whether Superwall post-purchase customer emails are disabled
+       */
+      web_2_app_disable_customer_emails: boolean | null;
+
+      /**
+       * Behavior after a web-to-app purchase
+       */
+      web_2_app_post_purchase_behavior: Application.Type | Application.UnionMember1 | null;
+
+      /**
        * Exact SDK framework selected for this application platform (e.g. `expo`,
        * `swiftui`), or null if unknown. Optional for compatibility with older API
        * deployments.
        */
       sdk_framework?: string | null;
+    }
+
+    export namespace Application {
+      export interface Type {
+        type: 'redeem';
+      }
+
+      export interface UnionMember1 {
+        type: 'redirect';
+
+        url: string;
+      }
     }
   }
 }
