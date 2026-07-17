@@ -246,7 +246,7 @@ export namespace ProjectCreateResponse {
     /**
      * Platform of the application
      */
-    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
+    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'promotional' | 'webapp';
 
     /**
      * Whether this application's project contains a legacy Stripe application, or null
@@ -470,7 +470,7 @@ export namespace ProjectRetrieveResponse {
     /**
      * Platform of the application
      */
-    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
+    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'promotional' | 'webapp';
 
     /**
      * Whether this application's project contains a legacy Stripe application, or null
@@ -694,7 +694,7 @@ export namespace ProjectUpdateResponse {
     /**
      * Platform of the application
      */
-    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
+    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'promotional' | 'webapp';
 
     /**
      * Whether this application's project contains a legacy Stripe application, or null
@@ -941,7 +941,7 @@ export namespace ProjectListResponse {
       /**
        * Platform of the application
        */
-      platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'webapp';
+      platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'promotional' | 'webapp';
 
       /**
        * Whether this application's project contains a legacy Stripe application, or null

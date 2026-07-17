@@ -13,17 +13,7 @@ describe('resource campaigns', () => {
   test.skip('create: only required params', async () => {
     const responsePromise = client.campaigns.create({
       application_id: 'application_id',
-      audiences: [
-        {
-          variants: [
-            {
-              paywall: 'paywall',
-              percentage: 0,
-              type: 'treatment',
-            },
-          ],
-        },
-      ],
+      audiences: [{ variants: [{ paywall: 'paywall', type: 'treatment' }] }],
       description: 'x',
       placements: [{ event_name: 'x' }],
     });
@@ -45,8 +35,8 @@ describe('resource campaigns', () => {
           variants: [
             {
               paywall: 'paywall',
-              percentage: 0,
               type: 'treatment',
+              percentage: 0,
             },
           ],
           description: 'description',
@@ -176,6 +166,10 @@ describe('resource campaigns', () => {
       description: 'description',
       enabled: true,
       expression: {},
+      frequency_limit: {
+        interval: { type: 'infinity' },
+        occurrences: 0,
+      },
       rule_conditions: {
         conditions: [
           {
@@ -195,8 +189,8 @@ describe('resource campaigns', () => {
       variants: [
         {
           paywall: 'paywall',
-          percentage: 0,
           type: 'treatment',
+          percentage: 0,
         },
       ],
     });

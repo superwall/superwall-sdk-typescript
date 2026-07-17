@@ -26,15 +26,27 @@ describe('resource products', () => {
     const response = await client.products.create({
       identifier: 'x',
       project_id: 'project_id',
+      android: {
+        automatically_pick_purchase_option: true,
+        base_plan_or_purchase_option_id: 'base_plan_or_purchase_option_id',
+        offer_id: 'offer_id',
+        offer_mode: 'auto',
+      },
+      application_id: 'application_id',
       entitlements: ['string'],
       metadata: { foo: 'string' },
+      monthly_billing_plan_price: { amount: 0, currency: 'currency' },
+      monthly_billing_plan_trial_period_days: 0,
+      monthly_billing_plan_trial_price: { amount: 0, currency: 'currency' },
       name: 'name',
       price: { amount: 0, currency: 'currency' },
+      store: 'app_store',
       subscription: {
         period: 'day',
         period_count: 0,
         trial_period_days: 0,
       },
+      trial_price: { amount: 0, currency: 'currency' },
     });
   });
 
