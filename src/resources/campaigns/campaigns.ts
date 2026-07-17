@@ -130,6 +130,12 @@ export interface CampaignCreateResponse {
   is_legacy: boolean;
 
   /**
+   * Whether this campaign is prioritized for config preloading. At most one campaign
+   * per application may be prioritized.
+   */
+  is_prioritized: boolean;
+
+  /**
    * Internal notes about the campaign
    */
   notes: string | null;
@@ -179,6 +185,17 @@ export namespace CampaignCreateResponse {
     expression_cel: string | null;
 
     /**
+     * The dashboard-side SQL compilation of `rule_conditions` (for preview/copy). Null
+     * when the audience has no structured rule.
+     */
+    expression_sql: string | null;
+
+    /**
+     * How often each user can be matched into this audience
+     */
+    frequency_limit: Audience.FrequencyLimit | null;
+
+    /**
      * Object type, always `audience`
      */
     object: 'audience';
@@ -207,11 +224,46 @@ export namespace CampaignCreateResponse {
   }
 
   export namespace Audience {
+    /**
+     * How often each user can be matched into this audience
+     */
+    export interface FrequencyLimit {
+      /**
+       * Time window for a frequency limit
+       */
+      interval: FrequencyLimit.Type | FrequencyLimit.UnionMember1;
+
+      /**
+       * an integer
+       */
+      occurrences: number;
+    }
+
+    export namespace FrequencyLimit {
+      export interface Type {
+        type: 'infinity';
+      }
+
+      export interface UnionMember1 {
+        /**
+         * Length of the rolling window in minutes
+         */
+        minutes: number;
+
+        type: 'minutes';
+      }
+    }
+
     export interface Variant {
       /**
        * Unique identifier for the variant
        */
       id: string;
+
+      /**
+       * ISO 8601 timestamp of when the variant was created
+       */
+      created_at: string;
 
       /**
        * Object type, always `variant`
@@ -295,6 +347,12 @@ export interface CampaignRetrieveResponse {
   is_legacy: boolean;
 
   /**
+   * Whether this campaign is prioritized for config preloading. At most one campaign
+   * per application may be prioritized.
+   */
+  is_prioritized: boolean;
+
+  /**
    * Internal notes about the campaign
    */
   notes: string | null;
@@ -344,6 +402,17 @@ export namespace CampaignRetrieveResponse {
     expression_cel: string | null;
 
     /**
+     * The dashboard-side SQL compilation of `rule_conditions` (for preview/copy). Null
+     * when the audience has no structured rule.
+     */
+    expression_sql: string | null;
+
+    /**
+     * How often each user can be matched into this audience
+     */
+    frequency_limit: Audience.FrequencyLimit | null;
+
+    /**
      * Object type, always `audience`
      */
     object: 'audience';
@@ -372,11 +441,46 @@ export namespace CampaignRetrieveResponse {
   }
 
   export namespace Audience {
+    /**
+     * How often each user can be matched into this audience
+     */
+    export interface FrequencyLimit {
+      /**
+       * Time window for a frequency limit
+       */
+      interval: FrequencyLimit.Type | FrequencyLimit.UnionMember1;
+
+      /**
+       * an integer
+       */
+      occurrences: number;
+    }
+
+    export namespace FrequencyLimit {
+      export interface Type {
+        type: 'infinity';
+      }
+
+      export interface UnionMember1 {
+        /**
+         * Length of the rolling window in minutes
+         */
+        minutes: number;
+
+        type: 'minutes';
+      }
+    }
+
     export interface Variant {
       /**
        * Unique identifier for the variant
        */
       id: string;
+
+      /**
+       * ISO 8601 timestamp of when the variant was created
+       */
+      created_at: string;
 
       /**
        * Object type, always `variant`
@@ -460,6 +564,12 @@ export interface CampaignUpdateResponse {
   is_legacy: boolean;
 
   /**
+   * Whether this campaign is prioritized for config preloading. At most one campaign
+   * per application may be prioritized.
+   */
+  is_prioritized: boolean;
+
+  /**
    * Internal notes about the campaign
    */
   notes: string | null;
@@ -509,6 +619,17 @@ export namespace CampaignUpdateResponse {
     expression_cel: string | null;
 
     /**
+     * The dashboard-side SQL compilation of `rule_conditions` (for preview/copy). Null
+     * when the audience has no structured rule.
+     */
+    expression_sql: string | null;
+
+    /**
+     * How often each user can be matched into this audience
+     */
+    frequency_limit: Audience.FrequencyLimit | null;
+
+    /**
      * Object type, always `audience`
      */
     object: 'audience';
@@ -537,11 +658,46 @@ export namespace CampaignUpdateResponse {
   }
 
   export namespace Audience {
+    /**
+     * How often each user can be matched into this audience
+     */
+    export interface FrequencyLimit {
+      /**
+       * Time window for a frequency limit
+       */
+      interval: FrequencyLimit.Type | FrequencyLimit.UnionMember1;
+
+      /**
+       * an integer
+       */
+      occurrences: number;
+    }
+
+    export namespace FrequencyLimit {
+      export interface Type {
+        type: 'infinity';
+      }
+
+      export interface UnionMember1 {
+        /**
+         * Length of the rolling window in minutes
+         */
+        minutes: number;
+
+        type: 'minutes';
+      }
+    }
+
     export interface Variant {
       /**
        * Unique identifier for the variant
        */
       id: string;
+
+      /**
+       * ISO 8601 timestamp of when the variant was created
+       */
+      created_at: string;
 
       /**
        * Object type, always `variant`
@@ -653,6 +809,12 @@ export namespace CampaignListResponse {
     is_legacy: boolean;
 
     /**
+     * Whether this campaign is prioritized for config preloading. At most one campaign
+     * per application may be prioritized.
+     */
+    is_prioritized: boolean;
+
+    /**
      * Internal notes about the campaign
      */
     notes: string | null;
@@ -702,6 +864,17 @@ export namespace CampaignListResponse {
       expression_cel: string | null;
 
       /**
+       * The dashboard-side SQL compilation of `rule_conditions` (for preview/copy). Null
+       * when the audience has no structured rule.
+       */
+      expression_sql: string | null;
+
+      /**
+       * How often each user can be matched into this audience
+       */
+      frequency_limit: Audience.FrequencyLimit | null;
+
+      /**
        * Object type, always `audience`
        */
       object: 'audience';
@@ -730,11 +903,46 @@ export namespace CampaignListResponse {
     }
 
     export namespace Audience {
+      /**
+       * How often each user can be matched into this audience
+       */
+      export interface FrequencyLimit {
+        /**
+         * Time window for a frequency limit
+         */
+        interval: FrequencyLimit.Type | FrequencyLimit.UnionMember1;
+
+        /**
+         * an integer
+         */
+        occurrences: number;
+      }
+
+      export namespace FrequencyLimit {
+        export interface Type {
+          type: 'infinity';
+        }
+
+        export interface UnionMember1 {
+          /**
+           * Length of the rolling window in minutes
+           */
+          minutes: number;
+
+          type: 'minutes';
+        }
+      }
+
       export interface Variant {
         /**
          * Unique identifier for the variant
          */
         id: string;
+
+        /**
+         * ISO 8601 timestamp of when the variant was created
+         */
+        created_at: string;
 
         /**
          * Object type, always `variant`
@@ -864,6 +1072,17 @@ export interface CampaignUpdateAudienceResponse {
   expression_cel: string | null;
 
   /**
+   * The dashboard-side SQL compilation of `rule_conditions` (for preview/copy). Null
+   * when the audience has no structured rule.
+   */
+  expression_sql: string | null;
+
+  /**
+   * How often each user can be matched into this audience
+   */
+  frequency_limit: CampaignUpdateAudienceResponse.FrequencyLimit | null;
+
+  /**
    * Object type, always `audience`
    */
   object: 'audience';
@@ -892,11 +1111,46 @@ export interface CampaignUpdateAudienceResponse {
 }
 
 export namespace CampaignUpdateAudienceResponse {
+  /**
+   * How often each user can be matched into this audience
+   */
+  export interface FrequencyLimit {
+    /**
+     * Time window for a frequency limit
+     */
+    interval: FrequencyLimit.Type | FrequencyLimit.UnionMember1;
+
+    /**
+     * an integer
+     */
+    occurrences: number;
+  }
+
+  export namespace FrequencyLimit {
+    export interface Type {
+      type: 'infinity';
+    }
+
+    export interface UnionMember1 {
+      /**
+       * Length of the rolling window in minutes
+       */
+      minutes: number;
+
+      type: 'minutes';
+    }
+  }
+
   export interface Variant {
     /**
      * Unique identifier for the variant
      */
     id: string;
+
+    /**
+     * ISO 8601 timestamp of when the variant was created
+     */
+    created_at: string;
 
     /**
      * Object type, always `variant`
@@ -986,12 +1240,17 @@ export namespace CampaignCreateParams {
        */
       paywall: string | null;
 
-      percentage: number;
-
       /**
        * Whether this is a treatment or holdout variant
        */
       type: 'treatment' | 'holdout';
+
+      /**
+       * Traffic percentage allocated to this variant (0-100). When omitted on
+       * createVariant, the server applies the legacy default — first treatment / first
+       * holdout gets 100%, subsequent variants get 0%.
+       */
+      percentage?: number;
     }
 
     /**
@@ -1268,6 +1527,11 @@ export interface CampaignUpdateAudienceParams {
   expression?: unknown;
 
   /**
+   * Body param: How often each user can be matched into this audience
+   */
+  frequency_limit?: CampaignUpdateAudienceParams.FrequencyLimit | null;
+
+  /**
    * Body param: Structured audience targeting rule (the dashboard rule-editor AST).
    * Compiled server-side into the runtime expression and `expression_cel`. Provide
    * an empty `conditions` array to match all users.
@@ -1287,6 +1551,36 @@ export interface CampaignUpdateAudienceParams {
 }
 
 export namespace CampaignUpdateAudienceParams {
+  /**
+   * How often each user can be matched into this audience
+   */
+  export interface FrequencyLimit {
+    /**
+     * Time window for a frequency limit
+     */
+    interval: FrequencyLimit.Type | FrequencyLimit.UnionMember1;
+
+    /**
+     * an integer
+     */
+    occurrences: number;
+  }
+
+  export namespace FrequencyLimit {
+    export interface Type {
+      type: 'infinity';
+    }
+
+    export interface UnionMember1 {
+      /**
+       * Length of the rolling window in minutes
+       */
+      minutes: number;
+
+      type: 'minutes';
+    }
+  }
+
   /**
    * Structured audience targeting rule (the dashboard rule-editor AST). Compiled
    * server-side into the runtime expression and `expression_cel`. Provide an empty
@@ -1463,12 +1757,17 @@ export namespace CampaignUpdateAudienceParams {
      */
     paywall: string | null;
 
-    percentage: number;
-
     /**
      * Whether this is a treatment or holdout variant
      */
     type: 'treatment' | 'holdout';
+
+    /**
+     * Traffic percentage allocated to this variant (0-100). When omitted on
+     * createVariant, the server applies the legacy default — first treatment / first
+     * holdout gets 100%, subsequent variants get 0%.
+     */
+    percentage?: number;
   }
 }
 
