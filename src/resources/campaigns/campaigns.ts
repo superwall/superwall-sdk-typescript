@@ -23,11 +23,14 @@ export class Campaigns extends APIResource {
   placements: PlacementsAPI.Placements = new PlacementsAPI.Placements(this._client);
 
   /**
-   * Creates a new campaign with placements and audiences. Audience targeting is set
-   * with a structured `rule_conditions` rule, which is compiled into the audience's
-   * expression and drives `expression_cel` for modern SDKs; omit it to match all
-   * users. The legacy raw `expression` field is no longer accepted. Requires
-   * campaigns:write scope.
+   * Creates a new campaign. `placements` and `audiences` are both optional — omit
+   * them (or send empty arrays) to create a campaign with just a name, as in the
+   * legacy dashboard, and configure it later; when no audiences are supplied the
+   * server creates a single default control audience (a 0% holdout). Audience
+   * targeting is set with a structured `rule_conditions` rule, which is compiled
+   * into the audience's expression and drives `expression_cel` for modern SDKs; omit
+   * it to match all users. The legacy raw `expression` field is no longer accepted.
+   * Requires campaigns:write scope.
    */
   create(body: CampaignCreateParams, options?: RequestOptions): APIPromise<CampaignCreateResponse> {
     return this._client.post('/v2/campaigns', { body, ...options });
@@ -1181,24 +1184,28 @@ export interface CampaignCreateParams {
   application_id: string;
 
   /**
-   * List of audiences for the campaign. At least one is required
-   */
-  audiences: Array<CampaignCreateParams.Audience>;
-
-  /**
    * Description of the campaign
    */
   description: string;
 
   /**
-   * List of placements (triggers) for the campaign. At least one is required
+   * List of audiences for the campaign. Optional — when omitted or empty the server
+   * creates a single default control audience (one 0% holdout targeting unsubscribed
+   * users), matching the legacy name-only create flow
    */
-  placements: Array<CampaignCreateParams.Placement>;
+  audiences?: Array<CampaignCreateParams.Audience>;
 
   /**
    * Internal notes about the campaign
    */
   notes?: string | null;
+
+  /**
+   * List of placements (triggers) for the campaign. Optional — omit it or send an
+   * empty array to create a campaign with just a name (as in the legacy dashboard)
+   * and add placements later in the editor
+   */
+  placements?: Array<CampaignCreateParams.Placement>;
 }
 
 export namespace CampaignCreateParams {
