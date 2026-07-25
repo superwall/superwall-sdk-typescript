@@ -11,12 +11,7 @@ const client = new SuperwallAPI({
 describe('resource campaigns', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.campaigns.create({
-      application_id: 'application_id',
-      audiences: [{ variants: [{ paywall: 'paywall', type: 'treatment' }] }],
-      description: 'x',
-      placements: [{ event_name: 'x' }],
-    });
+    const responsePromise = client.campaigns.create({ application_id: 'application_id', description: 'x' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -30,6 +25,7 @@ describe('resource campaigns', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.campaigns.create({
       application_id: 'application_id',
+      description: 'x',
       audiences: [
         {
           variants: [
@@ -60,7 +56,7 @@ describe('resource campaigns', () => {
           variant_optimization: 'none',
         },
       ],
-      description: 'x',
+      notes: 'notes',
       placements: [
         {
           event_name: 'x',
@@ -68,7 +64,6 @@ describe('resource campaigns', () => {
           remove_from_other_campaigns: true,
         },
       ],
-      notes: 'notes',
     });
   });
 
