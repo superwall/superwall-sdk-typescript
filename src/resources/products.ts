@@ -125,7 +125,7 @@ export interface ProductCreateResponse {
   /**
    * Store backing the product, when applicable
    */
-  store: 'app_store' | 'custom' | null;
+  store: 'app_store' | 'play_store' | 'custom' | null;
 
   /**
    * Subscription details, or null for one-time purchases
@@ -324,7 +324,7 @@ export interface ProductRetrieveResponse {
   /**
    * Store backing the product, when applicable
    */
-  store: 'app_store' | 'custom' | null;
+  store: 'app_store' | 'play_store' | 'custom' | null;
 
   /**
    * Subscription details, or null for one-time purchases
@@ -523,7 +523,7 @@ export interface ProductUpdateResponse {
   /**
    * Store backing the product, when applicable
    */
-  store: 'app_store' | 'custom' | null;
+  store: 'app_store' | 'play_store' | 'custom' | null;
 
   /**
    * Subscription details, or null for one-time purchases
@@ -745,7 +745,7 @@ export namespace ProductListResponse {
     /**
      * Store backing the product, when applicable
      */
-    store: 'app_store' | 'custom' | null;
+    store: 'app_store' | 'play_store' | 'custom' | null;
 
     /**
      * Subscription details, or null for one-time purchases
@@ -948,7 +948,7 @@ export interface ProductCreateParams {
    * Store backing the product. `custom` creates or uses the project's custom-store
    * app.
    */
-  store?: 'app_store' | 'custom';
+  store?: 'app_store' | 'play_store' | 'custom';
 
   /**
    * Subscription details for recurring products
@@ -1097,7 +1097,7 @@ export interface ProductUpdateParams {
    * Store backing the product. `custom` moves or keeps it under the project's
    * custom-store app.
    */
-  store?: 'app_store' | 'custom';
+  store?: 'app_store' | 'play_store' | 'custom';
 
   /**
    * Subscription details. Null marks the product as one-time.
