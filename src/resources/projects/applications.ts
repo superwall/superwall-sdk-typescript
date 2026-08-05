@@ -584,9 +584,42 @@ export namespace ApplicationGetStatisticsResponse {
     name: string;
 
     value: Statistic.UnionMember0 | Statistic.UnionMember1 | Statistic.UnionMember2 | Statistic.UnionMember3;
+
+    /**
+     * Matching metric value for the previous comparable reporting window
+     */
+    previous_value?:
+      | Statistic.UnionMember0
+      | Statistic.UnionMember1
+      | Statistic.UnionMember2
+      | Statistic.UnionMember3;
   }
 
   export namespace Statistic {
+    export interface UnionMember0 {
+      type: 'currency';
+
+      value: number;
+    }
+
+    export interface UnionMember1 {
+      type: 'number';
+
+      value: number;
+    }
+
+    export interface UnionMember2 {
+      type: 'percentage';
+
+      value: number;
+    }
+
+    export interface UnionMember3 {
+      type: 'error';
+
+      value: string;
+    }
+
     export interface UnionMember0 {
       type: 'currency';
 

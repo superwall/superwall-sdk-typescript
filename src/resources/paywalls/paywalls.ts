@@ -97,6 +97,14 @@ export interface PaywallCreateResponse {
   feature_gating: 'gated' | 'non_gated';
 
   /**
+   * Whether this is a code-first (headless) paywall, authored with the superwall
+   * framework and shipped with `superwall push` / `superwall promote` rather than
+   * the visual editor. A headless paywall with `version: 0` has been pushed but
+   * never promoted, so it has no live snapshot and cannot back a campaign variant.
+   */
+  headless: boolean;
+
+  /**
    * URL-safe identifier (slug) for the paywall
    */
   identifier: string;
@@ -208,6 +216,14 @@ export interface PaywallRetrieveResponse {
   feature_gating: 'gated' | 'non_gated';
 
   /**
+   * Whether this is a code-first (headless) paywall, authored with the superwall
+   * framework and shipped with `superwall push` / `superwall promote` rather than
+   * the visual editor. A headless paywall with `version: 0` has been pushed but
+   * never promoted, so it has no live snapshot and cannot back a campaign variant.
+   */
+  headless: boolean;
+
+  /**
    * URL-safe identifier (slug) for the paywall
    */
   identifier: string;
@@ -317,6 +333,14 @@ export interface PaywallUpdateResponse {
    * Whether the feature is gated behind a purchase
    */
   feature_gating: 'gated' | 'non_gated';
+
+  /**
+   * Whether this is a code-first (headless) paywall, authored with the superwall
+   * framework and shipped with `superwall push` / `superwall promote` rather than
+   * the visual editor. A headless paywall with `version: 0` has been pushed but
+   * never promoted, so it has no live snapshot and cannot back a campaign variant.
+   */
+  headless: boolean;
 
   /**
    * URL-safe identifier (slug) for the paywall
@@ -451,6 +475,14 @@ export namespace PaywallListResponse {
      * Whether the feature is gated behind a purchase
      */
     feature_gating: 'gated' | 'non_gated';
+
+    /**
+     * Whether this is a code-first (headless) paywall, authored with the superwall
+     * framework and shipped with `superwall push` / `superwall promote` rather than
+     * the visual editor. A headless paywall with `version: 0` has been pushed but
+     * never promoted, so it has no live snapshot and cannot back a campaign variant.
+     */
+    headless: boolean;
 
     /**
      * URL-safe identifier (slug) for the paywall
@@ -609,6 +641,14 @@ export interface PaywallCreateParams {
    * Whether the feature is gated behind a purchase. Defaults to `non_gated`
    */
   feature_gating?: 'gated' | 'non_gated';
+
+  /**
+   * Creates a code-first (headless) paywall, authored with the superwall framework
+   * and updated with `superwall push` / `superwall promote` rather than the visual
+   * editor. Fixed at creation: existing paywalls cannot be converted, and headless
+   * paywalls cannot be opened in the editor. Cannot be combined with `template`.
+   */
+  headless?: boolean;
 
   /**
    * URL-safe identifier (slug). Auto-generated from name if not provided
