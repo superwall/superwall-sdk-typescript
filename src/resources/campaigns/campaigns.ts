@@ -1277,7 +1277,7 @@ export namespace CampaignCreateParams {
       export interface UnionMember0 {
         lhs: UnionMember0.UnionMember0 | UnionMember0.UnionMember1;
 
-        operator: 'eq' | 'neq' | 'c' | 'gt' | 'gte' | 'lt' | 'lte' | 't' | 'f' | 'null' | 'nnull';
+        operator: 'eq' | 'neq' | 'c' | 'nc' | 'gt' | 'gte' | 'lt' | 'lte' | 't' | 'f' | 'null' | 'nnull';
 
         rhs:
           | UnionMember0.UnionMember0
@@ -1605,7 +1605,7 @@ export namespace CampaignUpdateAudienceParams {
     export interface UnionMember0 {
       lhs: UnionMember0.UnionMember0 | UnionMember0.UnionMember1;
 
-      operator: 'eq' | 'neq' | 'c' | 'gt' | 'gte' | 'lt' | 'lte' | 't' | 'f' | 'null' | 'nnull';
+      operator: 'eq' | 'neq' | 'c' | 'nc' | 'gt' | 'gte' | 'lt' | 'lte' | 't' | 'f' | 'null' | 'nnull';
 
       rhs:
         | UnionMember0.UnionMember0
