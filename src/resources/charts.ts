@@ -833,7 +833,7 @@ export interface ChartQueryDataParams {
   /**
    * Conversion timeframe for SDK events
    */
-  conversion_timeframe?: 'd1' | 'd3' | 'd7' | 'd14' | 'd30' | 'd90';
+  conversion_timeframe?: 'd1' | 'd3' | 'd4' | 'd7' | 'd14' | 'd30' | 'd90';
 
   /**
    * Filter by country codes
