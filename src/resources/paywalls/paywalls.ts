@@ -82,6 +82,19 @@ export interface PaywallCreateResponse {
   application_id: string;
 
   /**
+   * Platform type for the application
+   */
+  application_platform:
+    | 'ios'
+    | 'android'
+    | 'flutter'
+    | 'react_native'
+    | 'web'
+    | 'promotional'
+    | 'webapp'
+    | null;
+
+  /**
    * Whether the paywall is archived
    */
   archived: boolean;
@@ -142,6 +155,11 @@ export interface PaywallCreateResponse {
   products: Array<PaywallCreateResponse.Product>;
 
   /**
+   * a string to be decoded into a number
+   */
+  project_id: string | null;
+
+  /**
    * ISO 8601 timestamp of when the paywall was last published, or null
    */
   published_at: string | null;
@@ -199,6 +217,19 @@ export interface PaywallRetrieveResponse {
    * ID of the application this paywall belongs to
    */
   application_id: string;
+
+  /**
+   * Platform type for the application
+   */
+  application_platform:
+    | 'ios'
+    | 'android'
+    | 'flutter'
+    | 'react_native'
+    | 'web'
+    | 'promotional'
+    | 'webapp'
+    | null;
 
   /**
    * Whether the paywall is archived
@@ -261,6 +292,11 @@ export interface PaywallRetrieveResponse {
   products: Array<PaywallRetrieveResponse.Product>;
 
   /**
+   * a string to be decoded into a number
+   */
+  project_id: string | null;
+
+  /**
    * ISO 8601 timestamp of when the paywall was last published, or null
    */
   published_at: string | null;
@@ -318,6 +354,19 @@ export interface PaywallUpdateResponse {
    * ID of the application this paywall belongs to
    */
   application_id: string;
+
+  /**
+   * Platform type for the application
+   */
+  application_platform:
+    | 'ios'
+    | 'android'
+    | 'flutter'
+    | 'react_native'
+    | 'web'
+    | 'promotional'
+    | 'webapp'
+    | null;
 
   /**
    * Whether the paywall is archived
@@ -378,6 +427,11 @@ export interface PaywallUpdateResponse {
    * List of product entries attached to this paywall
    */
   products: Array<PaywallUpdateResponse.Product>;
+
+  /**
+   * a string to be decoded into a number
+   */
+  project_id: string | null;
 
   /**
    * ISO 8601 timestamp of when the paywall was last published, or null
@@ -462,6 +516,19 @@ export namespace PaywallListResponse {
     application_id: string;
 
     /**
+     * Platform type for the application
+     */
+    application_platform:
+      | 'ios'
+      | 'android'
+      | 'flutter'
+      | 'react_native'
+      | 'web'
+      | 'promotional'
+      | 'webapp'
+      | null;
+
+    /**
      * Whether the paywall is archived
      */
     archived: boolean;
@@ -520,6 +587,11 @@ export namespace PaywallListResponse {
      * List of product entries attached to this paywall
      */
     products: Array<Data.Product>;
+
+    /**
+     * a string to be decoded into a number
+     */
+    project_id: string | null;
 
     /**
      * ISO 8601 timestamp of when the paywall was last published, or null
