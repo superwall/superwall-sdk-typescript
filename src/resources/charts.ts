@@ -896,6 +896,39 @@ export interface ChartQueryDataParams {
   product_id?: Array<string>;
 
   /**
+   * Filter retention messaging metrics by response type (message, alternate_product,
+   * promotional_offer, none, error)
+   */
+  response_type?: Array<string>;
+
+  /**
+   * Filter retention messaging metrics by retention configuration group IDs
+   * (expanded to member configurations)
+   */
+  retention_configuration_group_id?: Array<string>;
+
+  /**
+   * Filter retention messaging metrics by retention configuration IDs
+   */
+  retention_configuration_id?: Array<string>;
+
+  /**
+   * Filter retention messaging metrics by matched locale
+   */
+  retention_locale?: Array<string>;
+
+  /**
+   * Filter retention messaging metrics by retention message group IDs (expanded to
+   * member messages)
+   */
+  retention_message_group_id?: Array<string>;
+
+  /**
+   * Filter retention messaging metrics by retention message IDs
+   */
+  retention_message_id?: Array<string>;
+
+  /**
    * Filter by revenue source (Superwall, Your App)
    */
   revenue_source?: Array<string>;
