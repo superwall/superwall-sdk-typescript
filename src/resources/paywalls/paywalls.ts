@@ -82,6 +82,19 @@ export interface PaywallCreateResponse {
   application_id: string;
 
   /**
+   * Platform type for the application
+   */
+  application_platform:
+    | 'ios'
+    | 'android'
+    | 'flutter'
+    | 'react_native'
+    | 'web'
+    | 'promotional'
+    | 'webapp'
+    | null;
+
+  /**
    * Whether the paywall is archived
    */
   archived: boolean;
@@ -95,6 +108,14 @@ export interface PaywallCreateResponse {
    * Whether the feature is gated behind a purchase
    */
   feature_gating: 'gated' | 'non_gated';
+
+  /**
+   * Whether this is a code-first (headless) paywall, authored with the superwall
+   * framework and shipped with `superwall push` / `superwall promote` rather than
+   * the visual editor. A headless paywall with `version: 0` has been pushed but
+   * never promoted, so it has no live snapshot and cannot back a campaign variant.
+   */
+  headless: boolean;
 
   /**
    * URL-safe identifier (slug) for the paywall
@@ -132,6 +153,11 @@ export interface PaywallCreateResponse {
    * List of product entries attached to this paywall
    */
   products: Array<PaywallCreateResponse.Product>;
+
+  /**
+   * a string to be decoded into a number
+   */
+  project_id: string | null;
 
   /**
    * ISO 8601 timestamp of when the paywall was last published, or null
@@ -177,7 +203,7 @@ export namespace PaywallCreateResponse {
     /**
      * Store this product belongs to
      */
-    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+    store: 'app-store' | 'play-store' | 'stripe' | 'custom';
   }
 }
 
@@ -193,6 +219,19 @@ export interface PaywallRetrieveResponse {
   application_id: string;
 
   /**
+   * Platform type for the application
+   */
+  application_platform:
+    | 'ios'
+    | 'android'
+    | 'flutter'
+    | 'react_native'
+    | 'web'
+    | 'promotional'
+    | 'webapp'
+    | null;
+
+  /**
    * Whether the paywall is archived
    */
   archived: boolean;
@@ -206,6 +245,14 @@ export interface PaywallRetrieveResponse {
    * Whether the feature is gated behind a purchase
    */
   feature_gating: 'gated' | 'non_gated';
+
+  /**
+   * Whether this is a code-first (headless) paywall, authored with the superwall
+   * framework and shipped with `superwall push` / `superwall promote` rather than
+   * the visual editor. A headless paywall with `version: 0` has been pushed but
+   * never promoted, so it has no live snapshot and cannot back a campaign variant.
+   */
+  headless: boolean;
 
   /**
    * URL-safe identifier (slug) for the paywall
@@ -243,6 +290,11 @@ export interface PaywallRetrieveResponse {
    * List of product entries attached to this paywall
    */
   products: Array<PaywallRetrieveResponse.Product>;
+
+  /**
+   * a string to be decoded into a number
+   */
+  project_id: string | null;
 
   /**
    * ISO 8601 timestamp of when the paywall was last published, or null
@@ -288,7 +340,7 @@ export namespace PaywallRetrieveResponse {
     /**
      * Store this product belongs to
      */
-    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+    store: 'app-store' | 'play-store' | 'stripe' | 'custom';
   }
 }
 
@@ -304,6 +356,19 @@ export interface PaywallUpdateResponse {
   application_id: string;
 
   /**
+   * Platform type for the application
+   */
+  application_platform:
+    | 'ios'
+    | 'android'
+    | 'flutter'
+    | 'react_native'
+    | 'web'
+    | 'promotional'
+    | 'webapp'
+    | null;
+
+  /**
    * Whether the paywall is archived
    */
   archived: boolean;
@@ -317,6 +382,14 @@ export interface PaywallUpdateResponse {
    * Whether the feature is gated behind a purchase
    */
   feature_gating: 'gated' | 'non_gated';
+
+  /**
+   * Whether this is a code-first (headless) paywall, authored with the superwall
+   * framework and shipped with `superwall push` / `superwall promote` rather than
+   * the visual editor. A headless paywall with `version: 0` has been pushed but
+   * never promoted, so it has no live snapshot and cannot back a campaign variant.
+   */
+  headless: boolean;
 
   /**
    * URL-safe identifier (slug) for the paywall
@@ -354,6 +427,11 @@ export interface PaywallUpdateResponse {
    * List of product entries attached to this paywall
    */
   products: Array<PaywallUpdateResponse.Product>;
+
+  /**
+   * a string to be decoded into a number
+   */
+  project_id: string | null;
 
   /**
    * ISO 8601 timestamp of when the paywall was last published, or null
@@ -399,7 +477,7 @@ export namespace PaywallUpdateResponse {
     /**
      * Store this product belongs to
      */
-    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+    store: 'app-store' | 'play-store' | 'stripe' | 'custom';
   }
 }
 
@@ -438,6 +516,19 @@ export namespace PaywallListResponse {
     application_id: string;
 
     /**
+     * Platform type for the application
+     */
+    application_platform:
+      | 'ios'
+      | 'android'
+      | 'flutter'
+      | 'react_native'
+      | 'web'
+      | 'promotional'
+      | 'webapp'
+      | null;
+
+    /**
      * Whether the paywall is archived
      */
     archived: boolean;
@@ -451,6 +542,14 @@ export namespace PaywallListResponse {
      * Whether the feature is gated behind a purchase
      */
     feature_gating: 'gated' | 'non_gated';
+
+    /**
+     * Whether this is a code-first (headless) paywall, authored with the superwall
+     * framework and shipped with `superwall push` / `superwall promote` rather than
+     * the visual editor. A headless paywall with `version: 0` has been pushed but
+     * never promoted, so it has no live snapshot and cannot back a campaign variant.
+     */
+    headless: boolean;
 
     /**
      * URL-safe identifier (slug) for the paywall
@@ -488,6 +587,11 @@ export namespace PaywallListResponse {
      * List of product entries attached to this paywall
      */
     products: Array<Data.Product>;
+
+    /**
+     * a string to be decoded into a number
+     */
+    project_id: string | null;
 
     /**
      * ISO 8601 timestamp of when the paywall was last published, or null
@@ -533,7 +637,7 @@ export namespace PaywallListResponse {
       /**
        * Store this product belongs to
        */
-      store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+      store: 'app-store' | 'play-store' | 'stripe' | 'custom';
     }
   }
 }
@@ -611,6 +715,14 @@ export interface PaywallCreateParams {
   feature_gating?: 'gated' | 'non_gated';
 
   /**
+   * Creates a code-first (headless) paywall, authored with the superwall framework
+   * and updated with `superwall push` / `superwall promote` rather than the visual
+   * editor. Fixed at creation: existing paywalls cannot be converted, and headless
+   * paywalls cannot be opened in the editor. Cannot be combined with `template`.
+   */
+  headless?: boolean;
+
+  /**
    * URL-safe identifier (slug). Auto-generated from name if not provided
    */
   identifier?: string;
@@ -660,7 +772,7 @@ export namespace PaywallCreateParams {
     /**
      * Store this product belongs to
      */
-    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+    store: 'app-store' | 'play-store' | 'stripe' | 'custom';
   }
 }
 
@@ -714,7 +826,7 @@ export namespace PaywallUpdateParams {
     /**
      * Store this product belongs to
      */
-    store: 'app-store' | 'play-store' | 'stripe' | 'paddle';
+    store: 'app-store' | 'play-store' | 'stripe' | 'custom';
   }
 }
 

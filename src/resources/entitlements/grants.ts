@@ -220,6 +220,9 @@ export interface GrantCreateParams {
 }
 
 export interface GrantListParams {
+  /**
+   * a string to be decoded into a number
+   */
   ending_before?: string;
 
   /**
@@ -237,6 +240,9 @@ export interface GrantListParams {
    */
   limit?: string;
 
+  /**
+   * a string to be decoded into a number
+   */
   starting_after?: string;
 }
 

@@ -93,6 +93,8 @@ import {
   UserListEventNamesResponse,
   UserListFilterPropertiesParams,
   UserListFilterPropertiesResponse,
+  UserQueryParams,
+  UserQueryResponse,
   UserResolveParams,
   UserResolveResponse,
   UserRetrieveActiveEntitlementsParams,
@@ -269,6 +271,18 @@ export class SuperwallAPI {
     this.fetch = options.fetch ?? Shims.getDefaultFetch();
     this.#encoder = Opts.FallbackEncoder;
 
+    const customHeadersEnv = readEnv('SUPERWALL_API_CUSTOM_HEADERS');
+    if (customHeadersEnv) {
+      const parsed: Record<string, string> = {};
+      for (const line of customHeadersEnv.split('\n')) {
+        const colon = line.indexOf(':');
+        if (colon >= 0) {
+          parsed[line.substring(0, colon).trim()] = line.substring(colon + 1).trim();
+        }
+      }
+      options.defaultHeaders = { ...parsed, ...options.defaultHeaders };
+    }
+
     this._options = options;
 
     this.apiKey = apiKey;
@@ -310,8 +324,14 @@ export class SuperwallAPI {
     return;
   }
 
-  protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    return buildHeaders([await this.bearerAuth(opts), await this.oauth(opts)]);
+  protected async authHeaders(
+    opts: FinalRequestOptions,
+    schemes: { bearerAuth?: boolean; oauth?: boolean },
+  ): Promise<NullableHeaders | undefined> {
+    return buildHeaders([
+      schemes.bearerAuth ? await this.bearerAuth(opts) : null,
+      schemes.oauth ? await this.oauth(opts) : null,
+    ]);
   }
 
   protected async bearerAuth(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
@@ -745,7 +765,7 @@ export class SuperwallAPI {
         ...(options.timeout ? { 'X-Stainless-Timeout': String(Math.trunc(options.timeout / 1000)) } : {}),
         ...getPlatformHeaders(),
       },
-      await this.authHeaders(options),
+      await this.authHeaders(options, options.__security ?? { bearerAuth: true, oauth: true }),
       this._options.defaultHeaders,
       bodyHeaders,
       options.headers,
@@ -762,11 +782,19 @@ export class SuperwallAPI {
     return () => controller.abort();
   }
 
-  private buildBody({ options: { body, headers: rawHeaders } }: { options: FinalRequestOptions }): {
+  private buildBody({ options }: { options: FinalRequestOptions }): {
     bodyHeaders: HeadersLike;
     body: BodyInit | undefined;
   } {
+    const { body, headers: rawHeaders } = options;
     if (!body) {
+      // A resource method always passes a `body` key when its operation defines a
+      // request body, even if the caller omitted an optional body param. Keep the
+      // content-type for those, and only elide it for operations with no body at
+      // all (e.g. GET/DELETE).
+      if (body == null && 'body' in options) {
+        return this.#encoder({ body, headers: buildHeaders([rawHeaders]) });
+      }
       return { bodyHeaders: undefined, body: undefined };
     }
     const headers = buildHeaders([rawHeaders]);
@@ -961,6 +989,7 @@ export declare namespace SuperwallAPI {
     type BooleanFromString as BooleanFromString,
     type UserListEventNamesResponse as UserListEventNamesResponse,
     type UserListFilterPropertiesResponse as UserListFilterPropertiesResponse,
+    type UserQueryResponse as UserQueryResponse,
     type UserResolveResponse as UserResolveResponse,
     type UserRetrieveActiveEntitlementsResponse as UserRetrieveActiveEntitlementsResponse,
     type UserRetrieveAttributesResponse as UserRetrieveAttributesResponse,
@@ -968,6 +997,7 @@ export declare namespace SuperwallAPI {
     type UserRetrieveSubscriptionSummaryResponse as UserRetrieveSubscriptionSummaryResponse,
     type UserListEventNamesParams as UserListEventNamesParams,
     type UserListFilterPropertiesParams as UserListFilterPropertiesParams,
+    type UserQueryParams as UserQueryParams,
     type UserResolveParams as UserResolveParams,
     type UserRetrieveActiveEntitlementsParams as UserRetrieveActiveEntitlementsParams,
     type UserRetrieveAttributesParams as UserRetrieveAttributesParams,

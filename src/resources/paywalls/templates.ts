@@ -5,9 +5,6 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
-/**
- * Manage paywalls and paywall templates. A Paywall is a monetization screen shown to users. Paywalls are scoped to a specific application (per-platform) since their design and behavior are platform-specific.
- */
 export class Templates extends APIResource {
   /**
    * Retrieves a paywall template by ID. Requires paywalls:read scope.
@@ -17,11 +14,14 @@ export class Templates extends APIResource {
   }
 
   /**
-   * Returns a list of available paywall templates. Filter by category or visibility.
-   * Requires paywalls:read scope.
+   * Returns a list of globally-available paywall templates. Public endpoint — no
+   * authentication required. Filter by category.
    */
-  list(query: TemplateListParams, options?: RequestOptions): APIPromise<TemplateListResponse> {
-    return this._client.get('/v2/paywalls/templates', { query, ...options });
+  list(
+    query: TemplateListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TemplateListResponse> {
+    return this._client.get('/v2/paywalls/templates', { query, ...options, __security: {} });
   }
 }
 
@@ -30,6 +30,11 @@ export interface TemplateRetrieveResponse {
    * Unique identifier for the template
    */
   id: string;
+
+  /**
+   * ID of the application that owns this template
+   */
+  application_id: string;
 
   /**
    * Categories this template belongs to
@@ -55,6 +60,11 @@ export interface TemplateRetrieveResponse {
    * Object type, always `paywall_template`
    */
   object: 'paywall_template';
+
+  /**
+   * URL to the interactive template paywall
+   */
+  paywall_url: string;
 
   /**
    * Default presentation style of the template
@@ -107,6 +117,11 @@ export namespace TemplateListResponse {
     id: string;
 
     /**
+     * ID of the application that owns this template
+     */
+    application_id: string;
+
+    /**
      * Categories this template belongs to
      */
     categories: Array<string>;
@@ -132,6 +147,11 @@ export namespace TemplateListResponse {
     object: 'paywall_template';
 
     /**
+     * URL to the interactive template paywall
+     */
+    paywall_url: string;
+
+    /**
      * Default presentation style of the template
      */
     presentation_style: 'fullscreen' | 'modal' | 'sheet' | 'push';
@@ -154,11 +174,6 @@ export namespace TemplateListResponse {
 }
 
 export interface TemplateListParams {
-  /**
-   * Filter by application ID (required)
-   */
-  application_id: string;
-
   category?: string;
 
   /**
@@ -167,7 +182,7 @@ export interface TemplateListParams {
   ending_before?: string;
 
   /**
-   * Maximum number of items to return (1-100, default: 10)
+   * Maximum number of items to return (1-300, default: 10)
    */
   limit?: string;
 
@@ -175,11 +190,6 @@ export interface TemplateListParams {
    * a string to be decoded into a number
    */
   starting_after?: string;
-
-  /**
-   * Visibility scope of the template
-   */
-  visibility?: 'public' | 'organization';
 }
 
 export declare namespace Templates {

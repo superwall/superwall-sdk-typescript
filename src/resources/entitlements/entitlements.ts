@@ -71,6 +71,11 @@ export interface EntitlementCreateResponse {
   id: string;
 
   /**
+   * ID of the application that owns this entitlement
+   */
+  application_id: string;
+
+  /**
    * ISO 8601 timestamp of when the entitlement was created
    */
   created_at: string;
@@ -120,6 +125,11 @@ export interface EntitlementRetrieveResponse {
   id: string;
 
   /**
+   * ID of the application that owns this entitlement
+   */
+  application_id: string;
+
+  /**
    * ISO 8601 timestamp of when the entitlement was created
    */
   created_at: string;
@@ -167,6 +177,11 @@ export interface EntitlementUpdateResponse {
    * Unique identifier for the entitlement
    */
   id: string;
+
+  /**
+   * ID of the application that owns this entitlement
+   */
+  application_id: string;
 
   /**
    * ISO 8601 timestamp of when the entitlement was created
@@ -241,6 +256,11 @@ export namespace EntitlementListResponse {
     id: string;
 
     /**
+     * ID of the application that owns this entitlement
+     */
+    application_id: string;
+
+    /**
      * ISO 8601 timestamp of when the entitlement was created
      */
     created_at: string;
@@ -312,6 +332,11 @@ export interface EntitlementCreateParams {
    */
   project_id: string;
 
+  /**
+   * a string to be decoded into a number
+   */
+  application_id?: string;
+
   description?: string;
 
   metadata?: { [key: string]: string };
@@ -332,6 +357,11 @@ export interface EntitlementUpdateParams {
    * Description of the entitlement
    */
   description?: string;
+
+  /**
+   * Unique identifier string for the entitlement
+   */
+  identifier?: string;
 
   /**
    * Arbitrary key-value metadata to attach to the entitlement

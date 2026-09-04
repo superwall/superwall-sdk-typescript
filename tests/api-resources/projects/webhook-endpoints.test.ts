@@ -25,6 +25,7 @@ describe('resource webhookEndpoints', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.projects.webhookEndpoints.create('project_id', {
       url: 'x',
+      format: 'superwall',
       description: 'description',
       filter_types: ['string'],
       headers: { foo: 'string' },
@@ -50,6 +51,7 @@ describe('resource webhookEndpoints', () => {
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.projects.webhookEndpoints.retrieve('endpoint_id', {
       project_id: 'project_id',
+      format: 'superwall',
     });
   });
 
@@ -71,6 +73,7 @@ describe('resource webhookEndpoints', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.projects.webhookEndpoints.update('endpoint_id', {
       project_id: 'project_id',
+      format: 'superwall',
       description: 'description',
       disabled: true,
       filter_types: ['string'],
@@ -98,7 +101,11 @@ describe('resource webhookEndpoints', () => {
     await expect(
       client.projects.webhookEndpoints.list(
         'project_id',
-        { iterator: 'iterator', limit: 'limit' },
+        {
+          format: 'superwall',
+          iterator: 'iterator',
+          limit: 'limit',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(SuperwallAPI.NotFoundError);
@@ -122,6 +129,7 @@ describe('resource webhookEndpoints', () => {
   test.skip('delete: required and optional params', async () => {
     const response = await client.projects.webhookEndpoints.delete('endpoint_id', {
       project_id: 'project_id',
+      format: 'superwall',
     });
   });
 
@@ -143,6 +151,7 @@ describe('resource webhookEndpoints', () => {
   test.skip('rotateSecret: required and optional params', async () => {
     const response = await client.projects.webhookEndpoints.rotateSecret('endpoint_id', {
       project_id: 'project_id',
+      format: 'superwall',
     });
   });
 });

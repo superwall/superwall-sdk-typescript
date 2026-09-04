@@ -23,8 +23,14 @@ export class Campaigns extends APIResource {
   placements: PlacementsAPI.Placements = new PlacementsAPI.Placements(this._client);
 
   /**
-   * Creates a new campaign with placements and audiences. Requires campaigns:write
-   * scope.
+   * Creates a new campaign. `placements` and `audiences` are both optional — omit
+   * them (or send empty arrays) to create a campaign with just a name, as in the
+   * legacy dashboard, and configure it later; when no audiences are supplied the
+   * server creates a single default control audience (a 0% holdout). Audience
+   * targeting is set with a structured `rule_conditions` rule, which is compiled
+   * into the audience's expression and drives `expression_cel` for modern SDKs; omit
+   * it to match all users. The legacy raw `expression` field is no longer accepted.
+   * Requires campaigns:write scope.
    */
   create(body: CampaignCreateParams, options?: RequestOptions): APIPromise<CampaignCreateResponse> {
     return this._client.post('/v2/campaigns', { body, ...options });
@@ -72,8 +78,13 @@ export class Campaigns extends APIResource {
   }
 
   /**
-   * Updates an audience's enabled status or description. Requires campaigns:write
-   * scope.
+   * Updates an audience's enabled status, description, targeting rule, variant
+   * optimization, or variants. Provide a structured `rule_conditions` rule to update
+   * targeting: it is compiled into the audience's expression and drives
+   * `expression_cel` for modern SDKs, and the audience is switched to the rule
+   * editor so it stays in sync with the dashboard. The legacy raw `expression` field
+   * is no longer accepted. When variants are provided they replace the existing set.
+   * Requires campaigns:write scope.
    */
   updateAudience(
     audienceID: string,
@@ -122,6 +133,12 @@ export interface CampaignCreateResponse {
   is_legacy: boolean;
 
   /**
+   * Whether this campaign is prioritized for config preloading. At most one campaign
+   * per application may be prioritized.
+   */
+  is_prioritized: boolean;
+
+  /**
    * Internal notes about the campaign
    */
   notes: string | null;
@@ -160,9 +177,26 @@ export namespace CampaignCreateResponse {
     enabled: boolean;
 
     /**
-     * Filter expression for matching users, or null for all users
+     * Compiled filter expression for matching users, or null for all users
      */
     expression: string | null;
+
+    /**
+     * The CEL expression evaluated by modern SDKs, derived from `rule_conditions`.
+     * Null when the audience has no structured rule.
+     */
+    expression_cel: string | null;
+
+    /**
+     * The dashboard-side SQL compilation of `rule_conditions` (for preview/copy). Null
+     * when the audience has no structured rule.
+     */
+    expression_sql: string | null;
+
+    /**
+     * How often each user can be matched into this audience
+     */
+    frequency_limit: Audience.FrequencyLimit | null;
 
     /**
      * Object type, always `audience`
@@ -173,6 +207,13 @@ export namespace CampaignCreateResponse {
      * Priority rank of this audience within the campaign
      */
     rank: string;
+
+    /**
+     * Structured targeting rule (RuleConditions AST) when this audience uses the rule
+     * editor, or null for legacy raw-expression audiences. Returned as stored; send it
+     * back via the typed `rule_conditions` field on update.
+     */
+    rule_conditions: unknown;
 
     /**
      * Optimization strategy for variant allocation
@@ -186,11 +227,46 @@ export namespace CampaignCreateResponse {
   }
 
   export namespace Audience {
+    /**
+     * How often each user can be matched into this audience
+     */
+    export interface FrequencyLimit {
+      /**
+       * Time window for a frequency limit
+       */
+      interval: FrequencyLimit.Type | FrequencyLimit.UnionMember1;
+
+      /**
+       * an integer
+       */
+      occurrences: number;
+    }
+
+    export namespace FrequencyLimit {
+      export interface Type {
+        type: 'infinity';
+      }
+
+      export interface UnionMember1 {
+        /**
+         * Length of the rolling window in minutes
+         */
+        minutes: number;
+
+        type: 'minutes';
+      }
+    }
+
     export interface Variant {
       /**
        * Unique identifier for the variant
        */
       id: string;
+
+      /**
+       * ISO 8601 timestamp of when the variant was created
+       */
+      created_at: string;
 
       /**
        * Object type, always `variant`
@@ -274,6 +350,12 @@ export interface CampaignRetrieveResponse {
   is_legacy: boolean;
 
   /**
+   * Whether this campaign is prioritized for config preloading. At most one campaign
+   * per application may be prioritized.
+   */
+  is_prioritized: boolean;
+
+  /**
    * Internal notes about the campaign
    */
   notes: string | null;
@@ -312,9 +394,26 @@ export namespace CampaignRetrieveResponse {
     enabled: boolean;
 
     /**
-     * Filter expression for matching users, or null for all users
+     * Compiled filter expression for matching users, or null for all users
      */
     expression: string | null;
+
+    /**
+     * The CEL expression evaluated by modern SDKs, derived from `rule_conditions`.
+     * Null when the audience has no structured rule.
+     */
+    expression_cel: string | null;
+
+    /**
+     * The dashboard-side SQL compilation of `rule_conditions` (for preview/copy). Null
+     * when the audience has no structured rule.
+     */
+    expression_sql: string | null;
+
+    /**
+     * How often each user can be matched into this audience
+     */
+    frequency_limit: Audience.FrequencyLimit | null;
 
     /**
      * Object type, always `audience`
@@ -325,6 +424,13 @@ export namespace CampaignRetrieveResponse {
      * Priority rank of this audience within the campaign
      */
     rank: string;
+
+    /**
+     * Structured targeting rule (RuleConditions AST) when this audience uses the rule
+     * editor, or null for legacy raw-expression audiences. Returned as stored; send it
+     * back via the typed `rule_conditions` field on update.
+     */
+    rule_conditions: unknown;
 
     /**
      * Optimization strategy for variant allocation
@@ -338,11 +444,46 @@ export namespace CampaignRetrieveResponse {
   }
 
   export namespace Audience {
+    /**
+     * How often each user can be matched into this audience
+     */
+    export interface FrequencyLimit {
+      /**
+       * Time window for a frequency limit
+       */
+      interval: FrequencyLimit.Type | FrequencyLimit.UnionMember1;
+
+      /**
+       * an integer
+       */
+      occurrences: number;
+    }
+
+    export namespace FrequencyLimit {
+      export interface Type {
+        type: 'infinity';
+      }
+
+      export interface UnionMember1 {
+        /**
+         * Length of the rolling window in minutes
+         */
+        minutes: number;
+
+        type: 'minutes';
+      }
+    }
+
     export interface Variant {
       /**
        * Unique identifier for the variant
        */
       id: string;
+
+      /**
+       * ISO 8601 timestamp of when the variant was created
+       */
+      created_at: string;
 
       /**
        * Object type, always `variant`
@@ -426,6 +567,12 @@ export interface CampaignUpdateResponse {
   is_legacy: boolean;
 
   /**
+   * Whether this campaign is prioritized for config preloading. At most one campaign
+   * per application may be prioritized.
+   */
+  is_prioritized: boolean;
+
+  /**
    * Internal notes about the campaign
    */
   notes: string | null;
@@ -464,9 +611,26 @@ export namespace CampaignUpdateResponse {
     enabled: boolean;
 
     /**
-     * Filter expression for matching users, or null for all users
+     * Compiled filter expression for matching users, or null for all users
      */
     expression: string | null;
+
+    /**
+     * The CEL expression evaluated by modern SDKs, derived from `rule_conditions`.
+     * Null when the audience has no structured rule.
+     */
+    expression_cel: string | null;
+
+    /**
+     * The dashboard-side SQL compilation of `rule_conditions` (for preview/copy). Null
+     * when the audience has no structured rule.
+     */
+    expression_sql: string | null;
+
+    /**
+     * How often each user can be matched into this audience
+     */
+    frequency_limit: Audience.FrequencyLimit | null;
 
     /**
      * Object type, always `audience`
@@ -477,6 +641,13 @@ export namespace CampaignUpdateResponse {
      * Priority rank of this audience within the campaign
      */
     rank: string;
+
+    /**
+     * Structured targeting rule (RuleConditions AST) when this audience uses the rule
+     * editor, or null for legacy raw-expression audiences. Returned as stored; send it
+     * back via the typed `rule_conditions` field on update.
+     */
+    rule_conditions: unknown;
 
     /**
      * Optimization strategy for variant allocation
@@ -490,11 +661,46 @@ export namespace CampaignUpdateResponse {
   }
 
   export namespace Audience {
+    /**
+     * How often each user can be matched into this audience
+     */
+    export interface FrequencyLimit {
+      /**
+       * Time window for a frequency limit
+       */
+      interval: FrequencyLimit.Type | FrequencyLimit.UnionMember1;
+
+      /**
+       * an integer
+       */
+      occurrences: number;
+    }
+
+    export namespace FrequencyLimit {
+      export interface Type {
+        type: 'infinity';
+      }
+
+      export interface UnionMember1 {
+        /**
+         * Length of the rolling window in minutes
+         */
+        minutes: number;
+
+        type: 'minutes';
+      }
+    }
+
     export interface Variant {
       /**
        * Unique identifier for the variant
        */
       id: string;
+
+      /**
+       * ISO 8601 timestamp of when the variant was created
+       */
+      created_at: string;
 
       /**
        * Object type, always `variant`
@@ -561,6 +767,11 @@ export interface CampaignListResponse {
    * API endpoint URL for this list
    */
   url: '/v2/campaigns';
+
+  /**
+   * Optional lightweight metrics used by clients to sort the campaigns list
+   */
+  sort_metrics?: CampaignListResponse.SortMetrics;
 }
 
 export namespace CampaignListResponse {
@@ -601,6 +812,12 @@ export namespace CampaignListResponse {
     is_legacy: boolean;
 
     /**
+     * Whether this campaign is prioritized for config preloading. At most one campaign
+     * per application may be prioritized.
+     */
+    is_prioritized: boolean;
+
+    /**
      * Internal notes about the campaign
      */
     notes: string | null;
@@ -639,9 +856,26 @@ export namespace CampaignListResponse {
       enabled: boolean;
 
       /**
-       * Filter expression for matching users, or null for all users
+       * Compiled filter expression for matching users, or null for all users
        */
       expression: string | null;
+
+      /**
+       * The CEL expression evaluated by modern SDKs, derived from `rule_conditions`.
+       * Null when the audience has no structured rule.
+       */
+      expression_cel: string | null;
+
+      /**
+       * The dashboard-side SQL compilation of `rule_conditions` (for preview/copy). Null
+       * when the audience has no structured rule.
+       */
+      expression_sql: string | null;
+
+      /**
+       * How often each user can be matched into this audience
+       */
+      frequency_limit: Audience.FrequencyLimit | null;
 
       /**
        * Object type, always `audience`
@@ -652,6 +886,13 @@ export namespace CampaignListResponse {
        * Priority rank of this audience within the campaign
        */
       rank: string;
+
+      /**
+       * Structured targeting rule (RuleConditions AST) when this audience uses the rule
+       * editor, or null for legacy raw-expression audiences. Returned as stored; send it
+       * back via the typed `rule_conditions` field on update.
+       */
+      rule_conditions: unknown;
 
       /**
        * Optimization strategy for variant allocation
@@ -665,11 +906,46 @@ export namespace CampaignListResponse {
     }
 
     export namespace Audience {
+      /**
+       * How often each user can be matched into this audience
+       */
+      export interface FrequencyLimit {
+        /**
+         * Time window for a frequency limit
+         */
+        interval: FrequencyLimit.Type | FrequencyLimit.UnionMember1;
+
+        /**
+         * an integer
+         */
+        occurrences: number;
+      }
+
+      export namespace FrequencyLimit {
+        export interface Type {
+          type: 'infinity';
+        }
+
+        export interface UnionMember1 {
+          /**
+           * Length of the rolling window in minutes
+           */
+          minutes: number;
+
+          type: 'minutes';
+        }
+      }
+
       export interface Variant {
         /**
          * Unique identifier for the variant
          */
         id: string;
+
+        /**
+         * ISO 8601 timestamp of when the variant was created
+         */
+        created_at: string;
 
         /**
          * Object type, always `variant`
@@ -714,6 +990,26 @@ export namespace CampaignListResponse {
        */
       object: 'placement';
     }
+  }
+
+  /**
+   * Optional lightweight metrics used by clients to sort the campaigns list
+   */
+  export interface SortMetrics {
+    /**
+     * Transaction conversion count keyed by campaign ID
+     */
+    data: { [key: string]: number };
+
+    /**
+     * Metric included for list ordering
+     */
+    metric: 'transactionCompletes';
+
+    /**
+     * Whether campaign sort metrics were loaded successfully
+     */
+    status: 'ready' | 'unavailable';
   }
 }
 
@@ -768,9 +1064,26 @@ export interface CampaignUpdateAudienceResponse {
   enabled: boolean;
 
   /**
-   * Filter expression for matching users, or null for all users
+   * Compiled filter expression for matching users, or null for all users
    */
   expression: string | null;
+
+  /**
+   * The CEL expression evaluated by modern SDKs, derived from `rule_conditions`.
+   * Null when the audience has no structured rule.
+   */
+  expression_cel: string | null;
+
+  /**
+   * The dashboard-side SQL compilation of `rule_conditions` (for preview/copy). Null
+   * when the audience has no structured rule.
+   */
+  expression_sql: string | null;
+
+  /**
+   * How often each user can be matched into this audience
+   */
+  frequency_limit: CampaignUpdateAudienceResponse.FrequencyLimit | null;
 
   /**
    * Object type, always `audience`
@@ -781,6 +1094,13 @@ export interface CampaignUpdateAudienceResponse {
    * Priority rank of this audience within the campaign
    */
   rank: string;
+
+  /**
+   * Structured targeting rule (RuleConditions AST) when this audience uses the rule
+   * editor, or null for legacy raw-expression audiences. Returned as stored; send it
+   * back via the typed `rule_conditions` field on update.
+   */
+  rule_conditions: unknown;
 
   /**
    * Optimization strategy for variant allocation
@@ -794,11 +1114,46 @@ export interface CampaignUpdateAudienceResponse {
 }
 
 export namespace CampaignUpdateAudienceResponse {
+  /**
+   * How often each user can be matched into this audience
+   */
+  export interface FrequencyLimit {
+    /**
+     * Time window for a frequency limit
+     */
+    interval: FrequencyLimit.Type | FrequencyLimit.UnionMember1;
+
+    /**
+     * an integer
+     */
+    occurrences: number;
+  }
+
+  export namespace FrequencyLimit {
+    export interface Type {
+      type: 'infinity';
+    }
+
+    export interface UnionMember1 {
+      /**
+       * Length of the rolling window in minutes
+       */
+      minutes: number;
+
+      type: 'minutes';
+    }
+  }
+
   export interface Variant {
     /**
      * Unique identifier for the variant
      */
     id: string;
+
+    /**
+     * ISO 8601 timestamp of when the variant was created
+     */
+    created_at: string;
 
     /**
      * Object type, always `variant`
@@ -829,24 +1184,28 @@ export interface CampaignCreateParams {
   application_id: string;
 
   /**
-   * List of audiences for the campaign. At least one is required
-   */
-  audiences: Array<CampaignCreateParams.Audience>;
-
-  /**
    * Description of the campaign
    */
   description: string;
 
   /**
-   * List of placements (triggers) for the campaign. At least one is required
+   * List of audiences for the campaign. Optional — when omitted or empty the server
+   * creates a single default control audience (one 0% holdout targeting unsubscribed
+   * users), matching the legacy name-only create flow
    */
-  placements: Array<CampaignCreateParams.Placement>;
+  audiences?: Array<CampaignCreateParams.Audience>;
 
   /**
    * Internal notes about the campaign
    */
   notes?: string | null;
+
+  /**
+   * List of placements (triggers) for the campaign. Optional — omit it or send an
+   * empty array to create a campaign with just a name (as in the legacy dashboard)
+   * and add placements later in the editor
+   */
+  placements?: Array<CampaignCreateParams.Placement>;
 }
 
 export namespace CampaignCreateParams {
@@ -866,10 +1225,14 @@ export namespace CampaignCreateParams {
      */
     enabled?: boolean;
 
+    expression?: unknown;
+
     /**
-     * Filter expression for matching users
+     * Structured audience targeting rule (the dashboard rule-editor AST). Compiled
+     * server-side into the runtime expression and `expression_cel`. Provide an empty
+     * `conditions` array to match all users.
      */
-    expression?: string | null;
+    rule_conditions?: Audience.RuleConditions;
 
     /**
      * Optimization strategy for variant allocation. Defaults to `none`
@@ -884,12 +1247,187 @@ export namespace CampaignCreateParams {
        */
       paywall: string | null;
 
-      percentage: number;
-
       /**
        * Whether this is a treatment or holdout variant
        */
       type: 'treatment' | 'holdout';
+
+      /**
+       * Traffic percentage allocated to this variant (0-100). When omitted on
+       * createVariant, the server applies the legacy default — first treatment / first
+       * holdout gets 100%, subsequent variants get 0%.
+       */
+      percentage?: number;
+    }
+
+    /**
+     * Structured audience targeting rule (the dashboard rule-editor AST). Compiled
+     * server-side into the runtime expression and `expression_cel`. Provide an empty
+     * `conditions` array to match all users.
+     */
+    export interface RuleConditions {
+      conditions: Array<RuleConditions.UnionMember0 | RuleConditions.UnionMember1>;
+
+      operator: 'and' | 'or';
+
+      entitlements?: RuleConditions.Entitlements;
+    }
+
+    export namespace RuleConditions {
+      export interface UnionMember0 {
+        lhs: UnionMember0.UnionMember0 | UnionMember0.UnionMember1;
+
+        operator: 'eq' | 'neq' | 'c' | 'nc' | 'gt' | 'gte' | 'lt' | 'lte' | 't' | 'f' | 'null' | 'nnull';
+
+        rhs:
+          | UnionMember0.UnionMember0
+          | UnionMember0.UnionMember1
+          | UnionMember0.UnionMember2
+          | UnionMember0.UnionMember3
+          | UnionMember0.UnionMember4;
+
+        type: 'condition';
+      }
+
+      export namespace UnionMember0 {
+        export interface UnionMember0 {
+          args: string;
+
+          caller: 'device' | 'user' | 'params' | 'computed';
+
+          name:
+            | 'minutesSince'
+            | 'hoursSince'
+            | 'daysSince'
+            | 'placementsInHour'
+            | 'placementsInDay'
+            | 'placementsInWeek'
+            | 'placementsInMonth'
+            | 'placementsSinceInstall';
+
+          type: 'computed_function';
+
+          value?: string;
+        }
+
+        export interface UnionMember1 {
+          type: 'property';
+
+          value: string;
+        }
+
+        export interface UnionMember0 {
+          type: 'number';
+
+          value: string;
+        }
+
+        export interface UnionMember1 {
+          type: 'string';
+
+          value: string;
+        }
+
+        export interface UnionMember2 {
+          type: 'boolean';
+
+          value: string;
+        }
+
+        export interface UnionMember3 {
+          args: string;
+
+          caller: 'device' | 'user' | 'params' | 'computed';
+
+          name:
+            | 'minutesSince'
+            | 'hoursSince'
+            | 'daysSince'
+            | 'placementsInHour'
+            | 'placementsInDay'
+            | 'placementsInWeek'
+            | 'placementsInMonth'
+            | 'placementsSinceInstall';
+
+          type: 'computed_function';
+
+          value?: string;
+        }
+
+        export interface UnionMember4 {
+          type: 'property';
+
+          value: string;
+        }
+      }
+
+      export interface UnionMember1 {
+        conditions: Array<unknown>;
+
+        operator: 'and' | 'or';
+
+        type: 'group';
+      }
+
+      export interface Entitlements {
+        rule:
+          | Entitlements.Type
+          | Entitlements.Type
+          | Entitlements.UnionMember2
+          | Entitlements.Type
+          | Entitlements.Type
+          | Entitlements.Type
+          | Entitlements.Type
+          | Entitlements.Type;
+
+        type: 'entitlement';
+      }
+
+      export namespace Entitlements {
+        export interface Type {
+          type: 'no_active_entitlements';
+        }
+
+        export interface Type {
+          type: 'always_true';
+        }
+
+        export interface UnionMember2 {
+          conditions: Array<UnionMember2.Condition>;
+
+          type: 'entitlement_conditions';
+        }
+
+        export namespace UnionMember2 {
+          export interface Condition {
+            identifier: string;
+
+            status: 'active' | 'inactive' | 'will_not_renew' | 'in_trial' | 'expired' | 'in_billing_retry';
+
+            type: 'entitlement_condition';
+          }
+        }
+
+        export interface Type {
+          type: 'any_will_not_renew';
+        }
+
+        export interface Type {
+          type: 'any_in_trial';
+        }
+
+        export interface Type {
+          type: 'any_expired_no_active';
+        }
+
+        export interface Type {
+          type: 'any_active_subs_auto_renew_disabled';
+        }
+
+        export interface Type {
+          type: 'any_in_billing_retry';
+        }
+      }
     }
   }
 
@@ -941,9 +1479,32 @@ export interface CampaignListParams {
   ending_before?: string;
 
   /**
+   * a string to be decoded into a boolean
+   */
+  include_sort_metrics?: UsersAPI.BooleanFromString;
+
+  /**
    * Maximum number of items to return (1-100, default: 10)
    */
   limit?: string;
+
+  sort_metric?: 'transactionCompletes';
+
+  /**
+   * Preset date range for included campaign sort metrics
+   */
+  sort_metrics_date_preset?:
+    | 'last_24_hours'
+    | 'today'
+    | 'yesterday'
+    | 'last_7_days'
+    | 'last_30_days'
+    | 'last_90_days'
+    | 'last_180_days'
+    | 'last_365_days'
+    | 'year_to_date';
+
+  sort_metrics_environment?: 'PRODUCTION' | 'SANDBOX';
 
   /**
    * a string to be decoded into a number
@@ -966,6 +1527,255 @@ export interface CampaignUpdateAudienceParams {
    * Body param: Whether this audience is enabled
    */
   enabled?: boolean;
+
+  /**
+   * Body param
+   */
+  expression?: unknown;
+
+  /**
+   * Body param: How often each user can be matched into this audience
+   */
+  frequency_limit?: CampaignUpdateAudienceParams.FrequencyLimit | null;
+
+  /**
+   * Body param: Structured audience targeting rule (the dashboard rule-editor AST).
+   * Compiled server-side into the runtime expression and `expression_cel`. Provide
+   * an empty `conditions` array to match all users.
+   */
+  rule_conditions?: CampaignUpdateAudienceParams.RuleConditions;
+
+  /**
+   * Body param: Optimization strategy for variant allocation
+   */
+  variant_optimization?: 'none' | 'ucb1_bandit';
+
+  /**
+   * Body param: Replaces the audience's variants with this list. At least one
+   * variant is required
+   */
+  variants?: Array<CampaignUpdateAudienceParams.Variant>;
+}
+
+export namespace CampaignUpdateAudienceParams {
+  /**
+   * How often each user can be matched into this audience
+   */
+  export interface FrequencyLimit {
+    /**
+     * Time window for a frequency limit
+     */
+    interval: FrequencyLimit.Type | FrequencyLimit.UnionMember1;
+
+    /**
+     * an integer
+     */
+    occurrences: number;
+  }
+
+  export namespace FrequencyLimit {
+    export interface Type {
+      type: 'infinity';
+    }
+
+    export interface UnionMember1 {
+      /**
+       * Length of the rolling window in minutes
+       */
+      minutes: number;
+
+      type: 'minutes';
+    }
+  }
+
+  /**
+   * Structured audience targeting rule (the dashboard rule-editor AST). Compiled
+   * server-side into the runtime expression and `expression_cel`. Provide an empty
+   * `conditions` array to match all users.
+   */
+  export interface RuleConditions {
+    conditions: Array<RuleConditions.UnionMember0 | RuleConditions.UnionMember1>;
+
+    operator: 'and' | 'or';
+
+    entitlements?: RuleConditions.Entitlements;
+  }
+
+  export namespace RuleConditions {
+    export interface UnionMember0 {
+      lhs: UnionMember0.UnionMember0 | UnionMember0.UnionMember1;
+
+      operator: 'eq' | 'neq' | 'c' | 'nc' | 'gt' | 'gte' | 'lt' | 'lte' | 't' | 'f' | 'null' | 'nnull';
+
+      rhs:
+        | UnionMember0.UnionMember0
+        | UnionMember0.UnionMember1
+        | UnionMember0.UnionMember2
+        | UnionMember0.UnionMember3
+        | UnionMember0.UnionMember4;
+
+      type: 'condition';
+    }
+
+    export namespace UnionMember0 {
+      export interface UnionMember0 {
+        args: string;
+
+        caller: 'device' | 'user' | 'params' | 'computed';
+
+        name:
+          | 'minutesSince'
+          | 'hoursSince'
+          | 'daysSince'
+          | 'placementsInHour'
+          | 'placementsInDay'
+          | 'placementsInWeek'
+          | 'placementsInMonth'
+          | 'placementsSinceInstall';
+
+        type: 'computed_function';
+
+        value?: string;
+      }
+
+      export interface UnionMember1 {
+        type: 'property';
+
+        value: string;
+      }
+
+      export interface UnionMember0 {
+        type: 'number';
+
+        value: string;
+      }
+
+      export interface UnionMember1 {
+        type: 'string';
+
+        value: string;
+      }
+
+      export interface UnionMember2 {
+        type: 'boolean';
+
+        value: string;
+      }
+
+      export interface UnionMember3 {
+        args: string;
+
+        caller: 'device' | 'user' | 'params' | 'computed';
+
+        name:
+          | 'minutesSince'
+          | 'hoursSince'
+          | 'daysSince'
+          | 'placementsInHour'
+          | 'placementsInDay'
+          | 'placementsInWeek'
+          | 'placementsInMonth'
+          | 'placementsSinceInstall';
+
+        type: 'computed_function';
+
+        value?: string;
+      }
+
+      export interface UnionMember4 {
+        type: 'property';
+
+        value: string;
+      }
+    }
+
+    export interface UnionMember1 {
+      conditions: Array<unknown>;
+
+      operator: 'and' | 'or';
+
+      type: 'group';
+    }
+
+    export interface Entitlements {
+      rule:
+        | Entitlements.Type
+        | Entitlements.Type
+        | Entitlements.UnionMember2
+        | Entitlements.Type
+        | Entitlements.Type
+        | Entitlements.Type
+        | Entitlements.Type
+        | Entitlements.Type;
+
+      type: 'entitlement';
+    }
+
+    export namespace Entitlements {
+      export interface Type {
+        type: 'no_active_entitlements';
+      }
+
+      export interface Type {
+        type: 'always_true';
+      }
+
+      export interface UnionMember2 {
+        conditions: Array<UnionMember2.Condition>;
+
+        type: 'entitlement_conditions';
+      }
+
+      export namespace UnionMember2 {
+        export interface Condition {
+          identifier: string;
+
+          status: 'active' | 'inactive' | 'will_not_renew' | 'in_trial' | 'expired' | 'in_billing_retry';
+
+          type: 'entitlement_condition';
+        }
+      }
+
+      export interface Type {
+        type: 'any_will_not_renew';
+      }
+
+      export interface Type {
+        type: 'any_in_trial';
+      }
+
+      export interface Type {
+        type: 'any_expired_no_active';
+      }
+
+      export interface Type {
+        type: 'any_active_subs_auto_renew_disabled';
+      }
+
+      export interface Type {
+        type: 'any_in_billing_retry';
+      }
+    }
+  }
+
+  export interface Variant {
+    /**
+     * a string to be decoded into a number
+     */
+    paywall: string | null;
+
+    /**
+     * Whether this is a treatment or holdout variant
+     */
+    type: 'treatment' | 'holdout';
+
+    /**
+     * Traffic percentage allocated to this variant (0-100). When omitted on
+     * createVariant, the server applies the legacy default — first treatment / first
+     * holdout gets 100%, subsequent variants get 0%.
+     */
+    percentage?: number;
+  }
 }
 
 Campaigns.Placements = Placements;

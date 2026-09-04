@@ -27,6 +27,7 @@ describe('resource paywalls', () => {
       application_id: 'application_id',
       name: 'x',
       feature_gating: 'gated',
+      headless: true,
       identifier: 'identifier',
       metadata: { foo: 'string' },
       presentation_style: 'fullscreen',

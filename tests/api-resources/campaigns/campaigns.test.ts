@@ -11,22 +11,7 @@ const client = new SuperwallAPI({
 describe('resource campaigns', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.campaigns.create({
-      application_id: 'application_id',
-      audiences: [
-        {
-          variants: [
-            {
-              paywall: 'paywall',
-              percentage: 0,
-              type: 'treatment',
-            },
-          ],
-        },
-      ],
-      description: 'x',
-      placements: [{ event_name: 'x' }],
-    });
+    const responsePromise = client.campaigns.create({ application_id: 'application_id', description: 'x' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -40,22 +25,38 @@ describe('resource campaigns', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.campaigns.create({
       application_id: 'application_id',
+      description: 'x',
       audiences: [
         {
           variants: [
             {
               paywall: 'paywall',
-              percentage: 0,
               type: 'treatment',
+              percentage: 0,
             },
           ],
           description: 'description',
           enabled: true,
-          expression: 'expression',
+          expression: {},
+          rule_conditions: {
+            conditions: [
+              {
+                lhs: { type: 'property', value: 'device.appVersion' },
+                operator: 'gte',
+                rhs: { type: 'string', value: '1.2.3' },
+                type: 'condition',
+              },
+            ],
+            operator: 'and',
+            entitlements: {
+              rule: { type: 'no_active_entitlements' },
+              type: 'entitlement',
+            },
+          },
           variant_optimization: 'none',
         },
       ],
-      description: 'x',
+      notes: 'notes',
       placements: [
         {
           event_name: 'x',
@@ -63,7 +64,6 @@ describe('resource campaigns', () => {
           remove_from_other_campaigns: true,
         },
       ],
-      notes: 'notes',
     });
   });
 
@@ -109,7 +109,11 @@ describe('resource campaigns', () => {
       application_id: 'application_id',
       archived: 'true',
       ending_before: 'ending_before',
+      include_sort_metrics: 'true',
       limit: 'limit',
+      sort_metric: 'transactionCompletes',
+      sort_metrics_date_preset: 'last_24_hours',
+      sort_metrics_environment: 'PRODUCTION',
       starting_after: 'starting_after',
     });
   });
@@ -156,6 +160,34 @@ describe('resource campaigns', () => {
       id: 'id',
       description: 'description',
       enabled: true,
+      expression: {},
+      frequency_limit: {
+        interval: { type: 'infinity' },
+        occurrences: 0,
+      },
+      rule_conditions: {
+        conditions: [
+          {
+            lhs: { type: 'property', value: 'device.appVersion' },
+            operator: 'gte',
+            rhs: { type: 'string', value: '1.2.3' },
+            type: 'condition',
+          },
+        ],
+        operator: 'and',
+        entitlements: {
+          rule: { type: 'no_active_entitlements' },
+          type: 'entitlement',
+        },
+      },
+      variant_optimization: 'none',
+      variants: [
+        {
+          paywall: 'paywall',
+          type: 'treatment',
+          percentage: 0,
+        },
+      ],
     });
   });
 });

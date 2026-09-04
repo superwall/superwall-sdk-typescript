@@ -153,6 +153,11 @@ export namespace ChartGetDefinitionsResponse {
     y_axis: string;
 
     /**
+     * Allowed visualization types
+     */
+    chart_type_options?: Array<'line' | 'stackedArea' | 'bar' | 'stackedBar'>;
+
+    /**
      * Default breakdown dimension
      */
     default_breakdown?: string;
@@ -163,9 +168,20 @@ export namespace ChartGetDefinitionsResponse {
     default_chart_type?: 'line' | 'stackedArea' | 'bar' | 'stackedBar';
 
     /**
+     * When true, this chart must always render as a single combined series (no
+     * breakdown)
+     */
+    force_no_breakdown?: boolean;
+
+    /**
      * Group this chart type belongs to
      */
     group?: string;
+
+    /**
+     * Dashboard icon key
+     */
+    icon?: string;
   }
 
   export interface DateInterval {
@@ -210,6 +226,16 @@ export namespace ChartGetDefinitionsResponse {
      * Value type of the filter
      */
     value_type: 'string' | 'date';
+
+    /**
+     * Filter key that must be selected before this filter is available
+     */
+    depends_on?: string;
+
+    /**
+     * Currently selected values
+     */
+    value?: Array<string | number>;
   }
 
   export interface XAxi {
@@ -232,6 +258,37 @@ export namespace ChartGetDefinitionsResponse {
      * Value type of the dimension
      */
     value_type: 'date' | 'string';
+
+    /**
+     * Supported date interval options for this x-axis
+     */
+    date_intervals?: Array<XAxi.DateInterval>;
+
+    /**
+     * How missing x-axis values are filled
+     */
+    fill_missing_values?: 'zero' | 'cumulative';
+  }
+
+  export namespace XAxi {
+    export interface DateInterval {
+      /**
+       * Description of the interval
+       */
+      description: string;
+
+      /**
+       * Interval key
+       */
+      key: 'auto' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year' | 'totals';
+
+      /**
+       * Display name
+       */
+      name: string;
+
+      active?: boolean;
+    }
   }
 
   export interface YAxi {
@@ -254,6 +311,55 @@ export namespace ChartGetDefinitionsResponse {
      * How to format the value
      */
     value_type: 'number' | 'percentage' | 'currency';
+
+    /**
+     * How to aggregate percentage totals from extra metric values
+     */
+    aggregate_total?: YAxi.AggregateTotal;
+
+    /**
+     * Additional values rendered as sub-rows in chart tables
+     */
+    extra?: Array<YAxi.Extra>;
+  }
+
+  export namespace YAxi {
+    /**
+     * How to aggregate percentage totals from extra metric values
+     */
+    export interface AggregateTotal {
+      /**
+       * Extra metric key to sum for the aggregate total denominator
+       */
+      denominator_key: string;
+
+      /**
+       * Extra metric key to sum for the aggregate total numerator
+       */
+      numerator_key: string;
+    }
+
+    export interface Extra {
+      /**
+       * Description of the metric
+       */
+      description: string;
+
+      /**
+       * Metric key
+       */
+      key: string;
+
+      /**
+       * Display name
+       */
+      name: string;
+
+      /**
+       * How to format the value
+       */
+      value_type: 'number' | 'percentage' | 'currency';
+    }
   }
 }
 
@@ -312,6 +418,11 @@ export interface ChartQueryDataResponse {
    * Y-axis definition
    */
   y_axis: ChartQueryDataResponse.YAxis;
+
+  /**
+   * Table-specific metadata
+   */
+  table?: ChartQueryDataResponse.Table;
 }
 
 export namespace ChartQueryDataResponse {
@@ -375,6 +486,11 @@ export namespace ChartQueryDataResponse {
        * Y-axis value
        */
       y: number;
+
+      /**
+       * Additional point metadata, for example retention partial rows
+       */
+      meta?: { [key: string]: boolean | number | string };
     }
   }
 
@@ -472,6 +588,16 @@ export namespace ChartQueryDataResponse {
      * Value type of the filter
      */
     value_type: 'string' | 'date';
+
+    /**
+     * Filter key that must be selected before this filter is available
+     */
+    depends_on?: string;
+
+    /**
+     * Currently selected values
+     */
+    value?: Array<string | number>;
   }
 
   export interface Series {
@@ -509,6 +635,37 @@ export namespace ChartQueryDataResponse {
      * Value type of the dimension
      */
     value_type: 'date' | 'string';
+
+    /**
+     * Supported date interval options for this x-axis
+     */
+    date_intervals?: Array<XAxis.DateInterval>;
+
+    /**
+     * How missing x-axis values are filled
+     */
+    fill_missing_values?: 'zero' | 'cumulative';
+  }
+
+  export namespace XAxis {
+    export interface DateInterval {
+      /**
+       * Description of the interval
+       */
+      description: string;
+
+      /**
+       * Interval key
+       */
+      key: 'auto' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year' | 'totals';
+
+      /**
+       * Display name
+       */
+      name: string;
+
+      active?: boolean;
+    }
   }
 
   /**
@@ -534,6 +691,90 @@ export namespace ChartQueryDataResponse {
      * How to format the value
      */
     value_type: 'number' | 'percentage' | 'currency';
+
+    /**
+     * How to aggregate percentage totals from extra metric values
+     */
+    aggregate_total?: YAxis.AggregateTotal;
+
+    /**
+     * Additional values rendered as sub-rows in chart tables
+     */
+    extra?: Array<YAxis.Extra>;
+  }
+
+  export namespace YAxis {
+    /**
+     * How to aggregate percentage totals from extra metric values
+     */
+    export interface AggregateTotal {
+      /**
+       * Extra metric key to sum for the aggregate total denominator
+       */
+      denominator_key: string;
+
+      /**
+       * Extra metric key to sum for the aggregate total numerator
+       */
+      numerator_key: string;
+    }
+
+    export interface Extra {
+      /**
+       * Description of the metric
+       */
+      description: string;
+
+      /**
+       * Metric key
+       */
+      key: string;
+
+      /**
+       * Display name
+       */
+      name: string;
+
+      /**
+       * How to format the value
+       */
+      value_type: 'number' | 'percentage' | 'currency';
+    }
+  }
+
+  /**
+   * Table-specific metadata
+   */
+  export interface Table {
+    column_meta?: { [key: string]: Table.ColumnMeta };
+
+    hidden_columns?: Array<string>;
+
+    hidden_series?: Array<string>;
+
+    kind?: 'standard' | 'cohort';
+
+    leading_columns?: Array<Table.LeadingColumn>;
+
+    row_meta?: { [key: string]: { [key: string]: number | string | null } };
+  }
+
+  export namespace Table {
+    export interface ColumnMeta {
+      incomplete?: boolean;
+    }
+
+    export interface LeadingColumn {
+      key: string;
+
+      label: string;
+
+      align?: 'start' | 'end';
+
+      sortable?: boolean;
+
+      value_type?: 'number' | 'percentage' | 'currency' | 'string';
+    }
   }
 }
 
@@ -551,12 +792,16 @@ export interface ChartQueryDataParams {
   application_id: string;
 
   /**
-   * X-axis dimension (e.g. `purchaseDate`, `installDate`)
+   * X-axis dimension (e.g. `purchaseDate`, `installDate`). Must be an exact
+   * dimension key from `GET /v2/charts/definitions`.
    */
   x_axis: string;
 
   /**
-   * Y-axis metric to display (e.g. `netProceeds`, `newUsers`, `trialConversionRate`)
+   * Y-axis metric to display (e.g. `netProceeds`, `newUsers`,
+   * `trialConversionRate`). Must be an exact metric key from
+   * `GET /v2/charts/definitions` — e.g. proceeds charts use `netProceeds`, not
+   * `proceeds`.
    */
   y_axis: string;
 
@@ -571,6 +816,11 @@ export interface ChartQueryDataParams {
   auto_renew_status?: Array<string>;
 
   /**
+   * Filter by App Store billing plan type (UP_FRONT, MONTHLY)
+   */
+  billing_plan_type?: Array<'UP_FRONT' | 'MONTHLY'>;
+
+  /**
    * Optional breakdown dimension (e.g. `countryCode`, `placement`)
    */
   breakdown?: string | null;
@@ -583,7 +833,7 @@ export interface ChartQueryDataParams {
   /**
    * Conversion timeframe for SDK events
    */
-  conversion_timeframe?: 'd1' | 'd3' | 'd7' | 'd14' | 'd30' | 'd90';
+  conversion_timeframe?: 'd1' | 'd3' | 'd4' | 'd7' | 'd14' | 'd30' | 'd90';
 
   /**
    * Filter by country codes
@@ -644,6 +894,39 @@ export interface ChartQueryDataParams {
    * Filter by product IDs
    */
   product_id?: Array<string>;
+
+  /**
+   * Filter retention messaging metrics by response type (message, alternate_product,
+   * promotional_offer, none, error)
+   */
+  response_type?: Array<string>;
+
+  /**
+   * Filter retention messaging metrics by retention configuration group IDs
+   * (expanded to member configurations)
+   */
+  retention_configuration_group_id?: Array<string>;
+
+  /**
+   * Filter retention messaging metrics by retention configuration IDs
+   */
+  retention_configuration_id?: Array<string>;
+
+  /**
+   * Filter retention messaging metrics by matched locale
+   */
+  retention_locale?: Array<string>;
+
+  /**
+   * Filter retention messaging metrics by retention message group IDs (expanded to
+   * member messages)
+   */
+  retention_message_group_id?: Array<string>;
+
+  /**
+   * Filter retention messaging metrics by retention message IDs
+   */
+  retention_message_id?: Array<string>;
 
   /**
    * Filter by revenue source (Superwall, Your App)

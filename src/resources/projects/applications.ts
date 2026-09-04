@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as UsersAPI from '../users/users';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -136,9 +137,39 @@ export namespace ApplicationCreateResponse {
     id: string;
 
     /**
+     * Android app signing certificate fingerprints
+     */
+    android_app_fingerprints: Array<string> | null;
+
+    /**
      * App Store or Play Store app ID
      */
     app_id: string | null;
+
+    /**
+     * Whether Apple Search Ads is configured for this application
+     */
+    apple_search_ads_configured: boolean;
+
+    /**
+     * Apple Small Business Program end date
+     */
+    apple_small_business_end_date: string | null;
+
+    /**
+     * Apple Small Business Program start date
+     */
+    apple_small_business_start_date: string | null;
+
+    /**
+     * URL scheme used for deep links on mobile
+     */
+    apple_url_scheme: string | null;
+
+    /**
+     * Custom application icon URL shown on management pages and in emails
+     */
+    application_icon: string | null;
 
     /**
      * ISO 8601 timestamp of when the application was archived, or null if active
@@ -161,9 +192,25 @@ export namespace ApplicationCreateResponse {
     features_enabled: Array<string>;
 
     /**
+     * Whether all paywalls are disabled for this application
+     */
+    globally_disabled: boolean;
+
+    /**
      * Whether the application has been integrated with the SDK
      */
     integrated: boolean;
+
+    /**
+     * Whether this application is the legacy Stripe application type
+     */
+    is_stripe_application: boolean;
+
+    /**
+     * Detected language/framework for the application (e.g. `flutter`,
+     * `react-native`), sourced from marketing metadata, or null if unknown
+     */
+    language_and_framework: string | null;
 
     /**
      * Display name of the application
@@ -171,9 +218,25 @@ export namespace ApplicationCreateResponse {
     name: string;
 
     /**
+     * Notification redirect URL for iOS applications
+     */
+    notification_redirect_url: string | null;
+
+    /**
      * Platform of the application
      */
-    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web';
+    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'promotional' | 'webapp';
+
+    /**
+     * Whether this application's project contains a legacy Stripe application, or null
+     * for standalone applications
+     */
+    project_has_stripe_application: boolean | null;
+
+    /**
+     * a string to be decoded into a number
+     */
+    project_id: string | null;
 
     /**
      * Public API key for SDK integration
@@ -181,14 +244,68 @@ export namespace ApplicationCreateResponse {
     public_api_key: string;
 
     /**
+     * Whether web purchases can be redeemed on desktop devices
+     */
+    redeemable_on_desktop: boolean | null;
+
+    /**
+     * RevenueCat public API key
+     */
+    revenue_cat_public_api_key: string | null;
+
+    /**
      * URL-safe identifier for the application
      */
     slug: string;
 
     /**
+     * Reply-to support email for web checkout emails
+     */
+    support_email: string | null;
+
+    /**
+     * Support URL shown during web checkout redemption
+     */
+    support_url: string | null;
+
+    /**
+     * Apple Developer Team ID for iOS applications
+     */
+    team_id: string | null;
+
+    /**
      * ISO 8601 timestamp of when the application was last updated
      */
     updated_at: string;
+
+    /**
+     * Whether Superwall post-purchase customer emails are disabled
+     */
+    web_2_app_disable_customer_emails: boolean | null;
+
+    /**
+     * Behavior after a web-to-app purchase
+     */
+    web_2_app_post_purchase_behavior: Application.Type | Application.UnionMember1 | null;
+
+    /**
+     * Exact SDK framework selected for this application platform (e.g. `expo`,
+     * `swiftui`), or null if unknown. Optional for compatibility with older API
+     * deployments.
+     */
+    sdk_framework?: string | null;
+  }
+
+  export namespace Application {
+    export interface Type {
+      type: 'redeem';
+    }
+
+    export interface UnionMember1 {
+      type: 'redirect';
+
+      url: string;
+    }
   }
 }
 
@@ -244,9 +361,39 @@ export namespace ApplicationUpdateResponse {
     id: string;
 
     /**
+     * Android app signing certificate fingerprints
+     */
+    android_app_fingerprints: Array<string> | null;
+
+    /**
      * App Store or Play Store app ID
      */
     app_id: string | null;
+
+    /**
+     * Whether Apple Search Ads is configured for this application
+     */
+    apple_search_ads_configured: boolean;
+
+    /**
+     * Apple Small Business Program end date
+     */
+    apple_small_business_end_date: string | null;
+
+    /**
+     * Apple Small Business Program start date
+     */
+    apple_small_business_start_date: string | null;
+
+    /**
+     * URL scheme used for deep links on mobile
+     */
+    apple_url_scheme: string | null;
+
+    /**
+     * Custom application icon URL shown on management pages and in emails
+     */
+    application_icon: string | null;
 
     /**
      * ISO 8601 timestamp of when the application was archived, or null if active
@@ -269,9 +416,25 @@ export namespace ApplicationUpdateResponse {
     features_enabled: Array<string>;
 
     /**
+     * Whether all paywalls are disabled for this application
+     */
+    globally_disabled: boolean;
+
+    /**
      * Whether the application has been integrated with the SDK
      */
     integrated: boolean;
+
+    /**
+     * Whether this application is the legacy Stripe application type
+     */
+    is_stripe_application: boolean;
+
+    /**
+     * Detected language/framework for the application (e.g. `flutter`,
+     * `react-native`), sourced from marketing metadata, or null if unknown
+     */
+    language_and_framework: string | null;
 
     /**
      * Display name of the application
@@ -279,9 +442,25 @@ export namespace ApplicationUpdateResponse {
     name: string;
 
     /**
+     * Notification redirect URL for iOS applications
+     */
+    notification_redirect_url: string | null;
+
+    /**
      * Platform of the application
      */
-    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web';
+    platform: 'ios' | 'android' | 'flutter' | 'react_native' | 'web' | 'promotional' | 'webapp';
+
+    /**
+     * Whether this application's project contains a legacy Stripe application, or null
+     * for standalone applications
+     */
+    project_has_stripe_application: boolean | null;
+
+    /**
+     * a string to be decoded into a number
+     */
+    project_id: string | null;
 
     /**
      * Public API key for SDK integration
@@ -289,18 +468,77 @@ export namespace ApplicationUpdateResponse {
     public_api_key: string;
 
     /**
+     * Whether web purchases can be redeemed on desktop devices
+     */
+    redeemable_on_desktop: boolean | null;
+
+    /**
+     * RevenueCat public API key
+     */
+    revenue_cat_public_api_key: string | null;
+
+    /**
      * URL-safe identifier for the application
      */
     slug: string;
 
     /**
+     * Reply-to support email for web checkout emails
+     */
+    support_email: string | null;
+
+    /**
+     * Support URL shown during web checkout redemption
+     */
+    support_url: string | null;
+
+    /**
+     * Apple Developer Team ID for iOS applications
+     */
+    team_id: string | null;
+
+    /**
      * ISO 8601 timestamp of when the application was last updated
      */
     updated_at: string;
+
+    /**
+     * Whether Superwall post-purchase customer emails are disabled
+     */
+    web_2_app_disable_customer_emails: boolean | null;
+
+    /**
+     * Behavior after a web-to-app purchase
+     */
+    web_2_app_post_purchase_behavior: Application.Type | Application.UnionMember1 | null;
+
+    /**
+     * Exact SDK framework selected for this application platform (e.g. `expo`,
+     * `swiftui`), or null if unknown. Optional for compatibility with older API
+     * deployments.
+     */
+    sdk_framework?: string | null;
+  }
+
+  export namespace Application {
+    export interface Type {
+      type: 'redeem';
+    }
+
+    export interface UnionMember1 {
+      type: 'redirect';
+
+      url: string;
+    }
   }
 }
 
 export interface ApplicationGetStatisticsResponse {
+  /**
+   * Unix epoch (ms) when this statistics snapshot was computed
+   */
+  computed_at: number;
+
   object: 'application_statistics';
 
   params: ApplicationGetStatisticsResponse.Params;
@@ -320,6 +558,20 @@ export namespace ApplicationGetStatisticsResponse {
     from: string;
 
     to: string;
+
+    /**
+     * Preset reporting window
+     */
+    date_preset?:
+      | 'last_24_hours'
+      | 'today'
+      | 'yesterday'
+      | 'last_7_days'
+      | 'last_30_days'
+      | 'last_90_days'
+      | 'last_180_days'
+      | 'last_365_days'
+      | 'year_to_date';
   }
 
   export interface Statistic {
@@ -332,9 +584,42 @@ export namespace ApplicationGetStatisticsResponse {
     name: string;
 
     value: Statistic.UnionMember0 | Statistic.UnionMember1 | Statistic.UnionMember2 | Statistic.UnionMember3;
+
+    /**
+     * Matching metric value for the previous comparable reporting window
+     */
+    previous_value?:
+      | Statistic.UnionMember0
+      | Statistic.UnionMember1
+      | Statistic.UnionMember2
+      | Statistic.UnionMember3;
   }
 
   export namespace Statistic {
+    export interface UnionMember0 {
+      type: 'currency';
+
+      value: number;
+    }
+
+    export interface UnionMember1 {
+      type: 'number';
+
+      value: number;
+    }
+
+    export interface UnionMember2 {
+      type: 'percentage';
+
+      value: number;
+    }
+
+    export interface UnionMember3 {
+      type: 'error';
+
+      value: string;
+    }
+
     export interface UnionMember0 {
       type: 'currency';
 
@@ -365,13 +650,21 @@ export interface ApplicationListRecentTransactionsResponse {
   data: Array<ApplicationListRecentTransactionsResponse.Data>;
 
   object: 'list';
+
+  event_types?: Array<ApplicationListRecentTransactionsResponse.EventType>;
 }
 
 export namespace ApplicationListRecentTransactionsResponse {
   export interface Data {
     id: string;
 
+    campaign_placement: Data.CampaignPlacement | null;
+
+    country_code: string | null;
+
     event_type: string;
+
+    install_date: string | null;
 
     integration: string;
 
@@ -379,11 +672,17 @@ export namespace ApplicationListRecentTransactionsResponse {
 
     object: 'recent_transaction';
 
+    original_transaction_id: string | null;
+
     paywall: Data.Paywall | null;
 
     placement: string | null;
 
     price: number | null;
+
+    product: Data.Product | null;
+
+    product_id: string | null;
 
     purchased_at: string;
 
@@ -393,10 +692,26 @@ export namespace ApplicationListRecentTransactionsResponse {
   }
 
   export namespace Data {
+    export interface CampaignPlacement {
+      object: 'recent_transaction_campaign_placement';
+
+      trigger_experiment_group_id: number | null;
+    }
+
     export interface Paywall {
       name: string;
 
       object: 'recent_transaction_paywall';
+
+      id?: number;
+    }
+
+    export interface Product {
+      identifier: string;
+
+      label: string;
+
+      object: 'recent_transaction_product';
     }
 
     export interface User {
@@ -404,6 +719,14 @@ export namespace ApplicationListRecentTransactionsResponse {
 
       object: 'recent_transaction_user';
     }
+  }
+
+  export interface EventType {
+    active: boolean;
+
+    label: string;
+
+    value: string;
   }
 }
 
@@ -490,14 +813,34 @@ export interface ApplicationGetStatisticsParams {
   environment: 'PRODUCTION' | 'SANDBOX';
 
   /**
-   * Query param: Start datetime
+   * Query param: Preset reporting window
    */
-  from: string;
+  date_preset?:
+    | 'last_24_hours'
+    | 'today'
+    | 'yesterday'
+    | 'last_7_days'
+    | 'last_30_days'
+    | 'last_90_days'
+    | 'last_180_days'
+    | 'last_365_days'
+    | 'year_to_date';
 
   /**
-   * Query param: End datetime
+   * Query param: Start datetime (legacy; used when date_preset is absent)
    */
-  to: string;
+  from?: string;
+
+  /**
+   * Query param: Bypass the cached snapshot and force a fresh server recompute for
+   * this window
+   */
+  refresh?: UsersAPI.BooleanFromString;
+
+  /**
+   * Query param: End datetime (legacy; used when date_preset is absent)
+   */
+  to?: string;
 }
 
 export interface ApplicationListRecentTransactionsParams {
@@ -520,6 +863,11 @@ export interface ApplicationListRecentTransactionsParams {
    * Query param: End datetime
    */
   to: string;
+
+  /**
+   * Query param: Recent transaction event type filter
+   */
+  event_type?: string;
 }
 
 export interface ApplicationUpdateSettingsParams {
@@ -527,6 +875,16 @@ export interface ApplicationUpdateSettingsParams {
    * Path param: Project ID
    */
   id: string;
+
+  /**
+   * Body param: Android app signing certificate fingerprints
+   */
+  android_app_fingerprints?: Array<string> | null;
+
+  /**
+   * Body param: App Store or Play Store app ID
+   */
+  app_id?: string | null;
 
   /**
    * Body param: App Store Connect shared secret
@@ -549,9 +907,29 @@ export interface ApplicationUpdateSettingsParams {
   apple_url_scheme?: string | null;
 
   /**
+   * Body param: Custom application icon URL shown on management pages and in emails
+   */
+  application_icon?: string | null;
+
+  /**
+   * Body param: Bundle identifier (iOS) or package name (Android)
+   */
+  bundle_id?: string | null;
+
+  /**
+   * Body param: Display name of the application
+   */
+  name?: string;
+
+  /**
    * Body param: Notification redirect URL for iOS applications
    */
   notification_redirect_url?: string | null;
+
+  /**
+   * Body param: Whether web purchases can be redeemed on desktop devices
+   */
+  redeemable_on_desktop?: boolean | null;
 
   /**
    * Body param: RevenueCat public API key
@@ -562,6 +940,46 @@ export interface ApplicationUpdateSettingsParams {
    * Body param: Stripe private key for web/stripe applications
    */
   stripe_private_key?: string | null;
+
+  /**
+   * Body param: Reply-to support email for web checkout emails
+   */
+  support_email?: string | null;
+
+  /**
+   * Body param: Support URL shown during web checkout redemption
+   */
+  support_url?: string | null;
+
+  /**
+   * Body param: Apple Developer Team ID for iOS applications
+   */
+  team_id?: string | null;
+
+  /**
+   * Body param: Whether Superwall post-purchase customer emails are disabled
+   */
+  web_2_app_disable_customer_emails?: boolean | null;
+
+  /**
+   * Body param: Behavior after a web-to-app purchase
+   */
+  web_2_app_post_purchase_behavior?:
+    | ApplicationUpdateSettingsParams.Type
+    | ApplicationUpdateSettingsParams.UnionMember1
+    | null;
+}
+
+export namespace ApplicationUpdateSettingsParams {
+  export interface Type {
+    type: 'redeem';
+  }
+
+  export interface UnionMember1 {
+    type: 'redirect';
+
+    url: string;
+  }
 }
 
 export declare namespace Applications {

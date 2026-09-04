@@ -26,6 +26,7 @@ describe('resource entitlements', () => {
     const response = await client.entitlements.create({
       identifier: 'x',
       project_id: 'project_id',
+      application_id: 'application_id',
       description: 'description',
       metadata: { foo: 'string' },
       name: 'name',

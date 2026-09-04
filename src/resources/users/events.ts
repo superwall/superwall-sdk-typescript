@@ -61,6 +61,8 @@ export interface EventRetrieveResponse {
    */
   timestamp: string;
 
+  app_user_id?: string | null;
+
   app_version?: string | null;
 
   debug?: JsonValue | null;
@@ -110,6 +112,8 @@ export namespace EventListResponse {
      */
     timestamp: string;
 
+    app_user_id?: string | null;
+
     app_version?: string | null;
 
     device_locale?: string | null;
@@ -134,6 +138,8 @@ export interface EventListParams {
    * Application ID
    */
   application_id: string;
+
+  environment?: 'production' | 'sandbox';
 
   event_group?: 'app' | 'sdk' | 'integration' | 'subscription' | 'overview' | 'all';
 

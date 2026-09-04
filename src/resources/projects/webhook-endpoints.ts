@@ -6,7 +6,7 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 /**
- * Manage webhook endpoints for receiving real-time event notifications. Webhooks deliver events to your specified URLs. Note: Webhook endpoints use iterator-based pagination (via the underlying Svix service) rather than the cursor-based pagination used by other resources.
+ * Manage webhook endpoints for receiving real-time event notifications. Delivery formats use dedicated Svix applications: `superwall` (default) and `superwall_v2`. Note: Webhook endpoints use iterator-based pagination (via the underlying Svix service).
  */
 export class WebhookEndpoints extends APIResource {
   /**
@@ -14,10 +14,15 @@ export class WebhookEndpoints extends APIResource {
    */
   create(
     projectID: string,
-    body: WebhookEndpointCreateParams,
+    params: WebhookEndpointCreateParams,
     options?: RequestOptions,
   ): APIPromise<WebhookEndpointCreateResponse> {
-    return this._client.post(path`/v2/projects/${projectID}/webhook_endpoints`, { body, ...options });
+    const { format, ...body } = params;
+    return this._client.post(path`/v2/projects/${projectID}/webhook_endpoints`, {
+      query: { format },
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -28,8 +33,11 @@ export class WebhookEndpoints extends APIResource {
     params: WebhookEndpointRetrieveParams,
     options?: RequestOptions,
   ): APIPromise<WebhookEndpointRetrieveResponse> {
-    const { project_id } = params;
-    return this._client.get(path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}`, options);
+    const { project_id, ...query } = params;
+    return this._client.get(path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}`, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -41,8 +49,9 @@ export class WebhookEndpoints extends APIResource {
     params: WebhookEndpointUpdateParams,
     options?: RequestOptions,
   ): APIPromise<WebhookEndpointUpdateResponse> {
-    const { project_id, ...body } = params;
+    const { project_id, format, ...body } = params;
     return this._client.patch(path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}`, {
+      query: { format },
       body,
       ...options,
     });
@@ -68,8 +77,11 @@ export class WebhookEndpoints extends APIResource {
     params: WebhookEndpointDeleteParams,
     options?: RequestOptions,
   ): APIPromise<WebhookEndpointDeleteResponse> {
-    const { project_id } = params;
-    return this._client.delete(path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}`, options);
+    const { project_id, format } = params;
+    return this._client.delete(path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}`, {
+      query: { format },
+      ...options,
+    });
   }
 
   /**
@@ -81,11 +93,11 @@ export class WebhookEndpoints extends APIResource {
     params: WebhookEndpointRotateSecretParams,
     options?: RequestOptions,
   ): APIPromise<WebhookEndpointRotateSecretResponse> {
-    const { project_id } = params;
-    return this._client.post(
-      path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}/rotate_secret`,
-      options,
-    );
+    const { project_id, format } = params;
+    return this._client.post(path`/v2/projects/${project_id}/webhook_endpoints/${endpointID}/rotate_secret`, {
+      query: { format },
+      ...options,
+    });
   }
 }
 
@@ -126,6 +138,11 @@ export interface WebhookEndpointCreateResponse {
   object: 'webhook_endpoint';
 
   /**
+   * Webhook signing secret. Returned exactly once when the endpoint is created
+   */
+  secret: string;
+
+  /**
    * ISO 8601 timestamp of when the endpoint was last updated
    */
   updated_at: string;
@@ -141,14 +158,27 @@ export interface WebhookEndpointCreateResponse {
   version: number;
 
   /**
-   * Custom headers included with webhook requests
+   * Which webhook delivery format this endpoint belongs to (`superwall` or
+   * `superwall_v2`)
+   */
+  format?: 'superwall' | 'superwall_v2';
+
+  /**
+   * Names of configured custom headers. Header values are never returned
+   */
+  header_names?: Array<string>;
+
+  /**
+   * Deprecated compatibility field. Stored header values are never returned; use
+   * `header_names` instead.
    */
   headers?: { [key: string]: string };
 
   /**
-   * Webhook signing secret (only returned on creation)
+   * Safe integration identifier derived from the managed integration header. Other
+   * header values are never returned
    */
-  secret?: string;
+  integration_id?: string;
 }
 
 export interface WebhookEndpointRetrieveResponse {
@@ -203,12 +233,31 @@ export interface WebhookEndpointRetrieveResponse {
   version: number;
 
   /**
-   * Custom headers included with webhook requests
+   * Which webhook delivery format this endpoint belongs to (`superwall` or
+   * `superwall_v2`)
+   */
+  format?: 'superwall' | 'superwall_v2';
+
+  /**
+   * Names of configured custom headers. Header values are never returned
+   */
+  header_names?: Array<string>;
+
+  /**
+   * Deprecated compatibility field. Stored header values are never returned; use
+   * `header_names` instead.
    */
   headers?: { [key: string]: string };
 
   /**
-   * Webhook signing secret (only returned on creation)
+   * Safe integration identifier derived from the managed integration header. Other
+   * header values are never returned
+   */
+  integration_id?: string;
+
+  /**
+   * Deprecated compatibility field. Omitted from ordinary endpoint responses;
+   * signing secrets are returned only on creation or rotation.
    */
   secret?: string;
 }
@@ -265,17 +314,41 @@ export interface WebhookEndpointUpdateResponse {
   version: number;
 
   /**
-   * Custom headers included with webhook requests
+   * Which webhook delivery format this endpoint belongs to (`superwall` or
+   * `superwall_v2`)
+   */
+  format?: 'superwall' | 'superwall_v2';
+
+  /**
+   * Names of configured custom headers. Header values are never returned
+   */
+  header_names?: Array<string>;
+
+  /**
+   * Deprecated compatibility field. Stored header values are never returned; use
+   * `header_names` instead.
    */
   headers?: { [key: string]: string };
 
   /**
-   * Webhook signing secret (only returned on creation)
+   * Safe integration identifier derived from the managed integration header. Other
+   * header values are never returned
+   */
+  integration_id?: string;
+
+  /**
+   * Deprecated compatibility field. Omitted from ordinary endpoint responses;
+   * signing secrets are returned only on creation or rotation.
    */
   secret?: string;
 }
 
 export interface WebhookEndpointListResponse {
+  /**
+   * Whether the current actor may mutate webhook endpoints in this project
+   */
+  can_write: boolean;
+
   /**
    * List of webhook endpoints
    */
@@ -355,12 +428,31 @@ export namespace WebhookEndpointListResponse {
     version: number;
 
     /**
-     * Custom headers included with webhook requests
+     * Which webhook delivery format this endpoint belongs to (`superwall` or
+     * `superwall_v2`)
+     */
+    format?: 'superwall' | 'superwall_v2';
+
+    /**
+     * Names of configured custom headers. Header values are never returned
+     */
+    header_names?: Array<string>;
+
+    /**
+     * Deprecated compatibility field. Stored header values are never returned; use
+     * `header_names` instead.
      */
     headers?: { [key: string]: string };
 
     /**
-     * Webhook signing secret (only returned on creation)
+     * Safe integration identifier derived from the managed integration header. Other
+     * header values are never returned
+     */
+    integration_id?: string;
+
+    /**
+     * Deprecated compatibility field. Omitted from ordinary endpoint responses;
+     * signing secrets are returned only on creation or rotation.
      */
     secret?: string;
   }
@@ -402,36 +494,48 @@ export interface WebhookEndpointRotateSecretResponse {
 
 export interface WebhookEndpointCreateParams {
   /**
-   * The URL where webhook events will be sent
+   * Body param: The URL where webhook events will be sent
    */
   url: string;
 
   /**
-   * Description of the webhook endpoint
+   * Query param: Which webhook delivery application this endpoint belongs to.
+   * `superwall_v2` receives typed Superwall V2 payloads. Defaults to `superwall`.
+   */
+  format?: 'superwall' | 'superwall_v2';
+
+  /**
+   * Body param: Description of the webhook endpoint
    */
   description?: string;
 
   /**
-   * List of event types to filter. If omitted, all events are sent
+   * Body param: List of event types to filter. If omitted, all events are sent
    */
   filter_types?: Array<string>;
 
   /**
-   * Custom headers to include with webhook requests
+   * Body param: Custom headers to include with webhook requests
    */
   headers?: { [key: string]: string };
 
   /**
-   * Arbitrary key-value metadata
+   * Body param: Arbitrary key-value metadata
    */
   metadata?: { [key: string]: string };
 }
 
 export interface WebhookEndpointRetrieveParams {
   /**
-   * Project ID
+   * Path param: Project ID
    */
   project_id: string;
+
+  /**
+   * Query param: Which webhook delivery application this endpoint belongs to.
+   * `superwall_v2` receives typed Superwall V2 payloads. Defaults to `superwall`.
+   */
+  format?: 'superwall' | 'superwall_v2';
 }
 
 export interface WebhookEndpointUpdateParams {
@@ -439,6 +543,12 @@ export interface WebhookEndpointUpdateParams {
    * Path param: Project ID
    */
   project_id: string;
+
+  /**
+   * Query param: Which webhook delivery application this endpoint belongs to.
+   * `superwall_v2` receives typed Superwall V2 payloads. Defaults to `superwall`.
+   */
+  format?: 'superwall' | 'superwall_v2';
 
   /**
    * Body param: Description of the webhook endpoint
@@ -472,26 +582,44 @@ export interface WebhookEndpointUpdateParams {
 }
 
 export interface WebhookEndpointListParams {
+  /**
+   * Which webhook delivery application this endpoint belongs to. `superwall_v2`
+   * receives typed Superwall V2 payloads. Defaults to `superwall`.
+   */
+  format?: 'superwall' | 'superwall_v2';
+
   iterator?: string;
 
   /**
-   * Maximum number of items to return (default: 20)
+   * Maximum number of items to return (1-100, default: 20)
    */
   limit?: string;
 }
 
 export interface WebhookEndpointDeleteParams {
   /**
-   * Project ID
+   * Path param: Project ID
    */
   project_id: string;
+
+  /**
+   * Query param: Which webhook delivery application this endpoint belongs to.
+   * `superwall_v2` receives typed Superwall V2 payloads. Defaults to `superwall`.
+   */
+  format?: 'superwall' | 'superwall_v2';
 }
 
 export interface WebhookEndpointRotateSecretParams {
   /**
-   * Project ID
+   * Path param: Project ID
    */
   project_id: string;
+
+  /**
+   * Query param: Which webhook delivery application this endpoint belongs to.
+   * `superwall_v2` receives typed Superwall V2 payloads. Defaults to `superwall`.
+   */
+  format?: 'superwall' | 'superwall_v2';
 }
 
 export declare namespace WebhookEndpoints {
